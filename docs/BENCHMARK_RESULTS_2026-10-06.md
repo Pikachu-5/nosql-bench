@@ -1,6 +1,6 @@
 # BenchForge local benchmark results — 2026-10-06
 
-All local phases (1–6 and 8) are implemented and verified. Phase 7, the optional Firestore experiment, is excluded by the user. Experiment `bf_20261006_v2` completed **60 valid captures: five adapters × two scenarios × two load modes × three repetitions**. Every capture reported zero measured errors, timeouts and dropped telemetry, with successful namespace cleanup. These results describe a small, single-host synthetic workload; they do not establish a general database ranking.
+Experiment `bf_20261006_v2` completed **60 valid captures: five adapters × two scenarios × two load modes × three repetitions**. Every capture reported zero measured errors, timeouts and dropped telemetry, with successful namespace cleanup. These results describe a small, single-host synthetic workload; they do not establish a general database ranking.
 
 FeedKV and Redis achieved similar throughput. FeedKV's normal closed-loop median was 2,549.6 ops/s versus Redis's 2,473.0; celebrity medians were 2,132.4 versus 2,232.2. Their ranges overlap in both scenarios and the direction changes. Three short repetitions do not establish a statistically reliable FeedKV advantage. All adapters completed the 100 ops/s offered load; small differences in achieved rate reflect the measured drain window rather than rejected requests.
 
@@ -13,7 +13,7 @@ FeedKV and Redis achieved similar throughput. FeedKV's normal closed-loop median
 - Five-second requested measurement window. `measured_ms` includes completion of in-flight requests and open-loop backlog. Throughput is completed operations divided by actual elapsed wall time. Method: `elapsed_wall_time_readonly_warmup_v2`.
 - Open-loop offers 100 operations/s across both workers. Each of the 30 open-loop captures completed all 500 requests. Operation-type counts were identical across adapters and repetitions within each scenario; concurrent execution order and mutation interleaving can differ. Closed-loop counts and resulting dataset growth vary with throughput.
 - Operation latency measures service time; scheduled send lag is reported separately and is not included in that latency. Histogram percentiles are approximate upper bucket bounds (16 subdivisions per power of two), so a percentile can exceed the exact recorded maximum. Calibration is recorded and never subtracted from latency.
-- Native source commit: [`1c29eb268283f7cef8b80e9427b0b836a4078a3d`](https://github.com/Pikachu-5/nosql-bench/tree/1c29eb268283f7cef8b80e9427b0b836a4078a3d), clean working tree at capture start. Windows executable SHA-256: `d3340cca0ab93d589e467d637b48684542d2ee4842b049729351c65725fa9766`. Build flags and Docker image IDs/digests are recorded in [experiment.json](../evidence/benchmarks/bf_20261006_v2/experiment.json). Subsequent commits add this report, evidence import/verification and reproducibility pins; they do not change the measured workload.
+- Native source snapshot: [`e07074e49d4f468c8e4d5a4dc0dd3b7e100eb922`](https://github.com/Pikachu-5/nosql-bench/tree/e07074e49d4f468c8e4d5a4dc0dd3b7e100eb922). The manifest retains the capture-time commit ID and records its equivalent in the current history; native source content is unchanged. The working tree was clean at capture start. Windows executable SHA-256: `d3340cca0ab93d589e467d637b48684542d2ee4842b049729351c65725fa9766`. Build flags and Docker image IDs/digests are recorded in [experiment.json](../evidence/benchmarks/bf_20261006_v2/experiment.json). Subsequent commits add this report, evidence import/verification and reproducibility pins; they do not change the measured workload.
 
 ## Server settings and semantics
 
@@ -92,4 +92,4 @@ Use a fresh experiment ID on every invocation. The driver pins official server i
 
 This experiment uses a small dataset, one laptop, single-node deployments and three five-second repetitions. It does not measure large-dataset scaling, distributed behavior, sustained saturation, durable RESP performance or independent statistical confidence. Fixed ordering, shared host activity, warm server caches/JIT and low tail sample counts limit interpretation. Some p99.9 estimates have too few samples to be useful. No FeedKV speedup percentage should be presented as a general result.
 
-Phase 7 remains unimplemented by request. Further scaling experiments would be additional work beyond the completed local phases.
+Further scaling and distributed experiments require additional profiles and evidence.

@@ -1,6 +1,6 @@
-# Phase 5 runtime verification — 2026-10-06
+# Runtime verification — 2026-10-06
 
-The continuation from `BENCHFORGE_HANDOFF_2026-10-06.md` verified MongoDB, added Cassandra, and fixed an open-loop scheduler defect. The next continuation completed Neo4j coverage and Phase 6 saved-run analysis. The final continuation completed native correctness checks, graceful cancellation/recovery, and 60 controlled repeated captures. See [the results report](BENCHMARK_RESULTS_2026-10-06.md). This document preserves the earlier test environment and limitations; later reliability work supersedes the historical force-termination behavior described below.
+The initial checks covered MongoDB and Cassandra and fixed an open-loop scheduler defect. Subsequent verification added Neo4j, persisted analysis, native correctness checks, graceful cancellation/recovery and 60 controlled repeated captures. See [the benchmark report](BENCHMARK_RESULTS_2026-10-06.md) for the completed experiment. This document preserves earlier test conditions and limitations; later reliability work supersedes the historical force-termination behavior described below.
 
 ## Scope and environment
 
@@ -45,9 +45,9 @@ The original diagnostic artifact `runs/api/run_1791279654498_1/summary.json` is 
 - Cassandra is a single-node local adapter: no authentication, TLS, cluster discovery, failover, or automatic reprepare after a server restart. It uses protocol v4, prepared statements, RF=1, consistency ONE, durable writes, and explicit size-tiered compaction. Commitlog sync remains server-managed; comparative runs must capture it alongside heap/GC/compaction activity.
 - Author/tag/like partitions are unbucketed and intended for bounded laptop-scale workloads. Read-time timeline fan-out, record fetches, and like partition counts are included in operation timing. Logged post/index writes do not provide transactionally isolated multi-partition reads.
 - Cancellation force-terminates the worker and may leave a partially loaded namespace. The cancelled dashboard run `run_1791279551805_0` left synthetic keyspace `benchforge_run_703a0f17f81dcfd7`; that exact keyspace was removed during verification. Completed Cassandra cleanup deletes only a loader-owned namespace. Graceful cancellation and recovery manifests remain future reliability work.
-- FeedKV and Redis still need live correctness checks and controlled repeated comparisons. Repetition grouping/median-range aggregation remain future analysis work. Firestore remains optional and requires a separate explicit selection.
+- At the time of these initial checks, FeedKV/Redis live verification, repeated comparisons and repetition grouping remained outstanding. The completed checks and measurements are recorded in the benchmark report linked above.
 
-## Neo4j and Phase 6 continuation
+## Neo4j and saved-run analysis
 
 Neo4j **5.26.31 community** ran in a uniquely labelled local test container, bound only to `127.0.0.1:7474`, with authentication disabled, 2 GiB memory and 2 CPU limits. Configured heap was 512 MiB initial / 768 MiB maximum, with 256 MiB page cache. The image tag `neo4j:5.26-community` resolved to digest `sha256:c7d25c0eeebfe125718d58b72ed5d663c85d0479047733845eb2237c67ce8069`. GC was not measured. Native requests use the Query API v2; HTTP 202 query error bodies are rejected explicitly.
 

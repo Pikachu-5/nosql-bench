@@ -232,5 +232,6 @@
     "feedkv_container_compiler": "GCC 14, C++20, -O3 -DNDEBUG -pthread"
   },
   "error": "Stopped to correct FeedKV pipelined TCP delayed-ACK behavior; preserved as diagnostic evidence, not final comparison.",
-  "finished_at_utc": "2026-10-06T11:35:23.014441+00:00"
+  "finished_at_utc": "2026-10-06T11:35:23.014441+00:00",
+  "source_commit_current_history": "cb292955f25afdc565d4c20b4ec249005b187d3a"
 }
