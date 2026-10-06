@@ -34,7 +34,7 @@ if (args.Length==2) {
 }
 Console.WriteLine("Comparison eligibility checks passed");
 var repeats=Enumerable.Range(1,3).Select(i=>Fixture($"rep_{i}")).ToArray();
-foreach(var run in repeats) { run.ExperimentId="suite";run.ExperimentProfile="normal_open";run.ResourceProfile="cpu2_mem2g"; }
+foreach(var run in repeats) { run.ExperimentId="suite";run.ExperimentStatus="completed";run.ExperimentProfile="normal_open";run.ResourceProfile="cpu2_mem2g"; }
 repeats[0].MeasuredMs=500; repeats[1].MeasuredMs=1000; repeats[2].MeasuredMs=2000;
 var group=RunRepetitions.Group(repeats[0],repeats);
 Check(group.Ready && group.Throughput.Median==60 && group.Throughput.Minimum==30 && group.Throughput.Maximum==120,"repeat throughput median/range incorrect");
@@ -49,3 +49,5 @@ Check(RunRepetitions.Group(repeats[0],repeats).Runs.Count==2,"different resource
 Console.WriteLine("Repetition grouping and median/range checks passed");
 repeats[1].ResourceProfile=repeats[0].ResourceProfile; repeats[1].StorageConfiguration="other durability";
 Check(RunRepetitions.Group(repeats[0],repeats).Runs.Count==2,"different durability accepted");
+repeats[1].StorageConfiguration=repeats[0].StorageConfiguration; repeats[1].ExperimentStatus="aborted";
+Check(RunRepetitions.Group(repeats[0],repeats).Runs.Count==2,"unfinished experiment accepted");

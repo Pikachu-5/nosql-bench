@@ -63,6 +63,7 @@ def run_suite(args):
     if not re.fullmatch(r"[a-zA-Z0-9_-]{1,24}",args.experiment): raise ValueError("experiment ID must be 1–24 safe characters")
     if args.repetitions<3 or args.repetitions>30: raise ValueError("use 3–30 repetitions")
     if args.duration_ms<1000 or args.duration_ms>600000: raise ValueError("duration must be 1000–600000 ms")
+    if args.rate<1 or args.rate>1000000: raise ValueError("rate must be 1–1000000 ops/s")
     evidence=ROOT/"evidence"/"benchmarks"/args.experiment
     if evidence.exists(): raise ValueError("experiment already exists; use a new ID")
     evidence.mkdir(parents=True)
@@ -121,7 +122,7 @@ def run_suite(args):
                         directory=output/run_id
                         if not (directory/"summary.json").exists(): raise RuntimeError(f"capture failed: {capture.stderr}")
                         summary=json.loads((directory/"summary.json").read_text())
-                        summary.update(experiment_id=args.experiment,experiment_profile=profile,resource_profile=resource_profile,repetition=repetition)
+                        summary.update(experiment_id=args.experiment,experiment_profile=profile,resource_profile=resource_profile,repetition=repetition,experiment_status="running")
                         write_json(directory/"summary.json",summary)
                         destination=evidence/run_id; destination.mkdir()
                         for filename in ["summary.json","operations.csv"]:
@@ -151,6 +152,11 @@ def run_suite(args):
         raise
     finally:
         manifest["finished_at_utc"]=datetime.now(timezone.utc).isoformat()
+        for record in manifest["runs"]:
+            path=evidence/record["run_id"]/"summary.json"
+            summary=json.loads(path.read_text(encoding="utf-8"));summary["experiment_status"]=manifest["state"]
+            write_json(path,summary);write_json(output/record["run_id"]/"summary.json",summary)
+            record["summary_sha256"]=digest(path)
         write_json(evidence/"experiment.json",manifest)
         write_json(evidence/"aggregate.json",summarize(results))
     return evidence
@@ -158,7 +164,7 @@ def run_suite(args):
 if __name__=="__main__":
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--executable",default=str(ROOT/"build"/"benchforge.exe"))
-    parser.add_argument("--experiment",default="bf_20261006")
+    parser.add_argument("--experiment",default=datetime.now(timezone.utc).strftime("bf_%Y%m%d_%H%M%S"))
     parser.add_argument("--adapters",nargs="+",choices=list(IMAGES),default=list(IMAGES))
     parser.add_argument("--repetitions",type=int,default=3)
     parser.add_argument("--duration-ms",type=int,default=5000)

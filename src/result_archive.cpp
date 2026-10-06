@@ -41,7 +41,7 @@ Json Read(const std::filesystem::path& path) {
         result.at("scenario").get_ref<const std::string&>().size()>32 ||
         result.at("started_at_utc").get_ref<const std::string&>().size()>64)
         throw std::runtime_error("saved result catalog metadata exceeds limits");
-    for (const auto& key : {"experiment_id", "experiment_profile", "resource_profile", "measurement_method"}) {
+    for (const auto& key : {"experiment_id", "experiment_status", "experiment_profile", "resource_profile", "measurement_method"}) {
         if (result.contains(key) && (!result.at(key).is_string() || result.at(key).get_ref<const std::string&>().size() > 128))
             throw std::runtime_error("experiment catalog metadata exceeds limits");
     }

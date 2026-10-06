@@ -17,6 +17,7 @@
 #include <ws2tcpip.h>
 #else
 #include <netdb.h>
+#include <netinet/tcp.h>
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -120,6 +121,11 @@ RespClient::RespClient(const std::string& host, std::uint16_t port) {
         const auto candidate = socket(address->ai_family, address->ai_socktype,
                                       address->ai_protocol);
         if (candidate == kInvalidSocket) continue;
+        const int nodelay = 1;
+        if (setsockopt(candidate, IPPROTO_TCP, TCP_NODELAY,
+            reinterpret_cast<const char*>(&nodelay), sizeof(nodelay)) != 0) {
+            CloseSocket(candidate); continue;
+        }
 #ifdef _WIN32
         const DWORD timeout_ms = 10000;
         setsockopt(candidate, SOL_SOCKET, SO_RCVTIMEO,

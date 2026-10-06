@@ -65,12 +65,16 @@ public:
             throw std::runtime_error("database endpoint did not answer PING");
         }
         if (name_ == "feedkv") {
-            version_ = "BenchForge FeedKV RESP2 subset 0.1";
+            const auto info = RequireText(client_.Command({"INFO", "server"}), "FeedKV server metadata");
+            const auto version = InfoField(info,"redis_version");
+            if (version.rfind("feedkv-",0) != 0) throw std::runtime_error("endpoint is not a FeedKV server");
+            version_ = "BenchForge FeedKV RESP2 subset " + version.substr(7);
             storage_configuration_ =
                 "volatile in-memory; no persistence; one process-wide store";
         } else {
             DiscoverRedisMetadata();
         }
+        storage_configuration_ += "; client TCP_NODELAY=on";
     }
 
     std::string Name() const override { return name_; }

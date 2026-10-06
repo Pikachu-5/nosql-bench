@@ -19,6 +19,8 @@ public static class RunComparison
         {
             if (!run.HasReadableShape()) return new(["A capture has unreadable metadata. Choose another saved run."], []);
             if (run.Adapter == "noop") issues.Add($"{side} is harness calibration; it does not measure a database.");
+            if (run.ExperimentId.Length != 0 && run.ExperimentStatus != "completed")
+                issues.Add($"{side} belongs to an unfinished experiment.");
             if (!run.Valid || run.TotalErrors != 0 || run.TotalTimeouts != 0 || run.TelemetryDropped != 0 ||
                 run.TotalOperations <= 0 || run.MeasuredMs <= 0 || run.InvalidReasons.Count != 0 ||
                 run.CleanupStatus.Length == 0 || run.CleanupStatus.Contains("failed", StringComparison.OrdinalIgnoreCase))

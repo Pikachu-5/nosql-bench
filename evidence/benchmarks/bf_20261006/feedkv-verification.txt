@@ -1,0 +1,2 @@
+feedkv normal: seeds, six operations, numeric ties, ownership and cleanup passed
+feedkv celebrity: seeds, six operations, numeric ties, ownership and cleanup passed

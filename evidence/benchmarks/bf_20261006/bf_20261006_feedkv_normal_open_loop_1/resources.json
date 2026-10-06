@@ -1,0 +1,114 @@
+{
+  "sampling_scope": "entire worker lifetime including load and warmup",
+  "samples": [
+    {
+      "at_utc": "2026-10-06T11:30:44.131343+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "1.40%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.18%",
+        "MemUsage": "3.586MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "2.1MB / 804kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:46.302021+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.52%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.18%",
+        "MemUsage": "3.586MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "2.18MB / 850kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:48.472520+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.56%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.18%",
+        "MemUsage": "3.586MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "2.27MB / 891kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:50.635712+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.50%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.18%",
+        "MemUsage": "3.586MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "2.35MB / 929kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:53.640915+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.56%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.17%",
+        "MemUsage": "3.461MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "2.46MB / 985kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:55.816741+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.54%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.17%",
+        "MemUsage": "3.461MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "2.56MB / 1.03MB",
+        "PIDs": "4"
+      }
+    }
+  ],
+  "exit_code": 0,
+  "configuration": {
+    "adapter": "feedkv",
+    "database_host": "127.0.0.1",
+    "database_port": 16380,
+    "scenario": "normal",
+    "mode": "open_loop",
+    "offered_rate_ops_sec": 100,
+    "seed": 42,
+    "workers": 2,
+    "warmup_ms": 1000,
+    "duration_ms": 5000,
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8,
+    "celebrity_post_percent": 10,
+    "output_dir": "C:/Codes/nosql/runs/experiments",
+    "weight.timeline_read": 40,
+    "weight.user_profile_read": 25,
+    "weight.post_like": 15,
+    "weight.post_create": 10,
+    "weight.hashtag_search": 5,
+    "weight.user_follow": 5
+  }
+}

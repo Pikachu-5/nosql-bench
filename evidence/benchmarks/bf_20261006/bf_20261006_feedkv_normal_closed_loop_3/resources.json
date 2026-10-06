@@ -1,0 +1,86 @@
+{
+  "sampling_scope": "entire worker lifetime including load and warmup",
+  "samples": [
+    {
+      "at_utc": "2026-10-06T11:30:34.615646+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "1.30%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.15%",
+        "MemUsage": "3.016MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "1.62MB / 616kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:36.777869+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.51%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.15%",
+        "MemUsage": "3.016MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "1.71MB / 659kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:38.942866+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.46%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.15%",
+        "MemUsage": "3.016MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "1.79MB / 700kB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:30:41.950489+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.00%",
+        "Container": "f4c27ac30d255c669b3651aa58c2e0e1a8039a65f31d37bf7ae3d96e32489c91",
+        "ID": "f4c27ac30d25",
+        "MemPerc": "0.14%",
+        "MemUsage": "2.961MiB / 2GiB",
+        "Name": "bf-bf_20261006-feedkv",
+        "NetIO": "1.89MB / 769kB",
+        "PIDs": "1"
+      }
+    }
+  ],
+  "exit_code": 0,
+  "configuration": {
+    "adapter": "feedkv",
+    "database_host": "127.0.0.1",
+    "database_port": 16380,
+    "scenario": "normal",
+    "mode": "closed_loop",
+    "offered_rate_ops_sec": 100,
+    "seed": 42,
+    "workers": 2,
+    "warmup_ms": 1000,
+    "duration_ms": 5000,
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8,
+    "celebrity_post_percent": 10,
+    "output_dir": "C:/Codes/nosql/runs/experiments",
+    "weight.timeline_read": 40,
+    "weight.user_profile_read": 25,
+    "weight.post_like": 15,
+    "weight.post_create": 10,
+    "weight.hashtag_search": 5,
+    "weight.user_follow": 5
+  }
+}

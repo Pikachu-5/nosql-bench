@@ -3,6 +3,9 @@
     <p class="evidence-id"><code>@Run.RunId</code><br /><time>@Run.StartedAtUtc</time></p>
     <dl class="evidence-facts">
         <div><dt>Version</dt><dd>@Run.AdapterVersion</dd></div>
+        <div><dt>Measurement method</dt><dd>@Run.MeasurementMethod</dd></div>
+        @if (Run.ResourceProfile.Length > 0) { <div><dt>Database limits</dt><dd>@Run.ResourceProfile.Replace('_',' ')</dd></div> }
+        @if (Run.ExperimentId.Length > 0) { <div><dt>Experiment</dt><dd>@Run.ExperimentId · @Run.ExperimentProfile · @Run.ExperimentStatus</dd></div> }
         <div><dt>Endpoint</dt><dd>@Run.Endpoint</dd></div>
         <div><dt>Workload</dt><dd>@Run.Scenario · @Run.Mode · seed @Run.Seed · @Run.Workers workers</dd></div>
         <div><dt>Window</dt><dd>@Run.WarmupMs ms warm-up · @Run.Config?.DurationMs ms requested · @Run.MeasuredMs ms measured</dd></div>

@@ -24,6 +24,7 @@
 #include <ws2tcpip.h>
 #else
 #include <netdb.h>
+#include <netinet/tcp.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #endif
@@ -159,7 +160,7 @@ public:
         if (command == "PING" && args.size() == 1U) return "+PONG\r\n";
         if (command == "INFO" && args.size() == 2U) {
             if (args[1] == "server") {
-                return Bulk("# Server\r\nredis_version:feedkv-0.1\r\n");
+                return Bulk("# Server\r\nredis_version:feedkv-0.2\r\n");
             }
             if (args[1] == "persistence") {
                 return Bulk("# Persistence\r\naof_enabled:0\r\nrdb_last_save_time:0\r\n");
@@ -394,6 +395,9 @@ bool SendAll(NativeSocket socket, const std::string& response) {
 }
 
 void ServeConnection(NativeSocket socket) {
+    const int nodelay = 1;
+    if (setsockopt(socket, IPPROTO_TCP, TCP_NODELAY,
+        reinterpret_cast<const char*>(&nodelay), sizeof(nodelay)) != 0) { CloseSocket(socket); return; }
     CommandReader reader(socket);
     try {
         std::vector<std::string> command;

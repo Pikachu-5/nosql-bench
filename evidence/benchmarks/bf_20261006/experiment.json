@@ -1,0 +1,236 @@
+{
+  "experiment_id": "bf_20261006",
+  "state": "aborted",
+  "started_at_utc": "2026-10-06T11:30:08.138826+00:00",
+  "source_commit": "b774fa7713609a9b642e729ad29a9efc5d3fe50d",
+  "source_dirty": false,
+  "executable_sha256": "5a89470b152ce899aec3d301cef8086bd25d6af747e6dc2a1d6b75792a62c5f6",
+  "docker_version": {
+    "Client": {
+      "Version": "28.3.2",
+      "ApiVersion": "1.51",
+      "DefaultAPIVersion": "1.51",
+      "GitCommit": "578ccf6",
+      "GoVersion": "go1.24.5",
+      "Os": "windows",
+      "Arch": "amd64",
+      "BuildTime": "Wed Jul  9 16:12:31 2025",
+      "Context": "desktop-linux"
+    },
+    "Server": {
+      "Platform": {
+        "Name": "Docker Desktop 4.43.2 (199162)"
+      },
+      "Components": [
+        {
+          "Name": "Engine",
+          "Version": "28.3.2",
+          "Details": {
+            "ApiVersion": "1.51",
+            "Arch": "amd64",
+            "BuildTime": "Wed Jul  9 16:13:55 2025",
+            "Experimental": "false",
+            "GitCommit": "e77ff99",
+            "GoVersion": "go1.24.5",
+            "KernelVersion": "5.15.167.4-microsoft-standard-WSL2",
+            "MinAPIVersion": "1.24",
+            "Os": "linux"
+          }
+        },
+        {
+          "Name": "containerd",
+          "Version": "1.7.27",
+          "Details": {
+            "GitCommit": "05044ec0a9a75232cad458027ca83437aae3f4da"
+          }
+        },
+        {
+          "Name": "runc",
+          "Version": "1.2.5",
+          "Details": {
+            "GitCommit": "v1.2.5-0-g59923ef"
+          }
+        },
+        {
+          "Name": "docker-init",
+          "Version": "0.19.0",
+          "Details": {
+            "GitCommit": "de40ad0"
+          }
+        }
+      ],
+      "Version": "28.3.2",
+      "ApiVersion": "1.51",
+      "MinAPIVersion": "1.24",
+      "GitCommit": "e77ff99",
+      "GoVersion": "go1.24.5",
+      "Os": "linux",
+      "Arch": "amd64",
+      "KernelVersion": "5.15.167.4-microsoft-standard-WSL2",
+      "BuildTime": "2025-07-09T16:13:55.000000000+00:00"
+    }
+  },
+  "resource_profile": "docker_linux_cpu2_mem2g_single_server",
+  "cpu_limit": 2,
+  "memory_limit_bytes": 2147483648,
+  "dataset": {
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8
+  },
+  "duration_ms": 5000,
+  "warmup_ms": 1000,
+  "repetitions": 3,
+  "offered_rate_ops_sec": 100,
+  "adapters": {
+    "feedkv": {
+      "image": "benchforge-feedkv:local",
+      "image_id": "sha256:4b58d43d5d48b99f4bc6413e433ee1aa99248380ef9c979146e03f6bb87d7441",
+      "image_metadata": {
+        "Id": "sha256:4b58d43d5d48b99f4bc6413e433ee1aa99248380ef9c979146e03f6bb87d7441",
+        "RepoTags": [
+          "benchforge-feedkv:local"
+        ],
+        "RepoDigests": [],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-06T11:28:11.218444137Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 81920771,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/w619862ti6yk640g80nnvmrsu/diff:/var/lib/docker/overlay2/qobw22bzpfitsgm92m31uvkc1/diff:/var/lib/docker/overlay2/4410bb3221042582d87ebf55783bfad854064768fdd93df9a484e179f942cde4/diff",
+            "MergedDir": "/var/lib/docker/overlay2/obauinkg4rmt6vlor16ymtxil/merged",
+            "UpperDir": "/var/lib/docker/overlay2/obauinkg4rmt6vlor16ymtxil/diff",
+            "WorkDir": "/var/lib/docker/overlay2/obauinkg4rmt6vlor16ymtxil/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:e58989146fcec76699871403b9897b5c014af1ccd85f5a9300a215e7975525d7",
+            "sha256:d9fa026b33a2e6f7cf0e666f4cc55f7428de2e4ebcac053776aa7c0dbe3c4bf0",
+            "sha256:28bd2ed1db5e74cf75c13f2d87f270efe2ee9d2a29238d9b716571e21d9a49b3",
+            "sha256:fbbb80c6c235f7b61f1d290b00bf201deee8cd80eb8a5165dd87248997d222ca"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "2026-10-06T11:28:11.25122509Z"
+        },
+        "Config": {
+          "Cmd": null,
+          "Entrypoint": [
+            "benchforge",
+            "feedkv",
+            "--container-listen"
+          ],
+          "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "LD_LIBRARY_PATH=/usr/local/lib"
+          ],
+          "Labels": null,
+          "OnBuild": null,
+          "User": "65534:65534",
+          "Volumes": null,
+          "WorkingDir": ""
+        }
+      },
+      "start_arguments": [
+        "run",
+        "-d",
+        "--name",
+        "bf-bf_20261006-feedkv",
+        "--label",
+        "benchforge.experiment=bf_20261006",
+        "--cpus",
+        "2",
+        "--memory",
+        "2g",
+        "--memory-swap",
+        "2g",
+        "-p",
+        "127.0.0.1:16380:6380",
+        "benchforge-feedkv:local"
+      ],
+      "host_config": {
+        "NanoCpus": 2000000000,
+        "Memory": 2147483648,
+        "MemorySwap": 2147483648
+      }
+    }
+  },
+  "runs": [
+    {
+      "run_id": "bf_20261006_feedkv_normal_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "c002d89db2dc6d9abc799df0780a7eae2aa52da7f3c69e346d4d756f48430cc6",
+      "resources_sha256": "4a57b6dc9f55742874c4ed1658794477a3f2916b711a3f12cd34f4e58884ea33"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_normal_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "d2dea6710847398f499ec358de1af994e167e625e5d068579640a49644dee228",
+      "resources_sha256": "ed9cf13956ce18430e8ed3c6099f9cf5c1596090ff6ff7ca22346b88095b0a2d"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_normal_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "f0319c08ed7353cf4c19b9c965128024c07987ac2de9501eb327d293dfac283f",
+      "resources_sha256": "5cbbde6cc7a3cce4c1b5bba8ee65d378efd5bc62f922844c0f22ac877d708074"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_normal_open_loop_1",
+      "valid": true,
+      "summary_sha256": "2415c9ff2a9fed354c4a66eca6ccb31229dcbed62fbf4eb8fb89177a5e312e40",
+      "resources_sha256": "47ee8d715078ed6cd0037f2b90f397fd85d8ac93572e9d9722e5b4b702f11228"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_normal_open_loop_2",
+      "valid": true,
+      "summary_sha256": "c34b5bd53a1a8bff44baed20ddce7f3793f7686ae4a838d3ca6a85a630f67ac0",
+      "resources_sha256": "342038ce7aacc3863cd754edd754fef0fcee958ddedda73fca7cb40bfbabd1ba"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_normal_open_loop_3",
+      "valid": true,
+      "summary_sha256": "a8a002f43ade44321eb758af1d6e3fe7e0fa8ec73da89619de7ccded34f65f94",
+      "resources_sha256": "d8de0ae7159e53ff24eaad5cc01ac0f0b00c969d3b8fd2f2e225beed05bc6115"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_celebrity_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "7567ee7d0b1e1cbb7bb05532f5f5ef294242532f69b7257c5bfb81c780fab4f5",
+      "resources_sha256": "365431a679f7acdfc00ee94e2ad867ff807fcbc115bdfd4200cc5ba7a09f009b"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_celebrity_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "7ce75acd58eeb80685ea5dc1a0a53d2ebe9089f36b4cc0df9e1e7ff53657b55c",
+      "resources_sha256": "c5cdc686221426212152ee278905b2afade4def4f6577ccb4956d94279c43eb2"
+    },
+    {
+      "run_id": "bf_20261006_feedkv_celebrity_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "e3e973f9e8d76394ad4dec4d2101e104f15e09bc17dae4770e0c7b63458e5e83",
+      "resources_sha256": "a4382d78a17b314c883145709a97927563ddd32f19060463c0b482a8dc16381b"
+    }
+  ],
+  "limitations": [
+    "Single laptop, single-node servers and a small synthetic dataset; no universal engine ranking.",
+    "Different native models, protocols and durability settings; only FeedKV/Redis share RESP and volatile configuration.",
+    "Resource samples cover loading and measurement, not exact measurement-only CPU; GC pauses are not isolated.",
+    "Closed-loop run operation counts vary; open-loop runs use an identical seeded offered workload.",
+    "Only the current adapter container runs during capture; ordinary host activity is uncontrolled."
+  ],
+  "build": {
+    "cmake_cache": "# This is the CMakeCache file.\n# For build in directory: c:/Codes/nosql/build\n# It was generated by CMake: C:/Strawberry/c/bin/cmake.exe\n# You can edit this file to change values found and used by cmake.\n# If you do not want to change any of the values, simply exit the editor.\n# If you do want to change a value, simply edit, save, and exit the editor.\n# The syntax for the file is as follows:\n# KEY:TYPE=VALUE\n# KEY is the name of a variable in the cache.\n# TYPE is a hint to GUIs for the type of VALUE, DO NOT EDIT TYPE!.\n# VALUE is the current value for the KEY.\n\n########################\n# EXTERNAL cache entries\n########################\n\n//Run tests against local Cassandra on port 9042\nBENCHFORGE_LIVE_DATABASE_TESTS:BOOL=OFF\n\n//Run tests against local unauthenticated Neo4j on HTTP port 7474\nBENCHFORGE_LIVE_NEO4J_TESTS:BOOL=OFF\n\n//Build the testing tree.\nBUILD_TESTING:BOOL=ON\n\n//Value Computed by CMake\nBenchForge_BINARY_DIR:STATIC=C:/Codes/nosql/build\n\n//Value Computed by CMake\nBenchForge_IS_TOP_LEVEL:STATIC=ON\n\n//Value Computed by CMake\nBenchForge_SOURCE_DIR:STATIC=C:/Codes/nosql\n\n//Path to a program.\nCMAKE_ADDR2LINE:FILEPATH=C:/Strawberry/c/bin/addr2line.exe\n\n//Path to a program.\nCMAKE_AR:FILEPATH=C:/Strawberry/c/bin/ar.exe\n\n//Choose the type of build, options are: None Debug Release RelWithDebInfo\n// MinSizeRel ...\nCMAKE_BUILD_TYPE:STRING=Release\n\n//Enable/Disable color output during build.\nCMAKE_COLOR_MAKEFILE:BOOL=ON\n\n//CXX compiler\nCMAKE_CXX_COMPILER:FILEPATH=C:/Strawberry/c/bin/c++.exe\n\n//A wrapper around 'ar' adding the appropriate '--plugin' option\n// for the GCC compiler\nCMAKE_CXX_COMPILER_AR:FILEPATH=C:/Strawberry/c/bin/gcc-ar.exe\n\n//A wrapper around 'ranlib' adding the appropriate '--plugin' option\n// for the GCC compiler\nCMAKE_CXX_COMPILER_RANLIB:FILEPATH=C:/Strawberry/c/bin/gcc-ranlib.exe\n\n//Flags used by the CXX compiler during all build types.\nCMAKE_CXX_FLAGS:STRING=\n\n//Flags used by the CXX compiler during DEBUG builds.\nCMAKE_CXX_FLAGS_DEBUG:STRING=-g\n\n//Flags used by the CXX compiler during MINSIZEREL builds.\nCMAKE_CXX_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG\n\n//Flags used by the CXX compiler during RELEASE builds.\nCMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG\n\n//Flags used by the CXX compiler during RELWITHDEBINFO builds.\nCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG\n\n//Libraries linked by default with all C++ applications.\nCMAKE_CXX_STANDARD_LIBRARIES:STRING=-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32\n\n//Path to a program.\nCMAKE_DLLTOOL:FILEPATH=C:/Strawberry/c/bin/dlltool.exe\n\n//Flags used by the linker during all build types.\nCMAKE_EXE_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during DEBUG builds.\nCMAKE_EXE_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during MINSIZEREL builds.\nCMAKE_EXE_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during RELEASE builds.\nCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during RELWITHDEBINFO builds.\nCMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//Value Computed by CMake.\nCMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=C:/Codes/nosql/build/CMakeFiles/pkgRedirects\n\n//Convert GNU import libraries to MS format (requires Visual Studio)\nCMAKE_GNUtoMS:BOOL=OFF\n\n//Install path prefix, prepended onto install directories.\nCMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/BenchForge\n\n//Path to a program.\nCMAKE_LINKER:FILEPATH=C:/Strawberry/c/bin/ld.exe\n\n//Path to a program.\nCMAKE_MAKE_PROGRAM:FILEPATH=C:/Strawberry/c/bin/mingw32-make.exe\n\n//Flags used by the linker during the creation of modules during\n// all build types.\nCMAKE_MODULE_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during the creation of modules during\n// DEBUG builds.\nCMAKE_MODULE_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during the creation of modules during\n// MINSIZEREL builds.\nCMAKE_MODULE_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during the creation of modules during\n// RELEASE builds.\nCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during the creation of modules during\n// RELWITHDEBINFO builds.\nCMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//Path to a program.\nCMAKE_NM:FILEPATH=C:/Strawberry/c/bin/nm.exe\n\n//Path to a program.\nCMAKE_OBJCOPY:FILEPATH=C:/Strawberry/c/bin/objcopy.exe\n\n//Path to a program.\nCMAKE_OBJDUMP:FILEPATH=C:/Strawberry/c/bin/objdump.exe\n\n//Value Computed by CMake\nCMAKE_PROJECT_DESCRIPTION:STATIC=\n\n//Value Computed by CMake\nCMAKE_PROJECT_HOMEPAGE_URL:STATIC=\n\n//Value Computed by CMake\nCMAKE_PROJECT_NAME:STATIC=BenchForge\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION:STATIC=0.1.0\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_MAJOR:STATIC=0\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_MINOR:STATIC=1\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_PATCH:STATIC=0\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_TWEAK:STATIC=\n\n//Path to a program.\nCMAKE_RANLIB:FILEPATH=C:/Strawberry/c/bin/ranlib.exe\n\n//RC compiler\nCMAKE_RC_COMPILER:FILEPATH=C:/Strawberry/c/bin/windres.exe\n\n//Flags for Windows Resource Compiler during all build types.\nCMAKE_RC_FLAGS:STRING=\n\n//Flags for Windows Resource Compiler during DEBUG builds.\nCMAKE_RC_FLAGS_DEBUG:STRING=\n\n//Flags for Windows Resource Compiler during MINSIZEREL builds.\nCMAKE_RC_FLAGS_MINSIZEREL:STRING=\n\n//Flags for Windows Resource Compiler during RELEASE builds.\nCMAKE_RC_FLAGS_RELEASE:STRING=\n\n//Flags for Windows Resource Compiler during RELWITHDEBINFO builds.\nCMAKE_RC_FLAGS_RELWITHDEBINFO:STRING=\n\n//Path to a program.\nCMAKE_READELF:FILEPATH=C:/Strawberry/c/bin/readelf.exe\n\n//Flags used by the linker during the creation of shared libraries\n// during all build types.\nCMAKE_SHARED_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during DEBUG builds.\nCMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during MINSIZEREL builds.\nCMAKE_SHARED_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during RELEASE builds.\nCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during RELWITHDEBINFO builds.\nCMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//If set, runtime paths are not added when installing shared libraries,\n// but are added when building.\nCMAKE_SKIP_INSTALL_RPATH:BOOL=NO\n\n//If set, runtime paths are not added when using shared libraries.\nCMAKE_SKIP_RPATH:BOOL=NO\n\n//Flags used by the linker during the creation of static libraries\n// during all build types.\nCMAKE_STATIC_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during DEBUG builds.\nCMAKE_STATIC_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during MINSIZEREL builds.\nCMAKE_STATIC_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during RELEASE builds.\nCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during RELWITHDEBINFO builds.\nCMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//Path to a program.\nCMAKE_STRIP:FILEPATH=C:/Strawberry/c/bin/strip.exe\n\n//Path to a program.\nCMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND\n\n//If this value is on, makefiles will be generated without the\n// .SILENT directive, and all commands will be echoed to the console\n// during the make.  This is useful for debugging only. With Visual\n// Studio IDE projects all commands are done without /nologo.\nCMAKE_VERBOSE_MAKEFILE:BOOL=FALSE\n\n//Path to the coverage program that CTest uses for performing coverage\n// inspection\nCOVERAGE_COMMAND:FILEPATH=C:/Strawberry/c/bin/gcov.exe\n\n//Extra command line flags to pass to the coverage tool\nCOVERAGE_EXTRA_FLAGS:STRING=-l\n\n//How many times to retry timed-out CTest submissions.\nCTEST_SUBMIT_RETRY_COUNT:STRING=3\n\n//How long to wait between timed-out CTest submissions.\nCTEST_SUBMIT_RETRY_DELAY:STRING=5\n\n//Maximum time allowed before CTest will kill the test.\nDART_TESTING_TIMEOUT:STRING=1500\n\n//Path to a program.\nGITCOMMAND:FILEPATH=C:/Program Files/Git/cmd/git.exe\n\n//Command to build the project\nMAKECOMMAND:STRING=C:/Strawberry/c/bin/cmake.exe --build . --config \"${CTEST_CONFIGURATION_TYPE}\"\n\n//Path to the memory checking command, used for memory error detection.\nMEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND\n\n//File that contains suppressions for the memory checker\nMEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=\n\n//Name of the computer/site where compile is being run\nSITE:STRING=Ayub\n\n\n########################\n# INTERNAL cache entries\n########################\n\n//ADVANCED property for variable: CMAKE_ADDR2LINE\nCMAKE_ADDR2LINE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_AR\nCMAKE_AR-ADVANCED:INTERNAL=1\n//This is the directory where this CMakeCache.txt was created\nCMAKE_CACHEFILE_DIR:INTERNAL=c:/Codes/nosql/build\n//Major version of cmake used to create the current loaded cache\nCMAKE_CACHE_MAJOR_VERSION:INTERNAL=3\n//Minor version of cmake used to create the current loaded cache\nCMAKE_CACHE_MINOR_VERSION:INTERNAL=29\n//Patch version of cmake used to create the current loaded cache\nCMAKE_CACHE_PATCH_VERSION:INTERNAL=2\n//ADVANCED property for variable: CMAKE_COLOR_MAKEFILE\nCMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1\n//Path to CMake executable.\nCMAKE_COMMAND:INTERNAL=C:/Strawberry/c/bin/cmake.exe\n//Path to cpack program executable.\nCMAKE_CPACK_COMMAND:INTERNAL=C:/Strawberry/c/bin/cpack.exe\n//ADVANCED property for variable: CMAKE_CTEST_COMMAND\nCMAKE_CTEST_COMMAND-ADVANCED:INTERNAL=1\n//Path to ctest program executable.\nCMAKE_CTEST_COMMAND:INTERNAL=C:/Strawberry/c/bin/ctest.exe\n//ADVANCED property for variable: CMAKE_CXX_COMPILER\nCMAKE_CXX_COMPILER-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_COMPILER_AR\nCMAKE_CXX_COMPILER_AR-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_COMPILER_RANLIB\nCMAKE_CXX_COMPILER_RANLIB-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS\nCMAKE_CXX_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_DEBUG\nCMAKE_CXX_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_MINSIZEREL\nCMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_RELEASE\nCMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_RELWITHDEBINFO\nCMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_STANDARD_LIBRARIES\nCMAKE_CXX_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_DLLTOOL\nCMAKE_DLLTOOL-ADVANCED:INTERNAL=1\n//Executable file format\nCMAKE_EXECUTABLE_FORMAT:INTERNAL=Unknown\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS\nCMAKE_EXE_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DEBUG\nCMAKE_EXE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_MINSIZEREL\nCMAKE_EXE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELEASE\nCMAKE_EXE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//Name of external makefile project generator.\nCMAKE_EXTRA_GENERATOR:INTERNAL=\n//Name of generator.\nCMAKE_GENERATOR:INTERNAL=MinGW Makefiles\n//Generator instance identifier.\nCMAKE_GENERATOR_INSTANCE:INTERNAL=\n//Name of generator platform.\nCMAKE_GENERATOR_PLATFORM:INTERNAL=\n//Name of generator toolset.\nCMAKE_GENERATOR_TOOLSET:INTERNAL=\n//Test CMAKE_HAVE_LIBC_PTHREAD\nCMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1\n//Source directory with the top level CMakeLists.txt file for this\n// project\nCMAKE_HOME_DIRECTORY:INTERNAL=C:/Codes/nosql\n//ADVANCED property for variable: CMAKE_LINKER\nCMAKE_LINKER-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MAKE_PROGRAM\nCMAKE_MAKE_PROGRAM-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS\nCMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG\nCMAKE_MODULE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL\nCMAKE_MODULE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELEASE\nCMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_NM\nCMAKE_NM-ADVANCED:INTERNAL=1\n//number of local generators\nCMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1\n//ADVANCED property for variable: CMAKE_OBJCOPY\nCMAKE_OBJCOPY-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_OBJDUMP\nCMAKE_OBJDUMP-ADVANCED:INTERNAL=1\n//Platform information initialized\nCMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RANLIB\nCMAKE_RANLIB-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_COMPILER\nCMAKE_RC_COMPILER-ADVANCED:INTERNAL=1\nCMAKE_RC_COMPILER_WORKS:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS\nCMAKE_RC_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_DEBUG\nCMAKE_RC_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_MINSIZEREL\nCMAKE_RC_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_RELEASE\nCMAKE_RC_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_RELWITHDEBINFO\nCMAKE_RC_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_READELF\nCMAKE_READELF-ADVANCED:INTERNAL=1\n//Path to CMake installation.\nCMAKE_ROOT:INTERNAL=C:/Strawberry/c/share/cmake-3.29\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS\nCMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG\nCMAKE_SHARED_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL\nCMAKE_SHARED_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELEASE\nCMAKE_SHARED_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SKIP_INSTALL_RPATH\nCMAKE_SKIP_INSTALL_RPATH-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SKIP_RPATH\nCMAKE_SKIP_RPATH-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS\nCMAKE_STATIC_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_DEBUG\nCMAKE_STATIC_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL\nCMAKE_STATIC_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_RELEASE\nCMAKE_STATIC_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STRIP\nCMAKE_STRIP-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_TAPI\nCMAKE_TAPI-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE\nCMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: COVERAGE_COMMAND\nCOVERAGE_COMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: COVERAGE_EXTRA_FLAGS\nCOVERAGE_EXTRA_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CTEST_SUBMIT_RETRY_COUNT\nCTEST_SUBMIT_RETRY_COUNT-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CTEST_SUBMIT_RETRY_DELAY\nCTEST_SUBMIT_RETRY_DELAY-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: DART_TESTING_TIMEOUT\nDART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1\n//Details about finding Threads\nFIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]\n//ADVANCED property for variable: GITCOMMAND\nGITCOMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: MAKECOMMAND\nMAKECOMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: MEMORYCHECK_COMMAND\nMEMORYCHECK_COMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: MEMORYCHECK_SUPPRESSIONS_FILE\nMEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: SITE\nSITE-ADVANCED:INTERNAL=1\n//linker supports push/pop state\n_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE\n//Compiler reason failure\n_Python3_Compiler_REASON_FAILURE:INTERNAL=\n//Development reason failure\n_Python3_Development_REASON_FAILURE:INTERNAL=\n//Path to a program.\n_Python3_EXECUTABLE:INTERNAL=C:/Users/ayub-/AppData/Local/Programs/Python/Python312/python.exe\n//Python3 Properties\n_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;12;7;64;32;;cp312-win_amd64;;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\n_Python3_INTERPRETER_SIGNATURE:INTERNAL=949a7b89cf796da5b0a9b60b0207a8bf\n//NumPy reason failure\n_Python3_NumPy_REASON_FAILURE:INTERNAL=\n\n",
+    "feedkv_container_compiler": "GCC 14, C++20, -O3 -DNDEBUG -pthread"
+  },
+  "error": "Stopped to correct FeedKV pipelined TCP delayed-ACK behavior; preserved as diagnostic evidence, not final comparison.",
+  "finished_at_utc": "2026-10-06T11:35:23.014441+00:00"
+}
