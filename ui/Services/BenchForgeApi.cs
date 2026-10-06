@@ -185,7 +185,11 @@ public sealed class RunInfo
 
 public sealed class RunSummary
 {
-    public bool HasReadableShape() => RunId is not null && Adapter is not null && Scenario is not null && Mode is not null &&
+    [JsonPropertyName("experiment_id")] public string ExperimentId { get; set; } = "";
+    [JsonPropertyName("experiment_profile")] public string ExperimentProfile { get; set; } = "";
+    [JsonPropertyName("resource_profile")] public string ResourceProfile { get; set; } = "";
+    [JsonPropertyName("measurement_method")] public string MeasurementMethod { get; set; } = "requested_window_legacy";
+    public bool HasReadableShape() => ExperimentId is not null && ExperimentProfile is not null && ResourceProfile is not null && MeasurementMethod is not null && RunId is not null && Adapter is not null && Scenario is not null && Mode is not null &&
         AdapterVersion is not null && Endpoint is not null && StorageConfiguration is not null && CleanupStatus is not null &&
         HistogramResolution is not null && InvalidReasons is not null && Environment is not null &&
         Environment.HostName is not null && Environment.OperatingSystem is not null && Environment.Architecture is not null &&
@@ -258,6 +262,8 @@ public sealed class SavedResultList
 }
 public sealed class SavedResult
 {
+    public string ExperimentId { get; set; } = "";
+    public string ExperimentProfile { get; set; } = "";
     public string Key { get; set; } = "";
     public string RunId { get; set; } = "";
     public string Adapter { get; set; } = "";

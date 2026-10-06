@@ -166,12 +166,13 @@ public:
             }
             return Error("unsupported INFO section");
         }
-        if (command == "SET" && args.size() == 3U) {
+        if ((command == "SET" || command == "SETNX") && args.size() == 3U) {
+            if (command == "SETNX" && entries_.contains(args[1])) return ":0\r\n";
             Entry entry;
             entry.type = Entry::Type::String;
             entry.string_value = args[2];
             entries_[args[1]] = std::move(entry);
-            return "+OK\r\n";
+            return command == "SETNX" ? ":1\r\n" : "+OK\r\n";
         }
         if (command == "GET" && args.size() == 2U) {
             const auto found = entries_.find(args[1]);
@@ -413,7 +414,7 @@ void ServeConnection(NativeSocket socket) {
 
 } // namespace
 
-int RunFeedKvServerImpl(std::uint16_t port) {
+int RunFeedKvServerImpl(std::uint16_t port, bool container_listen) {
 #ifdef _WIN32
     WSADATA data{};
     if (WSAStartup(MAKEWORD(2, 2), &data) != 0) {
@@ -426,7 +427,8 @@ int RunFeedKvServerImpl(std::uint16_t port) {
     hints.ai_flags = AI_PASSIVE;
     addrinfo* addresses = nullptr;
     const auto service = std::to_string(port);
-    const auto status = getaddrinfo("127.0.0.1", service.c_str(), &hints, &addresses);
+    const auto address_text = container_listen ? "0.0.0.0" : "127.0.0.1";
+    const auto status = getaddrinfo(address_text, service.c_str(), &hints, &addresses);
     if (status != 0) throw std::runtime_error("could not resolve FeedKV loopback address");
 
     NativeSocket listener = kInvalidSocket;
@@ -454,7 +456,7 @@ int RunFeedKvServerImpl(std::uint16_t port) {
                                  " (socket error " + std::to_string(SocketError()) + ")");
     }
 
-    std::cout << "FeedKV listening on 127.0.0.1:" << port
+    std::cout << "FeedKV listening on " << address_text << ":" << port
               << " (volatile RESP2 subset; press Ctrl+C to stop)\n";
     while (true) {
         const auto client = accept(listener, nullptr, nullptr);

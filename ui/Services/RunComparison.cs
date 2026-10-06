@@ -34,6 +34,9 @@ public static class RunComparison
                     op.P99Ns < op.P95Ns || op.P999Ns < op.P99Ns || op.MaxNs < op.MinNs ||
                     !double.IsFinite(op.OperationsPerSecond) || op.OperationsPerSecond < 0))
                 issues.Add($"{side} has inconsistent operation counts or latency values.");
+            if (run.Operations.Sum(op => (decimal)op.Errors) != run.TotalErrors ||
+                run.Operations.Sum(op => (decimal)op.Timeouts) != run.TotalTimeouts)
+                issues.Add($"{side} has inconsistent error or timeout totals.");
         }
         void Match<T>(string field, T left, T right)
         {
@@ -43,6 +46,8 @@ public static class RunComparison
         Match("Scenario", a.Scenario, b.Scenario); Match("Seed", a.Seed, b.Seed);
         Match("Workers", a.Workers, b.Workers); Match("Warm-up (ms)", a.WarmupMs, b.WarmupMs);
         Match("Load model", a.Mode, b.Mode); Match("Histogram resolution", a.HistogramResolution, b.HistogramResolution);
+        Match("Measurement method", a.MeasurementMethod, b.MeasurementMethod);
+        Match("Database resource profile", a.ResourceProfile, b.ResourceProfile);
         if (a.Mode == "open_loop" || b.Mode == "open_loop") Match("Offered rate (ops/s)", a.OfferedRateOpsSec, b.OfferedRateOpsSec);
         Match("Host", a.Environment.HostName, b.Environment.HostName);
         Match("Operating system", a.Environment.OperatingSystem, b.Environment.OperatingSystem);

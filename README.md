@@ -1,6 +1,6 @@
 # BenchForge
 
-BenchForge is a standalone C++ cross-database benchmark platform. The social-feed domain is a synthetic workload used to compare database designs; BenchForge is not a social network. The product pairs a local C++ control API and C# dashboard with FeedKV, a purpose-built database under test, and Redis, MongoDB, and Cassandra comparison targets. The only planned cloud target is an optional small Firestore benchmark using synthetic data.
+BenchForge is a standalone C++ cross-database benchmark platform. The social-feed domain is a synthetic workload used to compare database designs; BenchForge is not a social network. The product pairs a local C++ control API and C# dashboard with FeedKV, a purpose-built database under test, and Redis, MongoDB, Cassandra and Neo4j comparison targets. The only planned cloud target is an optional small Firestore benchmark using synthetic data.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the durable scope, decisions, implementation phases, and GCP quota guardrails.
 
@@ -36,7 +36,7 @@ Run `benchforge serve` in another terminal. The UI is served at `http://localhos
 .\build\benchforge.exe run --config config\default.conf
 ```
 
-The adapter list contains `noop`, `feedkv`, `redis`, `mongo`, and `cassandra`. Runs write `summary.json` and `operations.csv` beneath `runs/<run-id>/`. Start the control API with `.\build\benchforge.exe serve`; it binds to `127.0.0.1:8080` and stores UI-created runs beneath `runs/api/<run-id>/`.
+The adapter list contains `noop`, `feedkv`, `redis`, `mongo`, `cassandra` and `neo4j`. Runs write `summary.json` and `operations.csv` beneath `runs/<run-id>/`. Start the control API with `.\build\benchforge.exe serve`; it binds to `127.0.0.1:8080` and stores UI-created runs beneath `runs/api/<run-id>/`.
 
 The default `mode = closed_loop` lets each worker start its next operation after the previous one completes. For scheduled-rate load, set `mode = open_loop` and choose `offered_rate_ops_sec`; the rate is shared across all workers. Open-loop reports include send-lag percentiles separately from operation latency. `summary.json` records validity and invalid reasons, timeout counts, transport calibration, and machine environment.
 
@@ -56,7 +56,7 @@ docker exec benchforge-cassandra cqlsh -e "SELECT release_version FROM system.lo
 
 Wait until the CQL readiness query succeeds before running the harness. Use the supplied smoke config before increasing dataset sizes. `config/cassandra-celebrity-smoke.conf` exercises the celebrity workload in closed-loop mode. The tag can change; record the resolved image digest and database version when measuring.
 
-The API currently force-terminates cancelled workers. Cancellation, crashes, or process termination can leave a partial database namespace; cleanup is guaranteed only when the worker reaches its cleanup step. Recover only the exact namespace derived from that run ID, or discard an isolated test container. Never use a wildcard keyspace/database deletion.
+Cancellation is cooperative: the worker finishes its current operation, cleans the loader-owned namespace and writes an invalid diagnostic summary. Loading batches and scheduled waits also observe cancellation. The API allows 30 seconds before forced termination. Every worker writes `recovery.json` before loading, records ownership after acquiring its unique namespace, and clears ownership only after cleanup succeeds. After a crash, run `benchforge recover --manifest runs/api/<run-id>/recovery.json`. Recovery refuses a living recorded worker, validates the local endpoint and run identity, and cleans only that namespace; repeated successful recovery is harmless. If a process dies between namespace acquisition and journal commit, ownership may require manual inspection. Never use wildcard database/keyspace deletion.
 
 ## Verification
 
@@ -94,14 +94,14 @@ With the control API and dashboard running, open **Analysis** in the header (`ht
 
 `GET /api/results` returns a bounded catalog; `GET /api/results/<bucket>~<run-id>` reads a capture (empty bucket for direct children). The archive rejects unsafe paths, symbolic links, mismatched IDs, unsupported/malformed JSON and summaries over 1 MiB. Scans stop at 5,000 entries or 32 MiB of source data and return at most 500 captures; skipped/truncated counts are visible. Smaller archives are sorted newest first. Keep important results within these bounds.
 
-Compare achieved throughput, per-operation samples/ops/s, p50/p95/p99/p99.9, errors/timeouts and scheduled send lag. Full configuration, host, adapter/version, storage/durability/query model, calibration and cleanup are shown alongside caveats. Percentage changes require valid database captures with matching workload and host settings; `noop`, inconsistent/mismatched captures and verification-folder smoke checks withhold changes. Zero-sample channels show a dash. Two captures do not establish a ranking. Repeat important configurations at least three times; median/range aggregation remains future analysis work.
+Compare achieved throughput, per-operation samples/ops/s, p50/p95/p99/p99.9, errors/timeouts and scheduled send lag. Full configuration, host, adapter/version, storage/durability/query model, calibration and cleanup are shown alongside caveats. Percentage changes require valid database captures with matching workload and host settings; `noop`, inconsistent/mismatched captures and verification-folder smoke checks withhold changes. Zero-sample channels show a dash. Two captures do not establish a ranking. Experiment captures display accepted repetition counts and per-run medians with minimum–maximum ranges. Groups require at least three valid captures with matching experiment, workload, host, resource and adapter settings; invalid, duplicate and mismatched captures are excluded with reasons. Percentiles are never pooled. Each group is bounded to 30 captures.
 
 ```powershell
 ctest --test-dir build --output-on-failure
 dotnet run --project tests\ComparisonChecks
 ```
 
-Default CTest checks CQL/Neo4j response parsing, fragmented/chunked persistent HTTP, saved archive boundaries and open-loop send lag; it does not require a database. Comparison checks cover eligibility, configuration mismatches, invalid/no-op evidence, approximate histogram bounds and zero denominators.
+Default CTest checks CQL/Neo4j parsing, HTTP framing, archive boundaries, scheduling and actual elapsed throughput, real-process cancellation/crash recovery, HTTP cancellation and suite aggregation. It starts its own bounded FeedKV fixtures and needs no external database. Comparison checks cover eligibility, configuration mismatches, invalid/no-op evidence, approximate histogram bounds and zero denominators.
 
 To benchmark FeedKV, start its volatile in-memory server in another terminal:
 
@@ -109,5 +109,20 @@ To benchmark FeedKV, start its volatile in-memory server in another terminal:
 .\build\benchforge.exe feedkv
 ```
 
-Then set `adapter = feedkv` in a config file (or choose FeedKV in the dashboard). The default local endpoints are Redis `127.0.0.1:6379` and FeedKV `127.0.0.1:6380`. A config may override them with `database_host` (`localhost` or `127.0.0.1`) and `database_port` (zero selects the adapter default). FeedKV supports only the RESP2 commands needed by BenchForge; it is not a general Redis replacement and does not persist data. The loader uses the configured seed and synthetic dataset sizes. Run keys use an isolated `benchforge:<run-id>:` prefix and are removed after each run; `summary.json` records cleanup status. Redis persistence stays under Redis server control; summary metadata records Redis version, `INFO` persistence fields, and `CONFIG GET save` / `appendonly` values when permitted. The Redis user must be allowed to use `SCAN`, `DEL`, and the workload's standard key/set/sorted-set commands; cleanup only deletes keys under the current run prefix.
+Then set `adapter = feedkv` in a config file (or choose FeedKV in the dashboard). The default local endpoints are Redis `127.0.0.1:6379` and FeedKV `127.0.0.1:6380`. A config may override them with `database_host` (`localhost` or `127.0.0.1`) and `database_port` (zero selects the adapter default). FeedKV supports only the RESP2 commands needed by BenchForge; it is not a general Redis replacement and does not persist data. The loader uses the configured seed and synthetic dataset sizes. Run keys use an isolated `benchforge:<run-id>:` prefix and are removed after each run; `summary.json` records cleanup status. Redis persistence stays under Redis server control; summary metadata records Redis version, `INFO` persistence fields, and `CONFIG GET save` / `appendonly` values when permitted. The Redis user must be allowed to use `SETNX`, `SCAN`, `DEL`, and the workload's standard key/set/sorted-set commands; cleanup only deletes keys under the current run prefix.
 
+
+## Controlled local experiments
+
+Build the Release harness and the matching Linux FeedKV image, then run the standard-library Python suite with Docker Desktop running:
+
+```powershell
+docker build -f Dockerfile.benchmark -t benchforge-feedkv:local .
+python scripts/benchmark_suite.py --experiment bf_20261006 --repetitions 3 --duration-ms 5000 --rate 100
+```
+
+The suite runs one database container at a time, each limited to two CPUs and 2 GiB without swap, with ports published only on host loopback. It checks readiness and native integration tests, then captures normal/celebrity workloads in closed/open-loop modes. Each repetition creates a new worker and namespace; the database process stays warm. FeedKV and Redis share Linux container topology and volatile persistence. MongoDB, Cassandra and Neo4j retain their reported native durability. Default ports are 16380, 16379, 27018, 9042 and 7474; occupied ports are refused. Containers created by the suite and their anonymous volumes are removed on exit. Existing services remain separate.
+
+Seed 42, two workers, 64 users, 256 posts, 128 follows, eight hashtags, weights 40/25/15/10/5/5, one-second read-only warm-up and five-second requested measurement windows form the default profile. Measurement restarts the seeded generator after warm-up. `measured_ms` includes in-flight/backlog drain; requested duration remains in `config.duration_ms`. This timing method is recorded and older captures cannot silently compare against it. Open-loop latency excludes scheduling lag, which is reported separately.
+
+Raw JSON/CSV, per-run CPU/memory observations, image IDs/digests, resource settings, build/source provenance, server/available GC logs and median/range aggregates are saved under `evidence/benchmarks/<experiment>/`. Local copies under `runs/experiments/` appear in Analysis. Resource observations cover the whole worker lifetime, including loading. GC pauses and competing host activity are not fully controlled. Use a fresh experiment ID for each suite; incomplete evidence is preserved and never presented as a successful comparison. Phase 7 remains excluded.

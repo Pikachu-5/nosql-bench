@@ -1,0 +1,42 @@
+@using BenchForge.UI.Services
+@using System.Globalization
+<section class="analysis-panel" aria-labelledby="repetition-heading">
+    <h2 id="repetition-heading">Repeated measurements</h2>
+    <p>Median and minimum–maximum range across independent runs. Percentiles are summarized per run; samples are never pooled.</p>
+    @foreach (var entry in new[] { (Label:"Baseline",Group:Baseline), (Label:"Candidate",Group:Candidate) })
+    {
+        var group = entry.Group;
+        <h3>@entry.Label · @group.Runs.Count accepted repetitions</h3>
+        @if (!group.Ready)
+        { <p class="analysis-helper">At least three valid runs with matching experiment, workload and resource conditions are required. Use the benchmark suite to capture repetitions.</p> }
+        else
+        {
+            <p>Achieved ops/s: <strong class="tabular">@Range(group.Throughput, false)</strong></p>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="@($"{entry.Label} repeated measurements")">
+                <table class="results-table analysis-table operation-comparison"><caption>@entry.Label medians with minimum–maximum ranges</caption>
+                    <thead><tr><th scope="col">Operation</th><th scope="col">Samples per run</th><th scope="col">ops/s</th><th scope="col">p50</th><th scope="col">p95</th><th scope="col">p99</th><th scope="col">p99.9</th><th scope="col">Send lag p95</th></tr></thead><tbody>
+                    @foreach (var type in group.Runs[0].Operations.Select(op => op.Type))
+                    {
+                        var counts = group.Operation(type, op => op.Count);
+                        <tr><th scope="row">@type.Replace('_',' ')</th><td>@Range(counts, false)</td><td>@Range(group.Operation(type,op=>op.OperationsPerSecond),false)</td>
+                            @foreach (var metric in new Func<OperationSummary,double>[] { op=>op.P50Ns, op=>op.P95Ns, op=>op.P99Ns, op=>op.P999Ns })
+                            { <td>@(counts.Minimum > 0 ? Range(group.Operation(type,metric),true) : "—")</td> }
+                            <td>@(group.Runs[0].Mode == "open_loop" && counts.Minimum > 0 ? Range(group.Operation(type,op=>op.SendLagP95Ns),true) : "—")</td></tr>
+                    }
+                    </tbody></table>
+            </div>
+            <p class="analysis-helper">Small counts make tail estimates unstable. Review raw captures and resource records before making a performance claim.</p>
+        }
+        @if (group.Excluded.Count > 0)
+        { <details><summary>@group.Excluded.Count excluded captures</summary><ul>@foreach (var reason in group.Excluded) { <li>@reason</li> }</ul></details> }
+    }
+</section>
+@code {
+    [Parameter, EditorRequired] public RepetitionGroup Baseline { get; set; } = new([],[]);
+    [Parameter, EditorRequired] public RepetitionGroup Candidate { get; set; } = new([],[]);
+    private static string Range(MetricRange value, bool latency)
+    {
+        string Format(double number) => latency ? RunComparison.Latency((long)number) : number.ToString("N1",CultureInfo.InvariantCulture);
+        return $"{Format(value.Median)} ({Format(value.Minimum)}–{Format(value.Maximum)})";
+    }
+}

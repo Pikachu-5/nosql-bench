@@ -33,3 +33,19 @@ if (args.Length==2) {
     Check(result.CanCompare,"real matching smoke capture conditions rejected: "+string.Join(";",result.Issues.Concat(result.Differences.Select(d=>d.Field))));
 }
 Console.WriteLine("Comparison eligibility checks passed");
+var repeats=Enumerable.Range(1,3).Select(i=>Fixture($"rep_{i}")).ToArray();
+foreach(var run in repeats) { run.ExperimentId="suite";run.ExperimentProfile="normal_open";run.ResourceProfile="cpu2_mem2g"; }
+repeats[0].MeasuredMs=500; repeats[1].MeasuredMs=1000; repeats[2].MeasuredMs=2000;
+var group=RunRepetitions.Group(repeats[0],repeats);
+Check(group.Ready && group.Throughput.Median==60 && group.Throughput.Minimum==30 && group.Throughput.Maximum==120,"repeat throughput median/range incorrect");
+Check(MetricRange.From(new double[]{1,9,3,5}).Median==4,"even median incorrect");
+repeats[1].Valid=false;
+group=RunRepetitions.Group(repeats[0],repeats.Concat(new[]{repeats[0]}));
+Check(!group.Ready && group.Runs.Count==2 && group.Excluded.Count==2,"invalid or duplicate repeats accepted");
+repeats[1].Valid=true; repeats[1].Config!.Posts++;
+Check(RunRepetitions.Group(repeats[0],repeats).Runs.Count==2,"different repetition dataset accepted");
+repeats[1].Config!.Posts--; repeats[1].ResourceProfile="cpu4";
+Check(RunRepetitions.Group(repeats[0],repeats).Runs.Count==2,"different resource profile accepted");
+Console.WriteLine("Repetition grouping and median/range checks passed");
+repeats[1].ResourceProfile=repeats[0].ResourceProfile; repeats[1].StorageConfiguration="other durability";
+Check(RunRepetitions.Group(repeats[0],repeats).Runs.Count==2,"different durability accepted");

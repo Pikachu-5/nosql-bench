@@ -1,0 +1,14 @@
+FROM gcc:14-bookworm AS build
+WORKDIR /source
+COPY include ./include
+COPY src ./src
+RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -Iinclude src/*.cpp -o /benchforge
+
+FROM debian:bookworm-slim
+COPY --from=build /benchforge /usr/local/bin/benchforge
+# libstdc++ from the same compiler image avoids a compiler/runtime ABI mismatch.
+COPY --from=build /usr/local/lib64/libstdc++.so.6* /usr/local/lib/
+COPY --from=build /usr/local/lib64/libgcc_s.so.1 /usr/local/lib/
+ENV LD_LIBRARY_PATH=/usr/local/lib
+USER 65534:65534
+ENTRYPOINT ["benchforge", "feedkv", "--container-listen"]

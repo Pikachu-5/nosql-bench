@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <memory>
 #include <string>
+#include <optional>
 
 namespace benchforge::detail {
 
@@ -18,6 +19,7 @@ public:
     ChildProcess& operator=(const ChildProcess&) = delete;
 
     int Wait();
+    std::optional<int> Poll();
     void Terminate() noexcept;
 
 private:

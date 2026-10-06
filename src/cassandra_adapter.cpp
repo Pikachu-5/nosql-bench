@@ -48,10 +48,12 @@ public:
     }
 
     void LoadDataset(const RunConfig& config) override {
+        CheckCancellation();
         // Deliberately omit IF NOT EXISTS: a reused run ID must not adopt another run's data.
         client_.Query("CREATE KEYSPACE " + keyspace_ +
             " WITH replication = {'class':'SimpleStrategy','replication_factor':1} AND durable_writes = true");
         owns_keyspace_ = true;
+        NamespaceAcquired();
         const std::string compaction = " AND compaction = {'class':'SizeTieredCompactionStrategy'}";
         for (const auto& table : std::vector<std::string>{
             "users (id bigint PRIMARY KEY, display_name text)",
@@ -70,9 +72,11 @@ public:
         PrepareStatements();
         const auto insert_user = client_.Prepare("INSERT INTO " + keyspace_ + ".users (id,display_name) VALUES (?,?)");
         for (std::uint64_t user = 0; user < config.users; ++user) {
+            CheckCancellation();
             client_.Execute(insert_user, {CqlBigint(user), "user|" + std::to_string(user)});
         }
         auto add_follow = [&](std::uint64_t source, std::uint64_t target) {
+            CheckCancellation();
             client_.Execute(follow_, {CqlBigint(source), CqlBigint(target)});
         };
         if (config.scenario == Scenario::Celebrity) {
@@ -95,6 +99,7 @@ public:
         }
         std::mt19937_64 random(config.seed);
         for (std::uint64_t id = 0; id < config.posts; ++id) {
+            CheckCancellation();
             const auto author = random() % config.users;
             const auto tag = random() % config.hashtags;
             InsertPost(id, author, id + 1U, tag);
@@ -119,6 +124,7 @@ public:
         std::uint64_t total = 0;
         constexpr std::uint64_t samples = 256;
         for (std::uint64_t i = 0; i < samples; ++i) {
+            CheckCancellation();
             const auto start = std::chrono::steady_clock::now();
             client_.Probe();
             const auto elapsed = static_cast<std::uint64_t>(std::chrono::duration_cast<std::chrono::nanoseconds>(
@@ -182,12 +188,13 @@ public:
         throw std::invalid_argument("unsupported workload operation");
     }
 
+    std::string RecoverNamespace() noexcept override { owns_keyspace_ = true; return Cleanup(); }
     std::string Cleanup() noexcept override {
         if (!owns_keyspace_) return "no run keyspace owned";
         try {
             // Use a fresh connection: a timed-out loader connection may have been closed.
             CqlClient cleanup(host_, port_);
-            cleanup.Query("DROP KEYSPACE " + keyspace_);
+            cleanup.Query("DROP KEYSPACE IF EXISTS " + keyspace_);
             owns_keyspace_ = false;
             return "run keyspace removed";
         } catch (const std::exception& error) { return std::string("cleanup failed: ") + error.what(); }

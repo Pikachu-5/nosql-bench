@@ -74,6 +74,7 @@
                     <p class="analysis-helper">Lower latency changes and higher throughput changes describe different measures. Zero-sample channels show a dash. Percentiles are approximate bucket bounds and may exceed the exact maximum. Send lag is measured separately from operation latency; timeouts are included in errors.</p>
                 </section>
                 <div class="evidence-grid"><RunEvidence Run="Baseline" Label="Baseline" /><RunEvidence Run="Candidate" Label="Candidate" /></div>
+                <RepetitionEvidence Baseline="BaselineRepeats" Candidate="CandidateRepeats" />
                 <section class="analysis-panel" aria-labelledby="limits-heading"><h2 id="limits-heading">Limits of these captures</h2><p>Two runs do not establish a performance ranking. Repeat important configurations at least three times and report median and range. Small sample counts make tail percentiles unstable; inspect counts before using p99 or p99.9.</p><p>These local native adapters use different storage models and client protocols. Durability, database resource limits, competing processes and GC can change results. Host memory is physical capacity, not database usage; container limits and GC are not captured for every adapter. Calibration probes include different server work and are never subtracted from operation latency.</p><p>The feed workload is synthetic. Harness-only <code>noop</code> captures measure overhead, and verification-folder runs are correctness smoke checks.</p></section>
             }
         }
@@ -85,6 +86,7 @@
     [SupplyParameterFromQuery(Name="candidate")] public string? CandidateKey { get; set; }
     private SavedResultList Archive = new();
     private RunSummary? Baseline, Candidate;
+    private RepetitionGroup BaselineRepeats = new([],[]), CandidateRepeats = new([],[]);
     private bool ApiOnline, LoadingList, LoadingPair, Initialized, Disposed;
     private string Error = "";
     private CancellationTokenSource Request = new();
@@ -117,7 +119,9 @@
             // The local API serves connections serially; each request remains cancelable.
             var a=await Api.GetSavedSummaryAsync(BaselineKey,token);
             var b=await Api.GetSavedSummaryAsync(CandidateKey,token);
-            if (revision==Revision && !Disposed) { Baseline=a; Candidate=b; ApiOnline=true; }
+            var ar=await LoadRepetitionsAsync(a,token);
+            var br=await LoadRepetitionsAsync(b,token);
+            if (revision==Revision && !Disposed) { Baseline=a; Candidate=b; BaselineRepeats=ar; CandidateRepeats=br; ApiOnline=true; }
         }
         catch (Exception ex) when (ex is HttpRequestException or InvalidOperationException or JsonException or OperationCanceledException)
         { if (revision==Revision && !Disposed) { Error=ex is OperationCanceledException ? "The capture request timed out." : ex is JsonException ? "A selected capture contains unreadable or out-of-range measurement values. Choose another saved run." : ex is HttpRequestException ? "The control API is offline or unreachable. Start the local API and try again." : $"Could not load selected captures: {ex.Message}"; if (ex is HttpRequestException or OperationCanceledException) ApiOnline=false; } }
@@ -129,6 +133,23 @@
         Navigation.NavigateTo(Navigation.GetUriWithQueryParameters(new Dictionary<string,object?> {
             ["baseline"]=baseline ? key : BaselineKey, ["candidate"]=baseline ? CandidateKey : key }));
         return Task.CompletedTask;
+    }
+    private async Task<RepetitionGroup> LoadRepetitionsAsync(RunSummary anchor, CancellationToken token)
+    {
+        if (string.IsNullOrEmpty(anchor.ExperimentId)) return new([],[]);
+        var matches=Archive.Results.Where(item=>item.ExperimentId==anchor.ExperimentId &&
+            item.ExperimentProfile==anchor.ExperimentProfile && item.Adapter==anchor.Adapter && item.Source!="verification").ToArray();
+        var captures=new List<RunSummary>(); var unreadable=new List<string>();
+        foreach (var item in matches.Take(30))
+        {
+            try { captures.Add(item.RunId==anchor.RunId ? anchor : await Api.GetSavedSummaryAsync(item.Key,token)); }
+            catch (Exception ex) when (ex is JsonException or InvalidOperationException)
+            { unreadable.Add($"{item.RunId}: unreadable capture"); }
+        }
+        var group=RunRepetitions.Group(anchor,captures);
+        group.Excluded.AddRange(unreadable);
+        if (matches.Length>30) group.Excluded.Add("Group exceeds the 30-capture display limit.");
+        return group;
     }
     private static string OptionLabel(SavedResult item) => $"{item.Adapter} · {item.Scenario} · {(item.Valid ? "valid" : "invalid")} · {item.Source} · {item.RunId}";
     private static string Number(double number) => number.ToString("N1",CultureInfo.InvariantCulture);

@@ -517,6 +517,8 @@ a:focus-visible {
 .analysis-panel h2, .analysis-evidence h2 { margin: 0 0 10px; font-size: 18px; letter-spacing: -0.025em; }
 .analysis-panel h3, .analysis-evidence h3 { font-size: 14px; margin: 24px 0 10px; }
 .analysis-panel p { max-width: 75ch; line-height: 1.65; }
+.analysis-panel details { font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+.analysis-panel summary { padding-block: 12px; cursor: pointer; }
 .selection-panel .section-heading { padding: 0; margin-bottom: 18px; }
 .compare-selectors, .evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px; }
 .compare-selectors label { display: block; margin-bottom: 8px; font-weight: 600; }

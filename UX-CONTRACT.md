@@ -25,4 +25,7 @@ The local workstation has two routes: Configure (`/`) creates and observes worke
 
 ## Accessibility and supported presentation
 
+- Experiment captures show accepted repetition counts and per-run medians with minimum–maximum ranges for throughput, samples, latency percentiles and send lag. At least three valid captures must match experiment/profile, adapter/version, resource profile, durability/query model, workload and host. Exclude duplicates, invalid captures and mismatches with visible reasons. Never pool percentile samples. Limit each group to 30 captures and disclose truncation.
+- Cancel requests allow the worker to finish its current operation, clean the owned namespace and save an invalid diagnostic summary. The API allows 30 seconds before forced termination; its error directs the operator to the recovery journal. Cancelled summaries remain readable. Recovery refuses a living recorded worker and only targets the journal's local run identity.
+
 English interface, locally bundled Cascadia Code, light workstation theme. Native popup locale/geometry follow the user's platform. Keep units and tabular figures visible. Target WCAG 2.2 AA, label controls explicitly, preserve native keyboard behavior and readable state text, and maintain high-contrast focus. At 760px the selection and evidence columns stack; tables scroll internally. No authored motion is needed for recorded static measurements; reduced-motion preferences remain supported by the global stylesheet. This contract describes the target, not a claim of formal certification.

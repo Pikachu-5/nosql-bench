@@ -516,6 +516,7 @@ struct RunRecord {
     std::uint32_t duration_ms{0};
     std::optional<int> exit_code;
     bool cancel_requested{false};
+    std::chrono::steady_clock::time_point cancel_deadline{};
     std::filesystem::path result_directory;
     std::shared_ptr<detail::ChildProcess> process;
 };
@@ -568,7 +569,9 @@ public:
             std::lock_guard lock(mutex_);
             for (const auto& run : runs_) {
                 if (run->status == "running" && run->process) {
-                    run->process->Terminate();
+                    std::ofstream request(run->result_directory / "cancel.request");
+                    run->cancel_requested = true;
+                    run->cancel_deadline = std::chrono::steady_clock::now() + std::chrono::seconds(30);
                 }
             }
         }
@@ -641,11 +644,14 @@ public:
             throw HttpError(404, "run was not found");
         }
         const auto& run = *found;
-        if (run->status != "running") {
+        if (run->status != "running" || std::filesystem::exists(run->result_directory / "summary.json")) {
             throw HttpError(409, "run is no longer active");
         }
+        std::ofstream request(run->result_directory / "cancel.request");
+        request << "cancel\n"; request.flush();
+        if (!request) throw HttpError(500, "could not request graceful cancellation");
+        if (!run->cancel_requested) run->cancel_deadline = std::chrono::steady_clock::now() + std::chrono::seconds(30);
         run->cancel_requested = true;
-        if (run->process) run->process->Terminate();
         return Snapshot(*run);
     }
 
@@ -656,8 +662,8 @@ public:
         if (found == runs_.end()) {
             throw HttpError(404, "run was not found");
         }
-        if ((*found)->status != "succeeded") {
-            throw HttpError(409, "results are available only after a successful run");
+        if ((*found)->status == "running" || !std::filesystem::exists((*found)->result_directory / "summary.json")) {
+            throw HttpError(409, "results are available after the worker writes its summary");
         }
         return (*found)->result_directory;
     }
@@ -667,7 +673,17 @@ private:
         int exit_code = 1;
         std::string failure;
         try {
-            exit_code = run->process->Wait();
+            while (true) {
+                if (auto result = run->process->Poll()) { exit_code = *result; break; }
+                {
+                    std::lock_guard lock(mutex_);
+                    if (run->cancel_requested && std::chrono::steady_clock::now() >= run->cancel_deadline) {
+                        run->process->Terminate();
+                        failure = "Worker exceeded 30-second cancellation grace period. Inspect recovery.json and use benchforge recover.";
+                    }
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
         } catch (const std::exception& error) {
             failure = error.what();
         }
@@ -681,6 +697,7 @@ private:
         run->exit_code = exit_code;
         if (run->cancel_requested) {
             run->status = "cancelled";
+            run->error = failure;
         } else if (failure.empty() && exit_code == 0 && has_summary) {
             run->status = "succeeded";
         } else {

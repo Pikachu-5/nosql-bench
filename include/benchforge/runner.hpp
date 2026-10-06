@@ -39,6 +39,8 @@ struct RunSummary {
     std::uint64_t TotalTimeouts() const noexcept;
 };
 
-RunSummary RunBenchmark(const RunConfig& config);
+RunSummary RunBenchmark(const RunConfig& config,
+                        std::function<bool()> cancelled = {},
+                        std::function<void()> acquired = {});
 
 } // namespace benchforge

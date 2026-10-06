@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 #include <system_error>
+#include <thread>
+#include <chrono>
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -97,12 +99,17 @@ ChildProcess::~ChildProcess() {
 }
 
 int ChildProcess::Wait() {
+    while (true) { if (auto result = Poll()) return *result; std::this_thread::sleep_for(std::chrono::milliseconds(100)); }
+}
+
+std::optional<int> ChildProcess::Poll() {
 #ifdef _WIN32
     const auto process = static_cast<HANDLE>(process_handle_);
     if (process == nullptr) {
         throw std::logic_error("worker process handle is not initialized");
     }
-    const DWORD wait_result = WaitForSingleObject(process, INFINITE);
+    const DWORD wait_result = WaitForSingleObject(process, 0);
+    if (wait_result == WAIT_TIMEOUT) return std::nullopt;
     if (wait_result != WAIT_OBJECT_0) {
         throw std::system_error(static_cast<int>(GetLastError()),
                                 std::system_category(), "could not wait for worker");
@@ -117,8 +124,9 @@ int ChildProcess::Wait() {
     int status = 0;
     pid_t result = -1;
     do {
-        result = waitpid(static_cast<pid_t>(process_id_), &status, 0);
+        result = waitpid(static_cast<pid_t>(process_id_), &status, WNOHANG);
     } while (result < 0 && errno == EINTR);
+    if (result == 0) return std::nullopt;
     if (result < 0) {
         throw std::system_error(errno, std::generic_category(), "could not wait for worker");
     }
@@ -139,7 +147,7 @@ void ChildProcess::Terminate() noexcept {
     }
 #else
     if (process_id_ > 0) {
-        kill(static_cast<pid_t>(process_id_), SIGTERM);
+        kill(static_cast<pid_t>(process_id_), SIGKILL);
     }
 #endif
 }

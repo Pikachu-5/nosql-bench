@@ -4,11 +4,17 @@
 #include "benchforge/config.hpp"
 
 #include <memory>
+#include <functional>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
 namespace benchforge {
+
+class BenchmarkCancelled : public std::runtime_error {
+public:
+    BenchmarkCancelled() : std::runtime_error("run cancelled") {}
+};
 
 class AdapterTimeout : public std::runtime_error {
 public:
@@ -36,6 +42,15 @@ public:
     virtual TransportCalibration Calibrate() = 0;
     virtual void Execute(const Operation& operation) = 0;
     virtual std::string Cleanup() noexcept = 0;
+    virtual std::string RecoverNamespace() noexcept { return "cleanup failed: recovery unsupported"; }
+    void SetCancellationCheck(std::function<bool()> check) { cancellation_ = std::move(check); }
+    void SetOwnershipCallback(std::function<void()> callback) { ownership_ = std::move(callback); }
+protected:
+    void CheckCancellation() const { if (cancellation_ && cancellation_()) throw BenchmarkCancelled(); }
+    void NamespaceAcquired() { if (ownership_) ownership_(); }
+private:
+    std::function<bool()> cancellation_;
+    std::function<void()> ownership_;
 };
 
 std::unique_ptr<DatabaseAdapter> CreateAdapter(const std::string& name,

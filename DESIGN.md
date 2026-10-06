@@ -132,6 +132,8 @@ The allocation board contains six labeled lanes and a shared percentage scale. N
 
 **The Honest Ledger Rule.** Never seed fake runs, values, progress, or waveform output into the interface.
 
+Repeated measurements use the same aligned tables and native disclosure controls for excluded captures. Display median with minimum–maximum range and accepted counts; do not add ranking colors or invented aggregate charts. Loading a new pair clears its previous repetition groups together with the selected captures.
+
 The Analysis route extends this same workstation with native baseline/candidate selectors, aligned measurement tables and two evidence columns. Baseline rows use the existing blue wash; candidate rows use the panel surface. Color identifies the row, never a winner. Tables scroll horizontally while the page scrolls naturally. On narrow screens, selection and evidence stack in document order. Shared navigation lives in `WorkspaceHeader.razor`; `app.css` remains the runtime token owner. `UX-CONTRACT.md` records selection, asynchronous recovery, comparison eligibility and native-control ownership.
 
 ## Do's and Don'ts

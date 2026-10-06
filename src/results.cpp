@@ -68,6 +68,7 @@ void WriteSummaryJson(const std::filesystem::path& path, const RunConfig& config
     }
     output << "{\n"
            << "  \"schema_version\": 2,\n"
+           << "  \"measurement_method\": \"elapsed_wall_time_readonly_warmup_v2\",\n"
            << "  \"run_id\": \"" << JsonEscape(summary.run_id) << "\",\n"
            << "  \"started_at_utc\": \"" << JsonEscape(summary.started_at_utc)
            << "\",\n"

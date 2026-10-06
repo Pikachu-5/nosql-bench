@@ -19,11 +19,11 @@ namespace {
 
 using Clock = std::chrono::steady_clock;
 
-void WaitUntil(std::chrono::steady_clock::time_point scheduled) {
+void WaitUntil(std::chrono::steady_clock::time_point scheduled, const std::function<bool()>& cancelled) {
     // Some Windows timer implementations wake just before the requested deadline.
     // Recheck the steady clock so requests are never dispatched ahead of schedule.
-    while (std::chrono::steady_clock::now() < scheduled) {
-        std::this_thread::sleep_until(scheduled);
+    while (std::chrono::steady_clock::now() < scheduled && !cancelled()) {
+        std::this_thread::sleep_until(std::min(scheduled, Clock::now() + std::chrono::milliseconds(20)));
     }
 }
 
@@ -97,7 +97,9 @@ std::uint64_t RunSummary::TotalTimeouts() const noexcept {
     return total;
 }
 
-RunSummary RunBenchmark(const RunConfig& config) {
+RunSummary RunBenchmark(const RunConfig& config, std::function<bool()> cancelled,
+                        std::function<void()> acquired) {
+    if (!cancelled) cancelled = [] { return false; };
     const auto validation_errors = ValidateConfig(config);
     if (!validation_errors.empty()) {
         throw std::invalid_argument(validation_errors.front());
@@ -121,12 +123,21 @@ RunSummary RunBenchmark(const RunConfig& config) {
 
     const auto key_prefix = "benchforge:" + summary.run_id + ":";
     auto loader = CreateAdapter(config.adapter, config, key_prefix);
+    loader->SetCancellationCheck(cancelled);
+    loader->SetOwnershipCallback(std::move(acquired));
+    summary.started_at_utc = FormatUtc(std::chrono::system_clock::now(), true);
+    summary.environment = CaptureEnvironment();
+    auto clean = [&] { loader->SetCancellationCheck({}); return loader->Cleanup(); };
     try {
         loader->LoadDataset(config);
         summary.transport_calibration = loader->Calibrate();
-    } catch (...) {
-        (void)loader->Cleanup();
-        throw;
+    } catch (const std::exception& error) {
+        summary.valid = false;
+        summary.invalid_reasons.emplace_back(error.what());
+        summary.adapter_version = loader->Version(); summary.endpoint = loader->Endpoint();
+        summary.storage_configuration = loader->StorageConfiguration();
+        summary.cleanup_status = clean();
+        return summary;
     }
     summary.adapter_version = loader->Version();
     summary.endpoint = loader->Endpoint();
@@ -141,9 +152,13 @@ RunSummary RunBenchmark(const RunConfig& config) {
             adapters.push_back(CreateAdapter(config.adapter, config, key_prefix));
             adapters.back()->PrepareWorker();
         }
-    } catch (...) {
-        (void)loader->Cleanup();
-        throw;
+    } catch (const std::exception& error) {
+        summary.valid = false;
+        summary.invalid_reasons.emplace_back(error.what());
+        summary.adapter_version = loader->Version(); summary.endpoint = loader->Endpoint();
+        summary.storage_configuration = loader->StorageConfiguration();
+        summary.cleanup_status = clean();
+        return summary;
     }
 
     std::latch ready(static_cast<std::ptrdiff_t>(config.workers));
@@ -171,14 +186,18 @@ RunSummary RunBenchmark(const RunConfig& config) {
 
                 auto execute_warmup = [&] {
                     try {
-                        adapter->Execute(generator.Next());
+                        auto operation = generator.Next();
+                        // Warm cache/transport without changing the shared seeded state.
+                        // Keep measurement IDs and RNG independent of warm-up speed.
+                        operation.type = operation.sequence % 2U == 0 ? OperationType::TimelineRead : OperationType::UserProfileRead;
+                        adapter->Execute(operation);
                     } catch (...) {
                         // Warm-up errors do not enter measured operation counts.
                     }
                 };
 
                 if (config.mode == RunMode::ClosedLoop) {
-                    while (Clock::now() < measured_start) execute_warmup();
+                    while (Clock::now() < measured_start && !cancelled()) execute_warmup();
                 } else {
                     const auto interval = std::chrono::duration_cast<Clock::duration>(
                         std::chrono::duration<double>(
@@ -189,16 +208,18 @@ RunSummary RunBenchmark(const RunConfig& config) {
                             static_cast<double>(worker) /
                             static_cast<double>(config.offered_rate_ops_sec)));
                     auto scheduled = run_start + phase;
-                    while (scheduled < measured_start) {
-                        WaitUntil(scheduled);
+                    while (scheduled < measured_start && !cancelled()) {
+                        WaitUntil(scheduled, cancelled);
+                        if (cancelled()) break;
                         execute_warmup();
                         scheduled += interval;
                     }
                 }
 
+                generator = WorkloadGenerator(config, worker_seed, worker, config.workers);
                 auto& metrics = worker_metrics[worker].operations;
                 if (config.mode == RunMode::ClosedLoop) {
-                    while (Clock::now() < measured_end) {
+                    while (Clock::now() < measured_end && !cancelled()) {
                         const auto operation = generator.Next();
                         const auto operation_start = Clock::now();
                         bool success = true;
@@ -228,8 +249,9 @@ RunSummary RunBenchmark(const RunConfig& config) {
                             static_cast<double>(worker) /
                             static_cast<double>(config.offered_rate_ops_sec)));
                     auto scheduled = measured_start + phase;
-                    while (scheduled < measured_end) {
-                        WaitUntil(scheduled);
+                    while (scheduled < measured_end && !cancelled()) {
+                        WaitUntil(scheduled, cancelled);
+                        if (cancelled()) break;
                         const auto operation = generator.Next();
                         const auto operation_start = Clock::now();
                         const auto lag = std::chrono::duration_cast<
@@ -271,7 +293,11 @@ RunSummary RunBenchmark(const RunConfig& config) {
             summary.operations[i].Merge(worker.operations[i]);
         }
     }
-    summary.measured_ms = config.duration_ms;
+    const auto actual = std::chrono::duration_cast<std::chrono::milliseconds>(
+        Clock::now() - run_start - std::chrono::milliseconds(config.warmup_ms)).count();
+    summary.measured_ms = static_cast<std::uint64_t>(std::max<std::int64_t>(0, actual));
+    if (!cancelled()) summary.measured_ms = std::max<std::uint64_t>(config.duration_ms, summary.measured_ms);
+    if (cancelled()) { summary.valid = false; summary.invalid_reasons.emplace_back("run cancelled"); }
     for (const auto& operation : summary.operations) {
         if (operation.count != operation.latency.Count() ||
             operation.count != operation.send_lag.Count() ||
@@ -299,7 +325,7 @@ RunSummary RunBenchmark(const RunConfig& config) {
         summary.valid = false;
         summary.invalid_reasons.emplace_back("one or more measured operations failed");
     }
-    summary.cleanup_status = loader->Cleanup();
+    summary.cleanup_status = clean();
     if (summary.cleanup_status.rfind("cleanup failed:", 0) == 0) {
         summary.valid = false;
         summary.invalid_reasons.emplace_back("database cleanup failed after measurement");

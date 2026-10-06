@@ -25,6 +25,13 @@ std::string Number(std::uint64_t value) {
     return std::to_string(value);
 }
 
+// Redis resolves equal scores lexically. Fixed-width IDs preserve the numeric
+// descending ID tie-break used by the other native adapters.
+std::string Member(std::uint64_t value) {
+    const auto number = Number(value);
+    return std::string(20U - number.size(), '0') + number;
+}
+
 std::string InfoField(const std::string& info, const std::string& name) {
     const auto prefix = name + ":";
     std::size_t start = 0;
@@ -76,7 +83,11 @@ public:
     }
 
     void LoadDataset(const RunConfig& config) override {
-        ClearNamespace();
+        CheckCancellation();
+        if (RequireInteger(client_.Command({"SETNX", prefix_ + "__owner__", prefix_}), "namespace ownership") != 1)
+            throw std::runtime_error("run namespace already exists");
+        owns_ = true;
+        NamespaceAcquired();
         const auto cleanup_probe = prefix_ + "__cleanup_probe__";
         (void)RequireText(client_.Command({"SET", cleanup_probe, "probe"}),
                           "namespace cleanup permission check");
@@ -91,6 +102,7 @@ public:
         std::uint64_t first_follow_source = 0;
         std::uint64_t first_follow_target = 0;
         auto push = [&](RespCommand command) {
+            CheckCancellation();
             pending.push_back(std::move(command));
             if (pending.size() >= kPipelineSize) Flush(pending);
         };
@@ -154,9 +166,9 @@ public:
             posts_by_author[author].push_back({post, timestamp});
             push({"SET", Key("post", post),
                   Number(author) + "|" + Number(timestamp) + "|" + Number(tag)});
-            push({"ZADD", Key("tag", tag), Number(timestamp), Number(post)});
+            push({"ZADD", Key("tag", tag), Number(timestamp), Member(post)});
             push({"ZADD", Key("author_posts", author), Number(timestamp),
-                  Number(post)});
+                  Member(post)});
         }
 
         for (std::uint64_t reader = 0; reader < config.users; ++reader) {
@@ -184,7 +196,7 @@ public:
             for (std::size_t i = 0; i < count; ++i) {
                 const auto& post = candidates[i];
                 push({"ZADD", Key("feed", reader), Number(post.timestamp),
-                      Number(post.id)});
+                      Member(post.id)});
             }
         }
         Flush(pending);
@@ -198,7 +210,7 @@ public:
             throw std::runtime_error("database post loader check failed");
         }
         const auto indexed_post = client_.Command(
-            {"ZSCORE", Key("tag", post_zero_tag), "0"});
+            {"ZSCORE", Key("tag", post_zero_tag), Member(0)});
         if (indexed_post.kind == RespValue::Kind::Null) {
             throw std::runtime_error("database hashtag index loader check failed");
         }
@@ -238,6 +250,7 @@ public:
         LatencyHistogram latency;
         std::uint64_t total_ns = 0;
         for (std::uint64_t sample = 0; sample < sample_count; ++sample) {
+            CheckCancellation();
             const auto start = std::chrono::steady_clock::now();
             const auto response = client_.Command({"PING"});
             const auto end = std::chrono::steady_clock::now();
@@ -283,7 +296,7 @@ public:
             return;
         }
         case OperationType::PostCreate: {
-            const auto post_id = Number(operation.post_id);
+            const auto post_id = Member(operation.post_id);
             client_.Pipeline({
                 {"SET", Key("post", operation.post_id),
                  Number(operation.user_id) + "|" +
@@ -350,9 +363,16 @@ public:
         throw std::invalid_argument("unsupported workload operation");
     }
 
+    std::string RecoverNamespace() noexcept override { owns_ = true; return Cleanup(); }
     std::string Cleanup() noexcept override {
+        if (!owns_) return "no run namespace owned";
         try {
-            ClearNamespace();
+            RespClient cleanup(host_, port_);
+            const auto owner = cleanup.Command({"GET", prefix_ + "__owner__"});
+            if (owner.kind == RespValue::Kind::Null) { owns_ = false; return "run namespace already absent"; }
+            if (RequireText(owner, "namespace owner") != prefix_) throw std::runtime_error("namespace owner mismatch");
+            ClearNamespace(cleanup);
+            owns_ = false;
             return "run namespace removed";
         } catch (const std::exception& error) {
             return std::string("cleanup failed: ") + error.what();
@@ -362,6 +382,7 @@ public:
     }
 
 private:
+    bool owns_{false};
     std::string name_;
     std::string host_;
     std::uint16_t port_;
@@ -380,11 +401,11 @@ private:
         commands.clear();
     }
 
-    void ClearNamespace() {
+    void ClearNamespace(RespClient& cleanup) {
         std::vector<std::string> keys;
         std::string cursor = "0";
         do {
-            const auto page = client_.Command(
+            const auto page = cleanup.Command(
                 {"SCAN", cursor, "MATCH", prefix_ + "*", "COUNT", "256"});
             RequireArray(page, "run cleanup scan");
             if (page.elements.size() != 2U ||
@@ -393,7 +414,8 @@ private:
             }
             cursor = RequireText(page.elements[0], "SCAN cursor");
             for (const auto& key : page.elements[1].elements) {
-                keys.push_back(RequireText(key, "SCAN key"));
+                const auto name = RequireText(key, "SCAN key");
+                if (name != prefix_ + "__owner__") keys.push_back(name);
             }
         } while (cursor != "0");
 
@@ -405,17 +427,23 @@ private:
             command.insert(command.end(), keys.begin() + offset,
                            keys.begin() + end);
             commands.push_back(std::move(command));
-            if (commands.size() == 64U) Flush(commands);
+            if (commands.size() == 64U) { cleanup.Pipeline(commands); commands.clear(); }
         }
-        Flush(commands);
+        if (!commands.empty()) cleanup.Pipeline(commands);
+        // Retain ownership throughout partial cleanup so a later recovery can retry.
+        cleanup.Command({"DEL", prefix_ + "__owner__"});
     }
 
     void ReadIndexedPosts(const RespValue& ids, const std::string& context) {
         std::vector<RespCommand> commands;
         commands.reserve(ids.elements.size());
         for (const auto& id : ids.elements) {
-            commands.push_back({"GET", prefix_ + "post:" +
-                                        RequireText(id, context + " post id")});
+            const auto text = RequireText(id, context + " post id");
+            std::uint64_t number{};
+            const auto parsed = std::from_chars(text.data(), text.data()+text.size(), number);
+            if (parsed.ec != std::errc{} || parsed.ptr != text.data()+text.size())
+                throw std::runtime_error("invalid post index ID");
+            commands.push_back({"GET", Key("post",number)});
         }
         const auto posts = client_.Pipeline(commands);
         for (const auto& post : posts) {
@@ -440,13 +468,9 @@ private:
                 RequireText(persistence, "Redis INFO persistence");
             const auto append_only = InfoField(persistence_info, "aof_enabled");
             const auto loading = InfoField(persistence_info, "loading");
-            const auto save_time = InfoField(persistence_info, "rdb_last_save_time");
             storage_configuration_ = "Redis-managed persistence";
             if (!append_only.empty()) storage_configuration_ += "; aof_enabled=" + append_only;
             if (!loading.empty()) storage_configuration_ += "; loading=" + loading;
-            if (!save_time.empty()) {
-                storage_configuration_ += "; rdb_last_save_time=" + save_time;
-            }
         } catch (...) {
             // Restricted Redis ACLs may deny INFO. Keep the limitation explicit.
         }

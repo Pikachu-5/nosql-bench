@@ -42,9 +42,10 @@ public:
             "durability=server-managed transaction log; GC=not measured; " + settings_ + "; EXPLAIN operators=" + plans_;
     }
     void LoadDataset(const RunConfig& config) override {
+        CheckCancellation();
         client_.Query("CREATE CONSTRAINT bf_run_unique IF NOT EXISTS FOR (n:BFRun) REQUIRE n.run IS UNIQUE");
         // CREATE + unique constraint rejects collisions. Ownership begins only after success.
-        Query("CREATE (:BenchForge:BFRun {run:$run})"); owns_ = true;
+        Query("CREATE (:BenchForge:BFRun {run:$run})"); owns_ = true; NamespaceAcquired();
         for (const auto& label : {"BFUser", "BFPost", "BFTag"})
             client_.Query("CREATE CONSTRAINT bf_" + std::string(label) +
                 "_unique IF NOT EXISTS FOR (n:" + label + ") REQUIRE (n.run,n.id) IS UNIQUE");
@@ -131,6 +132,7 @@ public:
         case OperationType::Count: throw std::invalid_argument("invalid operation type");
         }
     }
+    std::string RecoverNamespace() noexcept override { owns_ = true; return Cleanup(); }
     std::string Cleanup() noexcept override {
         if (!owns_) return "no run graph owned";
         try {
@@ -146,6 +148,7 @@ public:
     }
 private:
     Json Query(const std::string& statement, Json parameters = Json::object()) {
+        CheckCancellation();
         parameters["run"] = run_;
         for (unsigned attempt=0;;++attempt) {
             try { return client_.Query(statement, parameters); }

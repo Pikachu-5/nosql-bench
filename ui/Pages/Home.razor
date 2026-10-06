@@ -361,7 +361,7 @@
                         {
                             <div class="notice notice-error" role="alert">@SelectedRun.Error</div>
                         }
-                        else if (SelectedRun.Status == "succeeded" && Summary is not null)
+                        else if (SelectedRun.Status is "succeeded" or "cancelled" or "failed" && Summary is not null)
                         {
                             <div class="summary-validity @(Summary.Valid ? "is-valid" : "is-invalid")" role="status">
                                 <strong>@(Summary.Valid ? "Capture checks passed" : "Run needs review")</strong>
@@ -444,13 +444,13 @@
                                 </section>
                             </div>
                         }
-                        else if (SelectedRun.Status == "succeeded" && SummaryLoading)
+                        else if (SelectedRun.Status is "succeeded" or "cancelled" or "failed" && SummaryLoading)
                         {
                             <p class="field-help" role="status">Loading result summary…</p>
                         }
                         else if (SelectedRun.Status == "cancelled")
                         {
-                            <p class="field-help">Worker was cancelled. No complete summary was written.</p>
+                            <p class="field-help">Run cancelled. If no summary is available, inspect the run’s recovery journal to confirm cleanup.</p>
                         }
                     </section>
                 }
@@ -596,7 +596,7 @@
         try
         {
             SelectedRun = await Api.CancelRunAsync(SelectedRun.RunId, lifetime.Token);
-            SetMessage("Cancellation requested. The worker will stop and mark the run cancelled.", false);
+            SetMessage("Cancellation requested. The worker will finish its current operation, clean its namespace and save an invalid capture.", false);
             await RefreshAsync(lifetime.Token);
         }
         catch (Exception error) when (error is HttpRequestException or InvalidOperationException or OperationCanceledException)
@@ -619,7 +619,7 @@
 
     private async Task LoadSummaryIfReadyAsync(CancellationToken cancellationToken)
     {
-        if (SelectedRun?.Status != "succeeded" || summaryRunId == SelectedRun.RunId)
+        if (SelectedRun is null || SelectedRun.Status is not ("succeeded" or "cancelled" or "failed") || summaryRunId == SelectedRun.RunId)
             return;
         SummaryLoading = true;
         try

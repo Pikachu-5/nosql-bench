@@ -41,6 +41,10 @@ Json Read(const std::filesystem::path& path) {
         result.at("scenario").get_ref<const std::string&>().size()>32 ||
         result.at("started_at_utc").get_ref<const std::string&>().size()>64)
         throw std::runtime_error("saved result catalog metadata exceeds limits");
+    for (const auto& key : {"experiment_id", "experiment_profile", "resource_profile", "measurement_method"}) {
+        if (result.contains(key) && (!result.at(key).is_string() || result.at(key).get_ref<const std::string&>().size() > 128))
+            throw std::runtime_error("experiment catalog metadata exceeds limits");
+    }
     return result;
 }
 }
@@ -75,7 +79,9 @@ Json ListArchivedResults(const std::filesystem::path& root) {
             results.push_back({{"key",bucket+"~"+path.filename().string()},
                 {"runId",summary.at("run_id")},{"adapter",summary.at("adapter")},
                 {"scenario",summary.at("scenario")},{"startedAtUtc",summary.at("started_at_utc")},
-                {"valid",summary.at("valid")},{"source",bucket.empty() ? "runs" : bucket}});
+                {"valid",summary.at("valid")},{"source",bucket.empty() ? "runs" : bucket},
+                {"experimentId",summary.value("experiment_id",std::string{})},
+                {"experimentProfile",summary.value("experiment_profile",std::string{})}});
         } catch (const std::exception&) { ++skipped; }
     };
     for (const auto& entry:std::filesystem::directory_iterator(root)) {

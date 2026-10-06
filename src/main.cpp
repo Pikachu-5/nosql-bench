@@ -4,6 +4,7 @@
 #include "benchforge/results.hpp"
 #include "benchforge/runner.hpp"
 #include "feedkv_server.hpp"
+#include "run_lifecycle.hpp"
 
 #include <algorithm>
 #include <charconv>
@@ -14,8 +15,14 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <atomic>
+#include <thread>
+#include <chrono>
+#include <csignal>
 
 namespace {
+volatile std::sig_atomic_t interrupted = 0;
+void SignalCancellation(int) { interrupted = 1; }
 
 struct Arguments {
     std::filesystem::path config_path;
@@ -91,6 +98,11 @@ int main(int argc, char** argv) {
             return 2;
         }
         const std::string command = argv[1];
+        if (command == "recover") {
+            if (argc != 4 || std::string(argv[2]) != "--manifest")
+                throw std::invalid_argument("usage: benchforge recover --manifest PATH/recovery.json");
+            return benchforge::detail::RecoverRun(argv[3]);
+        }
         if (command == "--help" || command == "help") {
             PrintUsage(std::cout);
             return 0;
@@ -103,8 +115,10 @@ int main(int argc, char** argv) {
         }
         if (command == "feedkv") {
             std::uint16_t port = 6380;
+            bool container_listen = false;
             for (int i = 2; i < argc; ++i) {
                 const std::string option = argv[i];
+                if (option == "--container-listen") { container_listen = true; continue; }
                 if (option != "--port" || i + 1 >= argc) {
                     throw std::invalid_argument("usage: benchforge feedkv [--port PORT]");
                 }
@@ -119,7 +133,7 @@ int main(int argc, char** argv) {
                 }
                 port = static_cast<std::uint16_t>(value);
             }
-            return benchforge::RunFeedKvServerImpl(port);
+            return benchforge::RunFeedKvServerImpl(port, container_listen);
         }
         if (command == "serve") {
             std::uint16_t port = 8080;
@@ -154,8 +168,36 @@ int main(int argc, char** argv) {
         }
         if (command == "run" || command == "worker") {
             const auto arguments = ParseArguments(argc, argv, 2);
-            const auto config = LoadAndValidate(arguments);
-            const auto summary = benchforge::RunBenchmark(config);
+            auto config = LoadAndValidate(arguments);
+            if (config.run_id.empty()) config.run_id = "run_" + std::to_string(
+                std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+            const auto directory = std::filesystem::absolute(std::filesystem::path(config.output_dir) / config.run_id);
+            std::filesystem::create_directories(directory);
+            const auto manifest = directory / "recovery.json";
+            if (std::filesystem::exists(manifest) || std::filesystem::exists(directory / "summary.json"))
+                throw std::runtime_error("run ID already has artifacts; choose a new ID");
+            nlohmann::json journal{{"schema",1},{"pid",benchforge::detail::ProcessId()},
+                {"run_id",config.run_id},{"adapter",config.adapter},{"database_host",config.database_host},
+                {"database_port",config.database_port},{"namespace_owned",false},{"state","starting"}};
+            benchforge::detail::WriteJournal(manifest,journal);
+            std::signal(SIGINT,SignalCancellation); std::signal(SIGTERM,SignalCancellation);
+            std::atomic<bool> cancelled{false};
+            std::jthread watcher([&](std::stop_token stop) {
+                while (!stop.stop_requested()) {
+                    std::error_code error;
+                    if (interrupted || std::filesystem::exists(directory / "cancel.request",error)) cancelled.store(true);
+                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                }
+            });
+            auto summary = benchforge::RunBenchmark(config, [&] { return cancelled.load(); }, [&] {
+                journal["namespace_owned"] = true; journal["state"] = "active";
+                benchforge::detail::WriteJournal(manifest,journal);
+            });
+            if (cancelled.load() && summary.valid) { summary.valid = false; summary.invalid_reasons.emplace_back("run cancelled"); }
+            journal["cleanup_status"] = summary.cleanup_status;
+            if (summary.cleanup_status.rfind("cleanup failed:",0) != 0) journal["namespace_owned"] = false;
+            journal["state"] = cancelled.load() ? "cancelled" : (summary.valid ? "completed" : "failed");
+            benchforge::detail::WriteJournal(manifest,journal);
             const auto output_directory =
                 benchforge::WriteResults(config, summary);
             std::cout << "run_id=" << summary.run_id << '\n'
@@ -171,7 +213,7 @@ int main(int argc, char** argv) {
                       << "cleanup=" << summary.cleanup_status << '\n'
                       << "measured_ms=" << summary.measured_ms << '\n'
                       << "results=" << output_directory.string() << '\n';
-            return summary.TotalErrors() == 0 ? 0 : 1;
+            return cancelled.load() ? 130 : (summary.valid ? 0 : 1);
         }
 
         PrintUsage(std::cerr);

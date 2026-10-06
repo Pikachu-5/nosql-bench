@@ -112,7 +112,19 @@ public:
     }
 
     void LoadDataset(const RunConfig& config) override {
-        RunCommand(database_, DropDatabaseCommand());
+        CheckCancellation();
+        BsonBuilder list;
+        list.Int32("listCollections",1).Boolean("nameOnly",true);
+        const auto existing = RunCommand(database_,list.Finish());
+        const auto* cursor = existing.Find("cursor");
+        const auto* batch = cursor ? cursor->Find("firstBatch") : nullptr;
+        if (!batch || !batch->Array("namespace collections").empty())
+            throw std::runtime_error("run database already exists or collection metadata is unavailable");
+        BsonBuilder marker;
+        marker.String("create", "__benchforge_owner");
+        RunCommand(database_, marker.Finish());
+        owns_ = true;
+        NamespaceAcquired();
         InsertUsers(config.users);
         InsertFollows(config);
         InsertPosts(config);
@@ -241,9 +253,13 @@ public:
         throw std::invalid_argument("unsupported workload operation");
     }
 
+    std::string RecoverNamespace() noexcept override { owns_ = true; return Cleanup(); }
     std::string Cleanup() noexcept override {
+        if (!owns_) return "no run database owned";
         try {
-            RunCommand(database_, DropDatabaseCommand());
+            MongoClient cleanup(host_, port_);
+            cleanup.Command(database_, DropDatabaseCommand());
+            owns_ = false;
             return "run database removed";
         } catch (const std::exception& error) {
             return std::string("cleanup failed: ") + error.what();
@@ -253,6 +269,7 @@ public:
     }
 
 private:
+    bool owns_{false};
     std::string host_;
     std::uint16_t port_;
     std::string database_;
@@ -262,6 +279,7 @@ private:
     std::string hashtag_plan_{"not captured"};
 
     MongoValue RunCommand(const std::string& database, const BsonDocument& command) {
+        CheckCancellation();
         return client_.Command(database, command);
     }
 
