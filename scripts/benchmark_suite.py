@@ -80,8 +80,8 @@ def run_suite(args):
                 check.bind(("127.0.0.1",port))
             name=f"bf-{args.experiment}-{adapter}"
             options=["run","-d","--name",name,"--label",f"benchforge.experiment={args.experiment}","--cpus","2","--memory","2g","--memory-swap","2g","-p",f"127.0.0.1:{port}:{6380 if adapter=='feedkv' else 6379 if adapter=='redis' else 27017 if adapter=='mongo' else port}"]
-                if adapter=="cassandra": options += ["-e","MAX_HEAP_SIZE=768M","-e","HEAP_NEWSIZE=128M"]
-                if adapter=="neo4j": options += ["-e","NEO4J_AUTH=none","-e","NEO4J_server_memory_heap_initial__size=512m","-e","NEO4J_server_memory_heap_max__size=512m","-e","NEO4J_server_memory_pagecache_size=256m"]
+            if adapter=="cassandra": options += ["-e","MAX_HEAP_SIZE=768M","-e","HEAP_NEWSIZE=128M"]
+            if adapter=="neo4j": options += ["-e","NEO4J_AUTH=none","-e","NEO4J_server_memory_heap_initial__size=512m","-e","NEO4J_server_memory_heap_max__size=512m","-e","NEO4J_server_memory_pagecache_size=256m"]
             options += [IMAGES[adapter]]
             if adapter=="redis": options += ["redis-server","--save","","--appendonly","no","--maxmemory","1536mb","--maxmemory-policy","noeviction"]
             container=docker(*options)
