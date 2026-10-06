@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configure a run · BenchForge</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<div class="app-frame">
+    <header class="topbar">
+        <a class="brand" href="#" aria-label="BenchForge home">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 17h5l3.1-8 5.2 15 3.3-10 2.2 3H29" /><path d="M3 28h26" /></svg>
+            <span>BenchForge</span>
+        </a>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="product-context">Database benchmark workstation</span>
+        <div class="service-state is-disconnected" role="status"><span class="state-dot" aria-hidden="true"></span><span>Control API offline</span></div>
+    </header>
+    <main class="workspace">
+        <section class="workspace-heading" aria-labelledby="page-title">
+            <div><h1 id="page-title">Configure a benchmark</h1><p>Shape a synthetic workload, then run it against a local adapter.</p></div>
+            <div class="synthetic-label"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5" /><path d="M10 8v5M10 5.4v.1" /></svg><span>Synthetic workload · local execution</span></div>
+        </section>
+        <div class="notice notice-error" role="alert">Could not reach the local control API. Start benchforge serve and retry.</div>
+        <div class="work-grid">
+            <section class="configuration" aria-labelledby="config-heading">
+                <div class="section-heading"><div><h2 id="config-heading">Workload configuration</h2><p>Adjust the channel mix and define the run envelope.</p></div></div>
+                <form>
+                    <fieldset disabled>
+                        <section class="mix-section" aria-labelledby="mix-heading">
+                            <div class="mix-heading">
+                                <div class="section-copy"><h3 id="mix-heading">Operation mix</h3><p>Relative frequency of each generated operation.</p></div>
+                                <div class="mix-total"><span>Distribution total</span><strong class="tabular total-valid">100<span>%</span></strong></div>
+                            </div>
+                            <div class="mix-board" role="group" aria-label="Synthetic operation allocation channels">
+                                <div class="mix-board-head" aria-hidden="true"><span>CHANNEL</span><span>ALLOCATION</span><span>WEIGHT</span></div>
+                                <div class="mix-channels">
+                                    <div class="mix-channel trace-blue"><span class="channel-name"><span class="channel-id">CH 01</span><label for="timeline-weight">Timeline read</label></span><span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight:0.4"></span></span><span class="channel-value"><input id="timeline-weight" class="number-control weight-control" value="40"><span>%</span></span></div>
+                                    <div class="mix-channel trace-cyan"><span class="channel-name"><span class="channel-id">CH 02</span><label for="profile-weight">Profile read</label></span><span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight:0.25"></span></span><span class="channel-value"><input id="profile-weight" class="number-control weight-control" value="25"><span>%</span></span></div>
+                                    <div class="mix-channel trace-teal"><span class="channel-name"><span class="channel-id">CH 03</span><label for="like-weight">Post like</label></span><span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight:0.15"></span></span><span class="channel-value"><input id="like-weight" class="number-control weight-control" value="15"><span>%</span></span></div>
+                                    <div class="mix-channel trace-amber"><span class="channel-name"><span class="channel-id">CH 04</span><label for="create-weight">Post create</label></span><span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight:0.1"></span></span><span class="channel-value"><input id="create-weight" class="number-control weight-control" value="10"><span>%</span></span></div>
+                                    <div class="mix-channel trace-violet"><span class="channel-name"><span class="channel-id">CH 05</span><label for="hashtag-weight">Hashtag search</label></span><span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight:0.05"></span></span><span class="channel-value"><input id="hashtag-weight" class="number-control weight-control" value="5"><span>%</span></span></div>
+                                    <div class="mix-channel trace-green"><span class="channel-name"><span class="channel-id">CH 06</span><label for="follow-weight">Follow</label></span><span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight:0.05"></span></span><span class="channel-value"><input id="follow-weight" class="number-control weight-control" value="5"><span>%</span></span></div>
+                                </div>
+                                <div class="allocation-scale" aria-hidden="true"><span></span><div class="scale-labels"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div><span></span></div>
+                            </div>
+                            <p class="field-help">Weights must total 100%.</p>
+                        </section>
+                        <div class="form-section">
+                            <section class="form-block"><div class="section-copy"><h3>Adapter</h3><p>The database system under test.</p></div><div class="section-fields"><label for="adapter">Available adapter</label><select id="adapter" class="select-control"><option>noop — harness calibration</option></select><div class="notice notice-info adapter-note"><strong>Noop is a harness baseline.</strong> It does not connect to a database; its results measure workload generation and harness overhead only.</div></div></section>
+                            <section class="form-block"><div class="section-copy"><h3>Scenario</h3><p>Choose the synthetic access pattern.</p></div><div class="section-fields"><div class="scenario-options"><label class="choice-row"><input type="radio" name="scenario" checked><span><strong>Normal</strong><small>Evenly distributed activity.</small></span></label><label class="choice-row"><input type="radio" name="scenario"><span><strong>Celebrity</strong><small>Skewed posts from a high-activity account.</small></span></label></div><p class="field-help">Both scenarios generate synthetic operation identifiers. No user-facing posts or profiles are created.</p></div></section>
+                        </div>
+                        <section class="form-section single-section"><div class="section-copy"><h3>Run settings</h3><p>Set worker concurrency and timing.</p></div><div class="section-fields settings-grid"><div class="field-group"><label>Workers</label><input class="number-control" value="4"></div><div class="field-group"><label>Warm-up (ms)</label><input class="number-control" value="250"></div><div class="field-group"><label>Duration (ms)</label><input class="number-control" value="1000"></div><div class="field-group"><label>Seed</label><input class="number-control" value="42"></div></div></section>
+                        <section class="form-section single-section"><div class="section-copy"><h3>Synthetic ID space</h3><p>Bounds for generated references.</p></div><div class="section-fields settings-grid"><div class="field-group"><label>Users</label><input class="number-control" value="10000"></div><div class="field-group"><label>Posts</label><input class="number-control" value="100000"></div><div class="field-group"><label>Follows</label><input class="number-control" value="200000"></div><div class="field-group"><label>Hashtags</label><input class="number-control" value="1000"></div><p class="field-help full-span">The current noop baseline does not load records into a database. These bounds shape generated operation references.</p></div></section>
+                        <div class="form-actions"><button type="button" class="primary-button" disabled><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.8 13 8l-9 5.2z" /></svg><span>Start run</span></button><span class="action-context">Start the local API to enable runs.</span></div>
+                    </fieldset>
+                </form>
+            </section>
+            <aside class="run-column" aria-label="Run ledger and details">
+                <section class="run-ledger">
+                    <div class="section-heading compact-heading"><div><h2>Run ledger</h2><p>Runs recorded by the local control API.</p></div><span class="run-count">00</span></div>
+                    <div class="empty-state"><h3>No runs yet</h3><p>Configure a benchmark and start a synthetic run to see it here.</p></div>
+                </section>
+                <section class="connection-note"><h2>Connect the control API</h2><p>Run <code>benchforge serve</code> locally, then refresh this page.</p></section>
+            </aside>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,738 @@
+@page "/"
+@using System.Globalization
+@using System.Text.Json
+@implements IDisposable
+@inject BenchForgeApi Api
+
+<PageTitle>Configure a run · BenchForge</PageTitle>
+
+<div class="app-frame">
+    <header class="topbar">
+        <a class="brand" href="/" aria-label="BenchForge home">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M3 17h5l3.1-8 5.2 15 3.3-10 2.2 3H29" />
+                <path d="M3 28h26" />
+            </svg>
+            <span>BenchForge</span>
+        </a>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="product-context">Database benchmark workstation</span>
+        <div class="service-state @(ApiOnline ? "is-connected" : "is-disconnected")" role="status">
+            <span class="state-dot" aria-hidden="true"></span>
+            <span>@(ApiOnline ? "Control API online" : "Control API offline")</span>
+        </div>
+    </header>
+
+    <main class="workspace">
+        <section class="workspace-heading" aria-labelledby="page-title">
+            <div>
+                <h1 id="page-title">Configure a benchmark</h1>
+                <p>Shape a synthetic workload, then run it against a local adapter.</p>
+            </div>
+            <div class="synthetic-label">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5" /><path d="M10 8v5M10 5.4v.1" /></svg>
+                <span>Synthetic workload · local execution</span>
+            </div>
+        </section>
+
+        @if (!string.IsNullOrWhiteSpace(PageMessage))
+        {
+            <div class="notice @(PageError ? "notice-error" : "notice-info")" role="@(PageError ? "alert" : "status")">
+                @PageMessage
+            </div>
+        }
+
+        <div class="work-grid">
+            <section class="configuration" aria-labelledby="config-heading">
+                <div class="section-heading">
+                    <div>
+                        <h2 id="config-heading">Workload configuration</h2>
+                        <p>Adjust the channel mix and define the run envelope.</p>
+                    </div>
+                </div>
+
+                <EditForm Model="Form" OnValidSubmit="StartRunAsync" OnInvalidSubmit="HandleInvalidSubmit" novalidate>
+                    <fieldset disabled="@(IsSubmitting || !ApiOnline || HasActiveRun)">
+                        <ValidationSummary class="validation-summary" />
+                        <section class="mix-section" aria-labelledby="mix-heading">
+                            <div class="mix-heading">
+                                <div class="section-copy">
+                                    <h3 id="mix-heading">Operation mix</h3>
+                                    <p>Relative frequency of each generated operation.</p>
+                                </div>
+                                <div class="mix-total" aria-live="polite">
+                                    <span>Distribution total</span>
+                                    <strong class="tabular @(Form.OperationWeightTotal == 100 ? "total-valid" : "total-invalid")">@Form.OperationWeightTotal<span>%</span></strong>
+                                </div>
+                            </div>
+
+                            <div class="mix-board" role="group" aria-label="Synthetic operation allocation channels">
+                                <div class="mix-board-head" aria-hidden="true">
+                                    <span>CHANNEL</span>
+                                    <span>ALLOCATION</span>
+                                    <span>WEIGHT</span>
+                                </div>
+                                <div class="mix-channels">
+                                    <div class="mix-channel trace-blue">
+                                        <span class="channel-name"><span class="channel-id">CH 01</span><label for="timeline-weight">Timeline read</label></span>
+                                        <span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight: @((Form.TimelineReadWeight / 100d).ToString(CultureInfo.InvariantCulture))"></span></span>
+                                        <span class="channel-value"><InputNumber id="timeline-weight" class="number-control weight-control" @bind-Value="Form.TimelineReadWeight" min="0" max="100" /><span>%</span></span>
+                                    </div>
+                                    <div class="mix-channel trace-cyan">
+                                        <span class="channel-name"><span class="channel-id">CH 02</span><label for="profile-weight">Profile read</label></span>
+                                        <span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight: @((Form.UserProfileReadWeight / 100d).ToString(CultureInfo.InvariantCulture))"></span></span>
+                                        <span class="channel-value"><InputNumber id="profile-weight" class="number-control weight-control" @bind-Value="Form.UserProfileReadWeight" min="0" max="100" /><span>%</span></span>
+                                    </div>
+                                    <div class="mix-channel trace-teal">
+                                        <span class="channel-name"><span class="channel-id">CH 03</span><label for="like-weight">Post like</label></span>
+                                        <span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight: @((Form.PostLikeWeight / 100d).ToString(CultureInfo.InvariantCulture))"></span></span>
+                                        <span class="channel-value"><InputNumber id="like-weight" class="number-control weight-control" @bind-Value="Form.PostLikeWeight" min="0" max="100" /><span>%</span></span>
+                                    </div>
+                                    <div class="mix-channel trace-amber">
+                                        <span class="channel-name"><span class="channel-id">CH 04</span><label for="create-weight">Post create</label></span>
+                                        <span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight: @((Form.PostCreateWeight / 100d).ToString(CultureInfo.InvariantCulture))"></span></span>
+                                        <span class="channel-value"><InputNumber id="create-weight" class="number-control weight-control" @bind-Value="Form.PostCreateWeight" min="0" max="100" /><span>%</span></span>
+                                    </div>
+                                    <div class="mix-channel trace-violet">
+                                        <span class="channel-name"><span class="channel-id">CH 05</span><label for="hashtag-weight">Hashtag search</label></span>
+                                        <span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight: @((Form.HashtagSearchWeight / 100d).ToString(CultureInfo.InvariantCulture))"></span></span>
+                                        <span class="channel-value"><InputNumber id="hashtag-weight" class="number-control weight-control" @bind-Value="Form.HashtagSearchWeight" min="0" max="100" /><span>%</span></span>
+                                    </div>
+                                    <div class="mix-channel trace-green">
+                                        <span class="channel-name"><span class="channel-id">CH 06</span><label for="follow-weight">Follow</label></span>
+                                        <span class="channel-track" aria-hidden="true"><span class="channel-fill" style="--weight: @((Form.UserFollowWeight / 100d).ToString(CultureInfo.InvariantCulture))"></span></span>
+                                        <span class="channel-value"><InputNumber id="follow-weight" class="number-control weight-control" @bind-Value="Form.UserFollowWeight" min="0" max="100" /><span>%</span></span>
+                                    </div>
+                                </div>
+                                <div class="allocation-scale" aria-hidden="true">
+                                    <span></span>
+                                    <div class="scale-labels"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <p class="field-help @(Form.OperationWeightTotal == 100 ? "" : "weight-error")">
+                                @if (Form.OperationWeightTotal == 100)
+                                {
+                                    <span>Weights must total 100%.</span>
+                                }
+                                else
+                                {
+                                    <span>Current total is @Form.OperationWeightTotal%. Adjust weights to total 100%.</span>
+                                }
+                            </p>
+                        </section>
+
+                        <div class="form-section">
+                            <section class="form-block" aria-labelledby="adapter-heading">
+                                <div class="section-copy">
+                                    <h3 id="adapter-heading">Adapter</h3>
+                                    <p>The database system under test.</p>
+                                </div>
+                                <div class="section-fields">
+                                    <label for="adapter">Available adapter</label>
+                                    <InputSelect id="adapter" class="select-control" @bind-Value="Form.Adapter">
+                                        @if (Adapters.Count == 0)
+                                        {
+                                            <option value="noop">noop — harness calibration</option>
+                                        }
+                                        else
+                                        {
+                                            @foreach (var adapter in Adapters)
+                                            {
+                                                <option value="@adapter.Name">@AdapterLabel(adapter.Name)</option>
+                                            }
+                                        }
+                                    </InputSelect>
+                                    @if (Form.Adapter == "noop")
+                                    {
+                                        <div class="notice notice-info adapter-note">
+                                            <strong>Noop is a harness baseline.</strong> It does not connect to a database; its results measure workload generation and harness overhead only.
+                                        </div>
+                                    }
+                                    else if (Form.Adapter == "feedkv")
+                                    {
+                                        <div class="notice notice-info adapter-note">
+                                            <strong>FeedKV runs locally on port 6380.</strong> Start it with <code>.\build\benchforge.exe feedkv</code> before launching a run. Data is volatile and removed after the run.
+                                        </div>
+                                    }
+                                    else if (Form.Adapter == "redis")
+                                    {
+                                        <div class="notice notice-info adapter-note">
+                                            <strong>Redis must be running locally on port 6379.</strong> BenchForge uses a unique key prefix and removes only keys created for that run.
+                                        </div>
+                                    }
+                                    else if (Form.Adapter == "mongo")
+                                    {
+                                        <div class="notice notice-info adapter-note">
+                                            <strong>MongoDB 5.0+ must be running locally on port 27017.</strong> BenchForge uses an unauthenticated local connection and a run-specific database that it removes after the run.
+                                        </div>
+                                    }
+                                    else if (Form.Adapter == "cassandra")
+                                    {
+                                        <div class="notice notice-info adapter-note">
+                                            <strong>Cassandra 4.1+ must be running locally on port 9042.</strong> Use a single node with authentication disabled. BenchForge creates and removes a run-specific keyspace, using replication factor 1 and consistency ONE.
+                                        </div>
+                                    }
+                                </div>
+                            </section>
+
+                            <section class="form-block" aria-labelledby="scenario-heading">
+                                <div class="section-copy">
+                                    <h3 id="scenario-heading">Scenario</h3>
+                                    <p>Choose the synthetic access pattern.</p>
+                                </div>
+                                <div class="section-fields">
+                                    <InputRadioGroup TValue="string" Name="scenario" @bind-Value="Form.Scenario">
+                                    <div class="scenario-options">
+                                        <label class="choice-row">
+                                            <InputRadio TValue="string" Value="@("normal")" />
+                                            <span><strong>Normal</strong><small>Evenly distributed activity.</small></span>
+                                        </label>
+                                        <label class="choice-row">
+                                            <InputRadio TValue="string" Value="@("celebrity")" />
+                                            <span><strong>Celebrity</strong><small>Skewed posts from a high-activity account.</small></span>
+                                        </label>
+                                    </div>
+                                    </InputRadioGroup>
+                                    <p class="field-help">Both scenarios generate synthetic operation identifiers. No user-facing posts or profiles are created.</p>
+                                </div>
+                                </section>
+                            </div>
+
+                        <section class="form-section single-section" aria-labelledby="settings-heading">
+                            <div class="section-copy">
+                                <h3 id="settings-heading">Run settings</h3>
+                                <p>Choose the load model, worker count, and measurement window.</p>
+                            </div>
+                            <div class="section-fields settings-grid">
+                                <div class="field-group">
+                                    <label for="mode">Load model</label>
+                                    <InputSelect id="mode" class="select-control" @bind-Value="Form.Mode" aria-describedby="mode-help">
+                                        <option value="closed_loop">Closed loop</option>
+                                        <option value="open_loop">Open loop</option>
+                                    </InputSelect>
+                                </div>
+                                <div class="field-group">
+                                    <label for="workers">Workers</label>
+                                    <InputNumber id="workers" class="number-control" @bind-Value="Form.Workers" min="1" max="256" />
+                                </div>
+                                @if (Form.Mode == "open_loop")
+                                {
+                                    <div class="field-group">
+                                        <label for="offered-rate">Offered rate (ops/s)</label>
+                                        <UnsignedInputNumber id="offered-rate" class="number-control" @bind-Value="Form.OfferedRateOpsSec" min="1" max="1000000" aria-describedby="offered-rate-help" />
+                                        <p id="offered-rate-help" class="field-help @(IsOfferedRateValid ? "" : "weight-error")">
+                                            @if (IsOfferedRateValid)
+                                            {
+                                                <span>Aggregate target across all workers.</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Choose a rate from 1 to 1,000,000 ops/s.</span>
+                                            }
+                                        </p>
+                                    </div>
+                                }
+                                <div class="field-group">
+                                    <label for="warmup">Warm-up (ms)</label>
+                                    <InputNumber id="warmup" class="number-control" @bind-Value="Form.WarmupMs" min="0" max="300000" />
+                                </div>
+                                <div class="field-group">
+                                    <label for="duration">Duration (ms)</label>
+                                    <InputNumber id="duration" class="number-control" @bind-Value="Form.DurationMs" min="1" max="600000" />
+                                </div>
+                                <div class="field-group">
+                                    <label for="seed">Seed</label>
+                                    <UnsignedInputNumber id="seed" class="number-control" @bind-Value="Form.Seed" min="0" />
+                                </div>
+                                <p id="mode-help" class="field-help full-span">Closed loop keeps each worker busy. Open loop schedules a combined operation rate; send lag is recorded separately from service latency.</p>
+                            </div>
+                        </section>
+
+                        <section class="form-section single-section" aria-labelledby="ids-heading">
+                            <div class="section-copy">
+                                <h3 id="ids-heading">Synthetic ID space</h3>
+                                <p>Bounds for generated references.</p>
+                            </div>
+                            <div class="section-fields settings-grid">
+                                <div class="field-group">
+                                    <label for="users">Users</label>
+                                    <UnsignedInputNumber id="users" class="number-control" @bind-Value="Form.Users" min="1" max="10000000" />
+                                </div>
+                                <div class="field-group">
+                                    <label for="posts">Posts</label>
+                                    <UnsignedInputNumber id="posts" class="number-control" @bind-Value="Form.Posts" min="1" max="100000000" />
+                                </div>
+                                <div class="field-group">
+                                    <label for="follows">Follows</label>
+                                    <UnsignedInputNumber id="follows" class="number-control" @bind-Value="Form.Follows" min="0" max="1000000000" />
+                                </div>
+                                <div class="field-group">
+                                    <label for="hashtags">Hashtags</label>
+                                    <UnsignedInputNumber id="hashtags" class="number-control" @bind-Value="Form.Hashtags" min="1" max="1000000" />
+                                </div>
+                                <p class="field-help full-span">@(Form.Adapter == "noop"
+                                    ? "The noop baseline uses these bounds for generated references and does not load database records."
+                                    : "These bounds define the seeded synthetic dataset loaded before measurement.")</p>
+                            </div>
+                        </section>
+
+                        <div class="form-actions">
+                            <button type="submit" class="primary-button" disabled="@(!CanStart)">
+                            @if (IsSubmitting)
+                            {
+                                <span>Starting…</span>
+                            }
+                            else
+                            {
+                                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.8 13 8l-9 5.2z" /></svg><span>Start run</span>
+                                }
+                            </button>
+                            @if (HasActiveRun)
+                            {
+                                <span class="action-context">A benchmark is already running.</span>
+                            }
+                            else if (!ApiOnline)
+                            {
+                                <span class="action-context">Start the local API to enable runs.</span>
+                            }
+                        </div>
+                    </fieldset>
+                </EditForm>
+            </section>
+
+            <aside class="run-column" aria-label="Run ledger and details">
+                <section class="run-ledger" aria-labelledby="runs-heading">
+                    <div class="section-heading compact-heading">
+                        <div>
+                            <h2 id="runs-heading">Run ledger</h2>
+                            <p>Runs recorded by the local control API.</p>
+                        </div>
+                        <span class="run-count" aria-label="@Runs.Count runs">@Runs.Count.ToString("00")</span>
+                    </div>
+                    @if (Runs.Count == 0)
+                    {
+                        <div class="empty-state">
+                            <h3>No runs yet</h3>
+                            <p>Configure a benchmark and start a synthetic run to see it here.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="ledger-columns" aria-hidden="true"><span>Run / time</span><span>Adapter / state</span></div>
+                        <div class="run-list" role="list">
+                            @foreach (var run in Runs)
+                            {
+                                <div role="listitem">
+                                    <button type="button" class="run-entry @(SelectedRun?.RunId == run.RunId ? "is-selected" : "")" @onclick="() => SelectRunAsync(run)">
+                                        <span class="run-entry-main"><code>@ShortId(run.RunId)</code><time>@LocalTime(run.CreatedAtUtc)</time></span>
+                                        <span class="run-entry-meta"><span>@run.Adapter</span><span class="status-label status-@StatusClass(run.Status)">@StatusLabel(run.Status)</span></span>
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    }
+                </section>
+
+                @if (SelectedRun is not null)
+                {
+                    <section class="run-detail" aria-labelledby="detail-heading">
+                        <div class="detail-heading">
+                            <div>
+                                <h2 id="detail-heading">Selected run</h2>
+                                <code>@SelectedRun.RunId</code>
+                            </div>
+                            <span class="status-label status-@StatusClass(SelectedRun.Status)">@StatusLabel(SelectedRun.Status)</span>
+                        </div>
+                        <dl class="run-facts">
+                            <div><dt>Adapter</dt><dd>@SelectedRun.Adapter</dd></div>
+                            <div><dt>Scenario</dt><dd>@SelectedRun.Scenario</dd></div>
+                            <div><dt>Workers</dt><dd class="tabular">@SelectedRun.Workers</dd></div>
+                            <div><dt>Window</dt><dd class="tabular">@SelectedRun.DurationMs ms</dd></div>
+                            @if (Summary is not null)
+                            {
+                                <div><dt>Load model</dt><dd>@ModeLabel(Summary.Mode)</dd></div>
+                                @if (Summary.Mode == "open_loop")
+                                {
+                                    <div><dt>Offered rate</dt><dd class="tabular">@Summary.OfferedRateOpsSec.ToString("N0", CultureInfo.InvariantCulture) ops/s</dd></div>
+                                }
+                            }
+                        </dl>
+                        @if (SelectedRun.Status is "running" or "cancelling")
+                        {
+                            <div class="running-line"><span class="pulse-dot" aria-hidden="true"></span><span>Worker is measuring. The API remains responsive.</span></div>
+                            <button type="button" class="secondary-button cancel-button" @onclick="CancelRunAsync" disabled="@IsCancelling">
+                                @(IsCancelling ? "Cancelling…" : "Cancel run")
+                            </button>
+                        }
+                        else if (!string.IsNullOrWhiteSpace(SelectedRun.Error))
+                        {
+                            <div class="notice notice-error" role="alert">@SelectedRun.Error</div>
+                        }
+                        else if (SelectedRun.Status == "succeeded" && Summary is not null)
+                        {
+                            <div class="summary-validity @(Summary.Valid ? "is-valid" : "is-invalid")" role="status">
+                                <strong>@(Summary.Valid ? "Capture checks passed" : "Run needs review")</strong>
+                                @if (Summary.InvalidReasons.Count > 0)
+                                {
+                                    <ul>
+                                        @foreach (var reason in Summary.InvalidReasons)
+                                        {
+                                            <li>@reason</li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                            <div class="summary-strip">
+                                <div><span>Operations</span><strong class="tabular">@Summary.TotalOperations.ToString("N0", CultureInfo.InvariantCulture)</strong></div>
+                                <div><span>Errors</span><strong class="tabular">@Summary.TotalErrors.ToString("N0", CultureInfo.InvariantCulture)</strong></div>
+                                <div><span>Timeouts</span><strong class="tabular">@Summary.TotalTimeouts.ToString("N0", CultureInfo.InvariantCulture)</strong></div>
+                                <div><span>Measured</span><strong class="tabular">@Summary.MeasuredMs ms</strong></div>
+                            </div>
+                            <p class="result-caveat">Approximate histogram percentiles. Timeouts are included in error totals; open-loop send lag is separate from operation latency. With <code>noop</code>, timings are harness overhead, not database performance.</p>
+                            <div class="table-scroll result-scroll">
+                                <table class="results-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Operation</th><th scope="col">ops/s</th><th scope="col">p50</th><th scope="col">p95</th><th scope="col">p99</th>
+                                            @if (Summary.Mode == "open_loop")
+                                            {
+                                                <th scope="col">Send lag p95</th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var operation in Summary.Operations)
+                                        {
+                                            <tr>
+                                                <th scope="row">@OperationLabel(operation.Type)</th><td class="tabular">@operation.OperationsPerSecond.ToString("N0", CultureInfo.InvariantCulture)</td><td class="tabular">@Latency(operation.P50Ns)</td><td class="tabular">@Latency(operation.P95Ns)</td><td class="tabular">@Latency(operation.P99Ns)</td>
+                                                @if (Summary.Mode == "open_loop")
+                                                {
+                                                    <td class="tabular">@Latency(operation.SendLagP95Ns)</td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="result-meta-grid">
+                                <section class="result-meta" aria-labelledby="environment-heading">
+                                    <h3 id="environment-heading">Run environment</h3>
+                                    <dl>
+                                        <div><dt>Host</dt><dd>@DisplayOrUnknown(Summary.Environment.HostName)</dd></div>
+                                        <div><dt>System</dt><dd>@DisplayOrUnknown(Summary.Environment.OperatingSystem)</dd></div>
+                                        <div><dt>Architecture</dt><dd>@DisplayOrUnknown(Summary.Environment.Architecture)</dd></div>
+                                        <div><dt>Logical processors</dt><dd class="tabular">@Summary.Environment.LogicalProcessors</dd></div>
+                                        <div><dt>Total memory</dt><dd class="tabular">@FormatBytes(Summary.Environment.TotalMemoryBytes)</dd></div>
+                                    </dl>
+                                </section>
+                                <section class="result-meta" aria-labelledby="calibration-heading">
+                                    <h3 id="calibration-heading">Transport calibration</h3>
+                                    <dl>
+                                        <div><dt>Probe</dt><dd>@CalibrationLabel(Summary.TransportCalibration.Kind)</dd></div>
+                                        @if (Summary.TransportCalibration.Samples > 0)
+                                        {
+                                            <div><dt>Samples</dt><dd class="tabular">@Summary.TransportCalibration.Samples.ToString("N0", CultureInfo.InvariantCulture)</dd></div>
+                                            <div><dt>p50 / p95</dt><dd class="tabular">@Latency(Summary.TransportCalibration.P50Ns) / @Latency(Summary.TransportCalibration.P95Ns)</dd></div>
+                                            <div><dt>Mean</dt><dd class="tabular">@Latency(Summary.TransportCalibration.MeanNs)</dd></div>
+                                        }
+                                    </dl>
+                                    @if (Summary.TelemetryDropped > 0)
+                                    {
+                                        <p class="field-help weight-error">Dropped telemetry samples: @Summary.TelemetryDropped.ToString("N0", CultureInfo.InvariantCulture)</p>
+                                    }
+                                </section>
+                                <section class="result-meta result-meta-integrity" aria-labelledby="integrity-heading">
+                                    <h3 id="integrity-heading">Capture record</h3>
+                                    <dl>
+                                        <div><dt>Cleanup</dt><dd>@DisplayOrUnknown(Summary.CleanupStatus)</dd></div>
+                                        <div><dt>Histogram</dt><dd>@DisplayOrUnknown(Summary.HistogramResolution)</dd></div>
+                                        <div><dt>Dropped samples</dt><dd class="tabular">@Summary.TelemetryDropped.ToString("N0", CultureInfo.InvariantCulture)</dd></div>
+                                    </dl>
+                                </section>
+                            </div>
+                        }
+                        else if (SelectedRun.Status == "succeeded" && SummaryLoading)
+                        {
+                            <p class="field-help" role="status">Loading result summary…</p>
+                        }
+                        else if (SelectedRun.Status == "cancelled")
+                        {
+                            <p class="field-help">Worker was cancelled. No complete summary was written.</p>
+                        }
+                    </section>
+                }
+                else if (!ApiOnline)
+                {
+                    <section class="connection-note">
+                        <h2>Connect the control API</h2>
+                        <p>Run <code>benchforge serve</code> locally, then refresh this page.</p>
+                    </section>
+                }
+            </aside>
+        </div>
+    </main>
+</div>
+@code {
+    private const string ApiOfflineMessage = "Could not reach the local control API. Start benchforge serve and retry.";
+    private readonly CancellationTokenSource lifetime = new();
+    private readonly RunConfiguration Form = new();
+    private List<AdapterInfo> Adapters = [];
+    private List<RunInfo> Runs = [];
+    private RunInfo? SelectedRun;
+    private RunSummary? Summary;
+    private string? summaryRunId;
+    private string PageMessage = "";
+    private bool PageError;
+    private bool ApiOnline;
+    private bool IsSubmitting;
+    private bool IsCancelling;
+    private bool SummaryLoading;
+
+    private bool IsRunModeValid => Form.Mode is "closed_loop" or "open_loop";
+    private bool IsOfferedRateValid => Form.OfferedRateOpsSec is >= 1 and <= 1_000_000;
+    private bool HasActiveRun => Runs.Any(run => run.Status is "running" or "cancelling");
+    private bool CanStart => ApiOnline && !HasActiveRun && !IsSubmitting &&
+                             Form.OperationWeightTotal == 100 && IsRunModeValid &&
+                             (Form.Mode != "open_loop" || IsOfferedRateValid);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshAsync(lifetime.Token);
+        _ = PollAsync(lifetime.Token);
+    }
+
+    private async Task PollAsync(CancellationToken cancellationToken)
+    {
+        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
+        try
+        {
+            while (await timer.WaitForNextTickAsync(cancellationToken))
+            {
+                await InvokeAsync(async () =>
+                {
+                    await RefreshAsync(cancellationToken);
+                    StateHasChanged();
+                });
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // The component has been removed.
+        }
+    }
+
+    private async Task RefreshAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (!await Api.IsHealthyAsync(cancellationToken))
+            {
+                ApiOnline = false;
+                return;
+            }
+            Adapters = (await Api.GetAdaptersAsync(cancellationToken)).ToList();
+            Runs = (await Api.GetRunsAsync(cancellationToken))
+                .OrderByDescending(run => run.CreatedAtUtc, StringComparer.Ordinal)
+                .ToList();
+            ApiOnline = true;
+            if (PageMessage == ApiOfflineMessage)
+            {
+                PageMessage = "";
+                PageError = false;
+            }
+            if (SelectedRun is not null)
+            {
+                SelectedRun = Runs.FirstOrDefault(run => run.RunId == SelectedRun.RunId);
+            }
+            if (SelectedRun is null)
+            {
+                SelectedRun = Runs.FirstOrDefault(run => run.Status is "running" or "cancelling")
+                              ?? Runs.FirstOrDefault();
+            }
+            await LoadSummaryIfReadyAsync(cancellationToken);
+        }
+        catch (Exception error) when (error is HttpRequestException or InvalidOperationException or JsonException)
+        {
+            ApiOnline = false;
+            PageMessage = ApiOfflineMessage;
+            PageError = true;
+        }
+    }
+
+    private async Task StartRunAsync()
+    {
+        if (!IsRunModeValid)
+        {
+            SetMessage("Choose a valid load model.", true);
+            return;
+        }
+        if (Form.Mode == "open_loop" && !IsOfferedRateValid)
+        {
+            SetMessage("Open-loop offered rate must be between 1 and 1,000,000 ops/s.", true);
+            return;
+        }
+        if (Form.OperationWeightTotal != 100)
+        {
+            SetMessage("Operation weights must total 100%.", true);
+            return;
+        }
+        IsSubmitting = true;
+        SetMessage("", false);
+        try
+        {
+            SelectedRun = await Api.StartRunAsync(Form, lifetime.Token);
+            Summary = null;
+            summaryRunId = null;
+            await RefreshAsync(lifetime.Token);
+            SetMessage($"Run {ShortId(SelectedRun.RunId)} started in an isolated worker.", false);
+        }
+        catch (Exception error) when (error is HttpRequestException or InvalidOperationException or OperationCanceledException or JsonException)
+        {
+            SetMessage(error.Message, true);
+        }
+        finally
+        {
+            IsSubmitting = false;
+        }
+    }
+
+    private async Task CancelRunAsync()
+    {
+        if (SelectedRun is null) return;
+        IsCancelling = true;
+        try
+        {
+            SelectedRun = await Api.CancelRunAsync(SelectedRun.RunId, lifetime.Token);
+            SetMessage("Cancellation requested. The worker will stop and mark the run cancelled.", false);
+            await RefreshAsync(lifetime.Token);
+        }
+        catch (Exception error) when (error is HttpRequestException or InvalidOperationException or OperationCanceledException)
+        {
+            SetMessage(error.Message, true);
+        }
+        finally
+        {
+            IsCancelling = false;
+        }
+    }
+
+    private async Task SelectRunAsync(RunInfo run)
+    {
+        SelectedRun = run;
+        Summary = null;
+        summaryRunId = null;
+        await LoadSummaryIfReadyAsync(lifetime.Token);
+    }
+
+    private async Task LoadSummaryIfReadyAsync(CancellationToken cancellationToken)
+    {
+        if (SelectedRun?.Status != "succeeded" || summaryRunId == SelectedRun.RunId)
+            return;
+        SummaryLoading = true;
+        try
+        {
+            Summary = await Api.GetSummaryAsync(SelectedRun.RunId, cancellationToken);
+            summaryRunId = SelectedRun.RunId;
+        }
+        catch (Exception error) when (error is HttpRequestException or InvalidOperationException or OperationCanceledException or JsonException)
+        {
+            PageMessage = "Could not read run results: " + error.Message;
+            PageError = true;
+        }
+        finally
+        {
+            SummaryLoading = false;
+        }
+    }
+
+    private void SetMessage(string message, bool isError)
+    {
+        PageMessage = message;
+        PageError = isError;
+    }
+
+    private void HandleInvalidSubmit(EditContext editContext)
+    {
+        _ = editContext;
+        SetMessage("Some fields contain invalid values. Correct them and try again.", true);
+    }
+
+    private static string AdapterLabel(string name) => name switch
+    {
+        "noop" => "noop — harness calibration",
+        "feedkv" => "FeedKV — local database",
+        "redis" => "Redis — local comparison",
+        "mongo" => "MongoDB — document comparison",
+        "cassandra" => "Cassandra — partitioned comparison",
+        _ => name
+    };
+
+    private static string ModeLabel(string mode) => mode switch
+    {
+        "closed_loop" => "Closed loop",
+        "open_loop" => "Open loop",
+        _ => "Unknown"
+    };
+
+    private static string CalibrationLabel(string kind) => kind switch
+    {
+        "RESP PING round-trip" => "RESP PING round-trip",
+        "not applicable" => "Not applicable for this adapter",
+        "" => "Not recorded",
+        _ => kind.Replace('_', ' ')
+    };
+
+    private static string DisplayOrUnknown(string value) =>
+        string.IsNullOrWhiteSpace(value) ? "Unknown" : value;
+
+    private static string FormatBytes(ulong bytes) => bytes == 0
+        ? "Unknown"
+        : (bytes / (1024d * 1024d * 1024d)).ToString("0.0", CultureInfo.InvariantCulture) + " GiB";
+
+    private static string OperationLabel(string type) => type switch
+    {
+        "timeline_read" => "Timeline read",
+        "user_profile_read" => "Profile read",
+        "post_like" => "Post like",
+        "post_create" => "Post create",
+        "hashtag_search" => "Hashtag search",
+        "user_follow" => "Follow",
+        _ => type
+    };
+
+    private static string StatusClass(string status) => status switch
+    {
+        "running" or "cancelling" => "running",
+        "succeeded" => "success",
+        "cancelled" or "failed" => "error",
+        _ => "pending"
+    };
+
+    private static string StatusLabel(string status) => status switch
+    {
+        "running" => "Running",
+        "cancelling" => "Cancelling",
+        "succeeded" => "Completed",
+        "cancelled" => "Cancelled",
+        "failed" => "Failed",
+        _ => status
+    };
+
+    private static string ShortId(string id) => id.Length <= 18 ? id : id[..18] + "…";
+
+    private static string LocalTime(string timestamp) =>
+        DateTimeOffset.TryParse(timestamp, CultureInfo.InvariantCulture,
+            DateTimeStyles.AssumeUniversal, out var value)
+            ? value.ToLocalTime().ToString("MMM d, HH:mm", CultureInfo.CurrentCulture)
+            : timestamp;
+
+    private static string Latency(long nanoseconds) =>
+        (nanoseconds / 1_000_000d).ToString("0.###", CultureInfo.InvariantCulture) + " ms";
+
+    public void Dispose()
+    {
+        lifetime.Cancel();
+        lifetime.Dispose();
+    }
+}

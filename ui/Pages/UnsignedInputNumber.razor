@@ -1,0 +1,23 @@
+@using System.Globalization
+@inherits InputBase<ulong>
+
+<input type="number" class="@CssClass" @attributes="AdditionalAttributes"
+       value="@CurrentValueAsString" @onchange="HandleChange" />
+
+@code {
+    private void HandleChange(ChangeEventArgs args) =>
+        CurrentValueAsString = args.Value?.ToString();
+
+    protected override bool TryParseValueFromString(string? value, out ulong result,
+        out string validationErrorMessage)
+    {
+        if (ulong.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result))
+        {
+            validationErrorMessage = string.Empty;
+            return true;
+        }
+
+        validationErrorMessage = $"Enter a non-negative whole number for {DisplayName ?? FieldIdentifier.FieldName}.";
+        return false;
+    }
+}

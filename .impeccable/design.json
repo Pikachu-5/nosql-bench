@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T11:01:35Z",
+  "title": "Design System: BenchForge",
+  "extensions": {
+    "colorMeta": {
+      "work-surface": {
+        "role": "neutral",
+        "displayName": "Work Surface",
+        "canonical": "#eaf0f3",
+        "tonalRamp": [
+          "oklch(15% 0.008 228.9)",
+          "oklch(25% 0.008 228.9)",
+          "oklch(35% 0.008 228.9)",
+          "oklch(45% 0.008 228.9)",
+          "oklch(55% 0.008 228.9)",
+          "oklch(65% 0.008 228.9)",
+          "oklch(75% 0.008 228.9)",
+          "oklch(95% 0.008 228.9)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(25% 0.000 89.9)",
+          "oklch(35% 0.000 89.9)",
+          "oklch(45% 0.000 89.9)",
+          "oklch(55% 0.000 89.9)",
+          "oklch(65% 0.000 89.9)",
+          "oklch(75% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Text Primary",
+        "canonical": "#172c39",
+        "tonalRamp": [
+          "oklch(15% 0.036 237.1)",
+          "oklch(25% 0.036 237.1)",
+          "oklch(35% 0.036 237.1)",
+          "oklch(45% 0.036 237.1)",
+          "oklch(55% 0.036 237.1)",
+          "oklch(65% 0.036 237.1)",
+          "oklch(75% 0.036 237.1)",
+          "oklch(95% 0.036 237.1)"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Text Secondary",
+        "canonical": "#536a77",
+        "tonalRamp": [
+          "oklch(15% 0.034 233.1)",
+          "oklch(25% 0.034 233.1)",
+          "oklch(35% 0.034 233.1)",
+          "oklch(45% 0.034 233.1)",
+          "oklch(55% 0.034 233.1)",
+          "oklch(65% 0.034 233.1)",
+          "oklch(75% 0.034 233.1)",
+          "oklch(95% 0.034 233.1)"
+        ]
+      },
+      "divider": {
+        "role": "neutral",
+        "displayName": "Divider",
+        "canonical": "#cbd7dd",
+        "tonalRamp": [
+          "oklch(15% 0.015 229.0)",
+          "oklch(25% 0.015 229.0)",
+          "oklch(35% 0.015 229.0)",
+          "oklch(45% 0.015 229.0)",
+          "oklch(55% 0.015 229.0)",
+          "oklch(65% 0.015 229.0)",
+          "oklch(75% 0.015 229.0)",
+          "oklch(95% 0.015 229.0)"
+        ]
+      },
+      "brand-blue": {
+        "role": "primary",
+        "displayName": "Brand Blue",
+        "canonical": "#276f8b",
+        "tonalRamp": [
+          "oklch(15% 0.083 227.8)",
+          "oklch(25% 0.083 227.8)",
+          "oklch(35% 0.083 227.8)",
+          "oklch(45% 0.083 227.8)",
+          "oklch(55% 0.083 227.8)",
+          "oklch(65% 0.083 227.8)",
+          "oklch(75% 0.083 227.8)",
+          "oklch(95% 0.083 227.8)"
+        ]
+      },
+      "brand-blue-strong": {
+        "role": "primary",
+        "displayName": "Brand Blue Strong",
+        "canonical": "#1c5c74",
+        "tonalRamp": [
+          "oklch(15% 0.074 227.3)",
+          "oklch(25% 0.074 227.3)",
+          "oklch(35% 0.074 227.3)",
+          "oklch(45% 0.074 227.3)",
+          "oklch(55% 0.074 227.3)",
+          "oklch(65% 0.074 227.3)",
+          "oklch(75% 0.074 227.3)",
+          "oklch(95% 0.074 227.3)"
+        ]
+      },
+      "instrument-navy": {
+        "role": "neutral",
+        "displayName": "Instrument Navy",
+        "canonical": "#122a39",
+        "tonalRamp": [
+          "oklch(15% 0.041 238.2)",
+          "oklch(25% 0.041 238.2)",
+          "oklch(35% 0.041 238.2)",
+          "oklch(45% 0.041 238.2)",
+          "oklch(55% 0.041 238.2)",
+          "oklch(65% 0.041 238.2)",
+          "oklch(75% 0.041 238.2)",
+          "oklch(95% 0.041 238.2)"
+        ]
+      },
+      "instrument-raised": {
+        "role": "neutral",
+        "displayName": "Instrument Raised",
+        "canonical": "#1a3545",
+        "tonalRamp": [
+          "oklch(15% 0.044 236.4)",
+          "oklch(25% 0.044 236.4)",
+          "oklch(35% 0.044 236.4)",
+          "oklch(45% 0.044 236.4)",
+          "oklch(55% 0.044 236.4)",
+          "oklch(65% 0.044 236.4)",
+          "oklch(75% 0.044 236.4)",
+          "oklch(95% 0.044 236.4)"
+        ]
+      },
+      "trace-blue": {
+        "role": "signal",
+        "displayName": "Trace Blue",
+        "canonical": "#58b6f2",
+        "tonalRamp": [
+          "oklch(15% 0.124 239.5)",
+          "oklch(25% 0.124 239.5)",
+          "oklch(35% 0.124 239.5)",
+          "oklch(45% 0.124 239.5)",
+          "oklch(55% 0.124 239.5)",
+          "oklch(65% 0.124 239.5)",
+          "oklch(75% 0.124 239.5)",
+          "oklch(95% 0.124 239.5)"
+        ]
+      },
+      "trace-cyan": {
+        "role": "signal",
+        "displayName": "Trace Cyan",
+        "canonical": "#55d1d2",
+        "tonalRamp": [
+          "oklch(15% 0.109 195.9)",
+          "oklch(25% 0.109 195.9)",
+          "oklch(35% 0.109 195.9)",
+          "oklch(45% 0.109 195.9)",
+          "oklch(55% 0.109 195.9)",
+          "oklch(65% 0.109 195.9)",
+          "oklch(75% 0.109 195.9)",
+          "oklch(95% 0.109 195.9)"
+        ]
+      },
+      "trace-teal": {
+        "role": "signal",
+        "displayName": "Trace Teal",
+        "canonical": "#4bd0b1",
+        "tonalRamp": [
+          "oklch(15% 0.124 174.4)",
+          "oklch(25% 0.124 174.4)",
+          "oklch(35% 0.124 174.4)",
+          "oklch(45% 0.124 174.4)",
+          "oklch(55% 0.124 174.4)",
+          "oklch(65% 0.124 174.4)",
+          "oklch(75% 0.124 174.4)",
+          "oklch(95% 0.124 174.4)"
+        ]
+      },
+      "trace-amber": {
+        "role": "signal",
+        "displayName": "Trace Amber",
+        "canonical": "#ffbd58",
+        "tonalRamp": [
+          "oklch(15% 0.139 75.3)",
+          "oklch(25% 0.139 75.3)",
+          "oklch(35% 0.139 75.3)",
+          "oklch(45% 0.139 75.3)",
+          "oklch(55% 0.139 75.3)",
+          "oklch(65% 0.139 75.3)",
+          "oklch(75% 0.139 75.3)",
+          "oklch(95% 0.139 75.3)"
+        ]
+      },
+      "trace-violet": {
+        "role": "signal",
+        "displayName": "Trace Violet",
+        "canonical": "#bb9aff",
+        "tonalRamp": [
+          "oklch(15% 0.145 297.9)",
+          "oklch(25% 0.145 297.9)",
+          "oklch(35% 0.145 297.9)",
+          "oklch(45% 0.145 297.9)",
+          "oklch(55% 0.145 297.9)",
+          "oklch(65% 0.145 297.9)",
+          "oklch(75% 0.145 297.9)",
+          "oklch(95% 0.145 297.9)"
+        ]
+      },
+      "trace-green": {
+        "role": "signal",
+        "displayName": "Trace Green",
+        "canonical": "#84db90",
+        "tonalRamp": [
+          "oklch(15% 0.135 147.5)",
+          "oklch(25% 0.135 147.5)",
+          "oklch(35% 0.135 147.5)",
+          "oklch(45% 0.135 147.5)",
+          "oklch(55% 0.135 147.5)",
+          "oklch(65% 0.135 147.5)",
+          "oklch(75% 0.135 147.5)",
+          "oklch(95% 0.135 147.5)"
+        ]
+      },
+      "status-amber": {
+        "role": "status",
+        "displayName": "Status Amber",
+        "canonical": "#9a671e",
+        "tonalRamp": [
+          "oklch(15% 0.107 71.0)",
+          "oklch(25% 0.107 71.0)",
+          "oklch(35% 0.107 71.0)",
+          "oklch(45% 0.107 71.0)",
+          "oklch(55% 0.107 71.0)",
+          "oklch(65% 0.107 71.0)",
+          "oklch(75% 0.107 71.0)",
+          "oklch(95% 0.107 71.0)"
+        ]
+      },
+      "status-green": {
+        "role": "status",
+        "displayName": "Status Green",
+        "canonical": "#23684d",
+        "tonalRamp": [
+          "oklch(15% 0.082 163.8)",
+          "oklch(25% 0.082 163.8)",
+          "oklch(35% 0.082 163.8)",
+          "oklch(45% 0.082 163.8)",
+          "oklch(55% 0.082 163.8)",
+          "oklch(65% 0.082 163.8)",
+          "oklch(75% 0.082 163.8)",
+          "oklch(95% 0.082 163.8)"
+        ]
+      },
+      "status-red": {
+        "role": "status",
+        "displayName": "Status Red",
+        "canonical": "#a04443",
+        "tonalRamp": [
+          "oklch(15% 0.123 23.1)",
+          "oklch(25% 0.123 23.1)",
+          "oklch(35% 0.123 23.1)",
+          "oklch(45% 0.123 23.1)",
+          "oklch(55% 0.123 23.1)",
+          "oklch(65% 0.123 23.1)",
+          "oklch(75% 0.123 23.1)",
+          "oklch(95% 0.123 23.1)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Analyzer Display",
+        "purpose": "Page and section headings in the bundled technical face."
+      },
+      "body": {
+        "displayName": "Workbench Text",
+        "purpose": "Interface labels and explanatory copy."
+      },
+      "label": {
+        "displayName": "Readout Label",
+        "purpose": "Compact channel IDs, table headings, and measurement labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "error-overlay",
+        "value": "0 5px 24px rgb(20 42 57 / 14%)",
+        "purpose": "Separate the framework error banner from the page edge without adding lift to ordinary panels."
+      }
+    ],
+    "motion": [
+      {
+        "name": "channel-allocation",
+        "value": "transform 180ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Ease a channel fill to the newly configured weight."
+      },
+      {
+        "name": "active-run-pulse",
+        "value": "1.5s ease-in-out infinite",
+        "purpose": "Identify a worker that the API reports as actually running; disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-shell",
+        "value": "1180px"
+      },
+      {
+        "name": "single-column",
+        "value": "760px"
+      },
+      {
+        "name": "compact-form",
+        "value": "560px"
+      },
+      {
+        "name": "minimum-layout",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Channel Allocation Board",
+      "kind": "custom",
+      "refersTo": "instrument-board",
+      "description": "Six editable workload weights aligned to one shared scale.",
+      "html": "<section class=\"ds-channel-board\" aria-label=\"Operation allocation\"><div class=\"ds-channel-head\"><span>CHANNEL</span><span>ALLOCATION</span><span>WEIGHT</span></div><div class=\"ds-channel-row\"><span class=\"ds-channel-label\"><small>CH 01</small><b>Timeline read</b></span><span class=\"ds-channel-track\"><span class=\"ds-channel-fill\"></span></span><span class=\"ds-channel-value\">40%</span></div></section>",
+      "css": ".ds-channel-board{background:var(--navy);color:#ecf4f7;border:1px solid #294657;border-radius:5px;padding:13px 15px 8px;font:11px \"Cascadia Code\",monospace}.ds-channel-head,.ds-channel-row{display:grid;grid-template-columns:minmax(110px,1fr) minmax(80px,1.55fr) 70px;align-items:center;gap:12px}.ds-channel-head{padding-bottom:9px;color:#9db1bc;font-size:8px;letter-spacing:.08em}.ds-channel-head span:last-child,.ds-channel-value{text-align:right}.ds-channel-row{min-height:43px;border-top:1px solid #2a4352}.ds-channel-label small{display:block;color:#91a8b4;font-size:8px}.ds-channel-label b{font-size:11px}.ds-channel-track{height:11px;overflow:hidden;background:#223b4b;border:1px solid #344f5e;border-radius:2px}.ds-channel-fill{display:block;width:40%;height:100%;background:var(--signal-blue);transition:transform 180ms cubic-bezier(.16,1,.3,1)}"
+    },
+    {
+      "name": "Weight Input",
+      "kind": "input",
+      "refersTo": "weight-input",
+      "description": "Keyboard-editable numeric workload weight.",
+      "html": "<label class=\"ds-field-label\" for=\"weight\">Timeline read</label><input class=\"ds-weight-input\" id=\"weight\" inputmode=\"numeric\" value=\"40\" aria-label=\"Timeline read weight\">",
+      "css": ".ds-field-label{display:block;margin-bottom:6px;color:#3e5662;font:600 11px \"Cascadia Code\",monospace}.ds-weight-input{width:64px;height:28px;padding:0 6px;color:#fff;background:var(--navy-raised);border:1px solid #476273;border-radius:4px;text-align:right;font:12px \"Cascadia Code\",monospace;font-variant-numeric:tabular-nums}.ds-weight-input:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 5px #155c74}"
+    },
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "primary-action",
+      "description": "Start a configured local run.",
+      "html": "<button class=\"ds-primary-button\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 2.8 13 8l-9 5.2z\"/></svg><span>Start run</span></button>",
+      "css": ".ds-primary-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:148px;height:40px;padding:0 17px;color:#fff;background:var(--blue);border:1px solid var(--blue);border-radius:4px;font:650 12px \"Cascadia Code\",monospace;cursor:pointer;transition:background-color 120ms ease,border-color 120ms ease,transform 120ms ease}.ds-primary-button svg{width:14px;height:14px;fill:currentColor}.ds-primary-button:hover{background:var(--blue-strong);border-color:var(--blue-strong)}.ds-primary-button:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 5px #155c74}.ds-primary-button:active{transform:translateY(1px)}.ds-primary-button:disabled{color:#fff;background:#496773;border-color:#496773;cursor:not-allowed}"
+    },
+    {
+      "name": "Secondary Action",
+      "kind": "button",
+      "refersTo": "secondary-action",
+      "description": "Cancel a run the API reports as active.",
+      "html": "<button class=\"ds-secondary-button\" type=\"button\">Cancel run</button>",
+      "css": ".ds-secondary-button{min-height:34px;padding:0 12px;color:#713d17;background:#fffaf3;border:1px solid #e0c394;border-radius:4px;font:650 12px \"Cascadia Code\",monospace;cursor:pointer}.ds-secondary-button:hover{background:#fff1dc;border-color:#d1ae77}.ds-secondary-button:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 5px #155c74}.ds-secondary-button:disabled{color:#536a77;background:#edf1f3;border-color:#bdccd3;cursor:not-allowed}"
+    },
+    {
+      "name": "Workbench Panel",
+      "kind": "card",
+      "refersTo": "configuration-panel",
+      "description": "Light bordered surface for configuration and recorded runs.",
+      "html": "<section class=\"ds-panel\"><h2>Run ledger</h2><p>Runs recorded by the local control API.</p></section>",
+      "css": ".ds-panel{padding:17px;color:var(--ink);background:var(--panel);border:1px solid #cbd7dd;border-radius:7px;font-family:\"Cascadia Code\",monospace}.ds-panel h2{margin:0;font-size:16px;font-weight:660;letter-spacing:-.02em}.ds-panel p{margin:5px 0 0;color:var(--muted);font-size:11px;line-height:1.5}"
+    },
+    {
+      "name": "Run State Chip",
+      "kind": "chip",
+      "refersTo": "run-state-chip",
+      "description": "Readable text paired with the actual run state.",
+      "html": "<span class=\"ds-status-running\">Running</span>",
+      "css": ".ds-status-running{display:inline-flex;align-items:center;min-height:21px;padding:2px 7px;color:#7b5019;background:#fff4df;border:1px solid #e9d3a9;border-radius:3px;font:650 10px \"Cascadia Code\",monospace}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Bench Measurement Workstation",
+    "overview": "BenchForge is a local measurement workstation for synthetic database runs. Its visual language borrows the scan-and-compare clarity of a logic analyzer: six named channels, one shared scale, aligned readouts, and quiet status cues. It stays a browser tool with ordinary form controls, not a fake hardware console.\n\nChannel allocation is the first and clearest object on the page. Cool slate surfaces support one dark analyzer field and six distinct trace hues. Self-hosted Cascadia Code gives labels, prose, and values one technical voice. Run history and results reflect API data; empty and offline states stay explicit.",
+    "keyCharacteristics": [
+      "Channel allocation is the first and clearest object on the page.",
+      "Cool slate surfaces support one dark analyzer field and six distinct trace hues.",
+      "Self-hosted Cascadia Code gives labels, prose, and values one technical voice.",
+      "Run history and results reflect API data; empty and offline states stay explicit."
+    ],
+    "rules": [
+      {
+        "name": "The Bench Truth Rule",
+        "body": "Show configuration as configuration and recorded measurements as measurements.",
+        "section": "overview"
+      },
+      {
+        "name": "The Trace Role Rule",
+        "body": "A trace hue names an operation channel; its length alone encodes the configured percentage. Never make color imply throughput or success.",
+        "section": "colors"
+      },
+      {
+        "name": "The Readout Rule",
+        "body": "Keep numeric values aligned and units visible; reserve compact uppercase lettering for analyzer headers and channel IDs.",
+        "section": "typography"
+      },
+      {
+        "name": "The Six-Channel Rule",
+        "body": "Every operation uses the same horizontal 0–100 scale, with its label and editable weight on the same row.",
+        "section": "layout"
+      },
+      {
+        "name": "The One Dark Field Rule",
+        "body": "Keep the allocation board as the only large dark instrument surface; do not add faux bezels, knobs, or simulated equipment.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Plain Control Rule",
+        "body": "Native controls should look precise and remain recognizable as controls.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Honest Ledger Rule",
+        "body": "Never seed fake runs, values, progress, or waveform output into the interface.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do identify synthetic workloads and explain the limits of the `noop` harness baseline.",
+      "Do pair status color with text and preserve the offline, empty, active, error, cancelled, and completed states.",
+      "Do preserve keyboard-operable native controls, visible focus, and reduced-motion behavior."
+    ],
+    "donts": [
+      "Don't present `noop` timings as database performance.",
+      "Don't add decorative signal traces, simulated hardware, or benchmark-progress motion.",
+      "Don't hide meaning in color or shrink the allocation labels to fit."
+    ]
+  }
+}

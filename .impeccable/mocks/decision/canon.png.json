@@ -1,0 +1,7 @@
+{
+  "prompt": "Edit this BenchForge UI comp only in these two places, preserving its conventional neutral admin layout, all styling, dimensions, text and values elsewhere. 1) Remove the two unsupported header links “Documentation” and “GitHub”; the header should show only the BenchForge wordmark. 2) In the Run settings row, keep Workers = 4, Warm-up (ms) = 250, Duration (ms) = 1000, and add a fourth labeled numeric field “Seed” with value 42. Do not otherwise move or alter the interface. Do not add controls, data, adapters, run rows, charts, or claims.",
+  "size": "1586x1000",
+  "approved": false,
+  "reference": "C:\\Users\\ayub-\\.codex\\generated_images\\01a10625-b4cf-7941-9160-9f33711dde42\\exec-be0c8fb3-5380-490a-9ac9-ad03af536bee.png",
+  "generator": "OpenAI ImageGen"
+}
