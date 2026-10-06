@@ -6,6 +6,8 @@
 /obj/
 /ui/bin/
 /ui/obj/
+/tests/ComparisonChecks/bin/
+/tests/ComparisonChecks/obj/
 /runs/
 /output/
 .vs/

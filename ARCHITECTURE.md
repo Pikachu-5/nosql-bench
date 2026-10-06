@@ -1,7 +1,7 @@
 # BenchForge — System Architecture
 
 **Working title:** BenchForge  
-**Status:** Phases 1–4 implemented; Phase 5 MongoDB and Cassandra adapters implemented and smoke-verified; Neo4j remains next  
+**Status:** Phases 1–6 implemented; MongoDB, Cassandra and Neo4j smoke-verified; controlled comparative measurements remain pending
 **Last reviewed:** 2026-10-06  
 **Purpose:** Durable project brief and source of truth for future implementation decisions
 
@@ -12,6 +12,8 @@ The C++20 harness and local control API build with CMake and MinGW. The harness 
 The loopback-only control API exposes health, adapter discovery, run creation/list/detail, cancellation, and completed summaries. It validates bounded form fields, launches only the BenchForge worker executable as a child process, allows one active run per control session, and stores run configuration and output under `runs/api/<run-id>/`. The C# Blazor UI configures runs, polls state, supports cancellation, and displays per-operation summaries. Phase 3 includes an in-memory FeedKV server with a limited RESP2 command set plus a Redis adapter over the same RESP client. Phase 4 adds open-loop scheduling, transport calibration, send-lag reporting, and environment metadata. Phase 5 adds a MongoDB adapter using OP_MSG/BSON, run-specific databases, deterministic collection loading, native compound and multikey indexes, read-time timeline aggregation, idempotent follow updates, and captured query-planner summaries. MongoDB requires a local unauthenticated connection. Cassandra adds a native CQL v4 client, prepared worker statements, query-specific partitions, read-time timeline merging, idempotent follows/likes, and loader-owned keyspace cleanup. Both projects compile; bounded MongoDB and Cassandra runtime checks pass. Open-loop scheduling rechecks early timer wakeups and clamps lag before unsigned conversion. Cancellation force-terminates workers and may leave partial namespaces. FeedKV/Redis runtime verification and comparative runs remain pending. See `docs/VERIFICATION_2026-10-06.md` for evidence and limits.
 
 ## 1. Project summary
+
+Neo4j completes the local Phase 5 coverage with native indexed graph operations over HTTP Query API v2, run-owned graph cleanup and captured EXPLAIN/heap/page-cache settings. Phase 6 adds a persisted read-only summary archive and two-capture analysis route with configuration differences, validity gating, complete metadata and asynchronous recovery. The comparison checks do not establish a performance ranking; controlled repetitions remain required.
 
 BenchForge is a standalone C++ database-benchmark platform with a small C# UI. Its product is the benchmark/control system, not a social network.
 
@@ -75,7 +77,7 @@ This distinction matters: the workload may simulate a social feed, but the bench
       │     ├── Redis
       │     ├── MongoDB
       │     ├── Cassandra
-      │     ├── Neo4j (later milestone)
+      │     ├── Neo4j (native graph over HTTP Query API v2)
       │     └── Firestore (optional GCP target)
       └── telemetry and local JSON/CSV results
 
@@ -159,7 +161,7 @@ Use controlled data volumes that fit available hardware. The reports’ own lapt
 
 Use Blazor WebAssembly for a small local dashboard; no React or TypeScript is needed. The UI configures and observes benchmark runs, not social content.
 
-The first Phase 2 screen is a single measurement workstation for configuring and launching a run, reviewing recent run status, cancelling an active worker, and reading per-operation percentiles. Its design target is `ui/design/benchforge-dashboard-comp.png`, with design tokens and guidance in `DESIGN.md`. Adapter discovery exposes `noop`, FeedKV, Redis, MongoDB, and Cassandra. The dashboard identifies their default local ports and notes that FeedKV must be started separately.
+The first Phase 2 screen is a single measurement workstation for configuring and launching a run, reviewing recent run status, cancelling an active worker, and reading per-operation percentiles. Its design target is `ui/design/benchforge-dashboard-comp.png`, with design tokens and guidance in `DESIGN.md`. Adapter discovery exposes `noop`, FeedKV, Redis, MongoDB, Cassandra and Neo4j. The dashboard identifies their default local ports and notes that FeedKV must be started separately.
 
 Initial screens:
 
@@ -231,8 +233,8 @@ Do not add Cloud Run, Compute Engine, Pub/Sub, Cloud Scheduler, Memorystore, Atl
 2. **Control plane:** local C++ API, isolated worker process, Blazor run form and status view.
 3. **First comparable targets:** FeedKV RESP2 server, Redis adapter, deterministic loader, and run namespace cleanup are implemented. Compile succeeds. Runtime checks against both targets and repeatable comparative runs remain to be performed before publishing measurements.
 4. **Measurement quality:** closed-loop and scheduled-rate/open-loop execution, bounded logarithmic latency and send-lag histograms, RESP PING transport calibration, invalid-run reasons, timeout counts, and host/OS/architecture/processor/memory capture are implemented. Both C++ and dashboard targets compile. Runtime comparisons against Redis and FeedKV remain pending.
-5. **Cross-database coverage:** MongoDB and Cassandra adapters implemented and smoke-verified. Cassandra uses CQL v4, prepared statements, query-specific partitions, paged follows, idempotent likes, and loader-owned keyspace cleanup. Neo4j is the next adapter milestone; comparative measurements remain pending. See `docs/VERIFICATION_2026-10-06.md`.
-6. **Analysis UI:** cross-run comparisons and deeper analysis across operation percentiles, throughput, environment, and run limitations.
+5. **Cross-database coverage:** MongoDB, Cassandra and Neo4j adapters implemented and smoke-verified. Neo4j uses HTTP Query API v2, composite unique indexes, native relationships, deterministic batch loading, top20 traversal reads, idempotent relationships and loader-owned run graph cleanup. Explicit deadlock rollbacks have bounded retries included in latency; socket/write completion failures are never replayed. Comparative measurements remain pending. See `docs/VERIFICATION_2026-10-06.md`.
+6. **Analysis UI:** implemented read-only persisted result archive and `/analysis` route. Two captures expose throughput, operation percentiles through p99.9, send lag, environment, configuration, calibration, durability, validity and limitations. Mismatched/invalid/no-op and verification-folder captures withhold percentage changes. Selections survive reload through URL parameters; stale requests are cancelled. Repetition grouping and median/range aggregation are not implemented; important performance claims still require at least three controlled repetitions.
 7. **Optional GCP benchmark:** Firestore REST adapter in the worker, operation caps, synthetic-data namespace, CLI workflow, and cleanup.
 8. **Benchmark evidence:** reproducible benchmark methodology and real results. Do not claim FeedKV is faster until measurements demonstrate it.
 
@@ -252,4 +254,3 @@ Free-tier facts were checked on 2026-10-03; recheck before creating a cloud reso
 - [Budget alerts do not cap spend](https://docs.cloud.google.com/billing/docs/how-to/budgets)
 
 Update this document when a deliberate decision changes, when actual measurements disprove a planned optimization, or when GCP free-tier terms change. Keep the workload-versus-product distinction explicit so a context reset does not turn the benchmark into a social-network app.
-

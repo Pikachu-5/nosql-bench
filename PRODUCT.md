@@ -35,7 +35,7 @@ An optional small Firestore database may be used as a remote benchmark target wi
 - The benchmark workload covers timeline reads, profile reads, likes, post creation, hashtag searches, and follows. These actions model database operations; they are not end-user social features.
 - C++ implements the benchmark engine, control API, FeedKV server, and database adapters.
 - C# Blazor WebAssembly implements the dashboard; React and TypeScript are out of scope.
-- FeedKV, Redis, MongoDB, and Cassandra adapters are implemented. Neo4j is the next staged adapter; Firestore remains optional. They are independent benchmark targets, not a required database ensemble.
+- FeedKV, Redis, MongoDB, Cassandra and Neo4j adapters are implemented. Firestore remains optional. They are independent benchmark targets, not a required database ensemble.
 - GCP scope is limited to an optional small synthetic-data Firestore benchmark. The intended profile stays within published free quotas, but free quotas are not an absolute cost guarantee.
 - Bounded MongoDB and Cassandra smoke results exist. They verify correctness and connectivity and do not support performance comparisons. The `noop` adapter measures harness overhead only.
 

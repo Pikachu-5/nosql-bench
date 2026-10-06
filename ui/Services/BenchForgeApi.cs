@@ -8,6 +8,10 @@ namespace BenchForge.UI.Services;
 public sealed class BenchForgeApi(HttpClient http)
 {
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
+    public Task<SavedResultList> GetSavedResultsAsync(CancellationToken cancellationToken = default) =>
+        GetAsync<SavedResultList>("api/results", cancellationToken);
+    public Task<RunSummary> GetSavedSummaryAsync(string key, CancellationToken cancellationToken = default) =>
+        GetAsync<RunSummary>($"api/results/{Uri.EscapeDataString(key)}", cancellationToken);
 
     public async Task<bool> IsHealthyAsync(CancellationToken cancellationToken = default)
     {
@@ -115,6 +119,11 @@ public sealed class BenchForgeApi(HttpClient http)
         }
 
         var value = JsonSerializer.Deserialize<T>(body, JsonOptions);
+        if (value is RunSummary summary && !summary.HasReadableShape())
+            throw new InvalidOperationException("The capture has incomplete or unreadable metadata. Choose another saved run.");
+        if (value is SavedResultList archive && (archive.Results is null || archive.Results.Any(item =>
+            item is null || string.IsNullOrEmpty(item.Key) || item.RunId is null || item.Adapter is null || item.Scenario is null || item.Source is null)))
+            throw new InvalidOperationException("The saved-result catalog is incomplete.");
         return value ?? throw new InvalidOperationException("Control API returned an empty response.");
     }
 }
@@ -176,6 +185,23 @@ public sealed class RunInfo
 
 public sealed class RunSummary
 {
+    public bool HasReadableShape() => RunId is not null && Adapter is not null && Scenario is not null && Mode is not null &&
+        AdapterVersion is not null && Endpoint is not null && StorageConfiguration is not null && CleanupStatus is not null &&
+        HistogramResolution is not null && InvalidReasons is not null && Environment is not null &&
+        Environment.HostName is not null && Environment.OperatingSystem is not null && Environment.Architecture is not null &&
+        TransportCalibration is not null && Operations is not null &&
+        Operations.All(op => op is not null && op.Type is not null) &&
+        (Config is null || Config.OperationWeights is not null);
+    [JsonPropertyName("schema_version")]
+    public int SchemaVersion { get; set; }
+    [JsonPropertyName("started_at_utc")]
+    public string StartedAtUtc { get; set; } = "";
+    [JsonPropertyName("adapter_version")]
+    public string AdapterVersion { get; set; } = "";
+    public string Endpoint { get; set; } = "";
+    [JsonPropertyName("storage_configuration")]
+    public string StorageConfiguration { get; set; } = "";
+    public SavedConfiguration? Config { get; set; }
     [JsonPropertyName("run_id")]
     public string RunId { get; set; } = "";
 
@@ -222,6 +248,36 @@ public sealed class RunSummary
     public TransportCalibrationSummary TransportCalibration { get; set; } = new();
 
     public List<OperationSummary> Operations { get; set; } = [];
+}
+
+public sealed class SavedResultList
+{
+    public List<SavedResult> Results { get; set; } = [];
+    public int Skipped { get; set; }
+    public bool Truncated { get; set; }
+}
+public sealed class SavedResult
+{
+    public string Key { get; set; } = "";
+    public string RunId { get; set; } = "";
+    public string Adapter { get; set; } = "";
+    public string Scenario { get; set; } = "";
+    public string StartedAtUtc { get; set; } = "";
+    public string Source { get; set; } = "";
+    public bool Valid { get; set; }
+}
+public sealed class SavedConfiguration
+{
+    public ulong Users { get; set; }
+    public ulong Posts { get; set; }
+    public ulong Follows { get; set; }
+    public ulong Hashtags { get; set; }
+    [JsonPropertyName("duration_ms")]
+    public long DurationMs { get; set; }
+    [JsonPropertyName("celebrity_post_percent")]
+    public int CelebrityPostPercent { get; set; }
+    [JsonPropertyName("operation_weights")]
+    public Dictionary<string, int> OperationWeights { get; set; } = [];
 }
 
 public sealed class OperationSummary

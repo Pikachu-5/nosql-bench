@@ -1,0 +1,14 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": ["ui/Pages", "ui/Layout", "ui/Services"],
+  "locale": "en",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": ["Select/Listbox", "Form", "Scrollbar", "CRUD"],
+  "ownership": {"Select/Listbox": "native"},
+  "requiredCommands": ["build", "comparison"],
+  "commands": {
+    "build": "dotnet build ui/BenchForge.UI.csproj --no-restore",
+    "comparison": "dotnet run --project tests/ComparisonChecks"
+  },
+  "evidence": {"crudFullFlow": "docs/VERIFICATION_2026-10-06.md", "failurePaths": "docs/VERIFICATION_2026-10-06.md"}
+}

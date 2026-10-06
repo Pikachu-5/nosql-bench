@@ -3,6 +3,7 @@
 #include "benchforge/adapter.hpp"
 #include "benchforge/config.hpp"
 #include "child_process.hpp"
+#include "result_archive.hpp"
 
 #include <algorithm>
 #include <array>
@@ -557,6 +558,7 @@ std::string SerializeRun(const RunSnapshot& run) {
 
 class RunManager {
 public:
+    std::filesystem::path ArchiveRoot() const { return output_root_.parent_path(); }
     RunManager(std::filesystem::path executable, std::filesystem::path workspace)
         : executable_(std::filesystem::absolute(std::move(executable))),
           output_root_(std::filesystem::absolute(workspace / "runs" / "api")) {}
@@ -766,6 +768,16 @@ HttpResponse HandleApiRequest(const HttpRequest& request, RunManager& runs,
         }
         body << "]}";
         return {200, "application/json; charset=utf-8", body.str()};
+    }
+    if (request.method == "GET" && request.target == "/api/results") {
+        return {200, "application/json; charset=utf-8", detail::ListArchivedResults(runs.ArchiveRoot()).dump()};
+    }
+    constexpr std::string_view archive_prefix = "/api/results/";
+    if (request.method == "GET" && request.target.rfind(archive_prefix, 0) == 0) {
+        try {
+            return {200, "application/json; charset=utf-8", detail::ReadArchivedResult(
+                runs.ArchiveRoot(), request.target.substr(archive_prefix.size())).dump()};
+        } catch (const std::exception&) { throw HttpError(404, "saved result was not found or is unreadable"); }
     }
     if (request.method == "POST" && request.target == "/api/runs") {
         const auto run = runs.Start(ParseRunConfig(request));

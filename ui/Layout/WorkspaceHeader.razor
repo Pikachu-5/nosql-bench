@@ -1,0 +1,16 @@
+<header class="topbar">
+    <a class="brand" href="/" aria-label="BenchForge home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 17h5l3.1-8 5.2 15 3.3-10 2.2 3H29" /><path d="M3 28h26" /></svg>
+        <span>BenchForge</span>
+    </a>
+    <span class="brand-divider" aria-hidden="true"></span>
+    <span class="product-context">Database benchmark workstation</span>
+    <nav class="workspace-nav" aria-label="Workspace"><NavLink href="/" Match="NavLinkMatch.All">Configure</NavLink><NavLink href="analysis">Analysis</NavLink></nav>
+    <div class="service-state @(Loading ? "is-connecting" : Online ? "is-connected" : "is-disconnected")" role="status">
+        <span class="state-dot" aria-hidden="true"></span><span>@(Loading ? "Connecting…" : Online ? "Control API online" : "Control API offline")</span>
+    </div>
+</header>
+@code {
+    [Parameter] public bool Online { get; set; }
+    [Parameter] public bool Loading { get; set; }
+}

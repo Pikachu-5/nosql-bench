@@ -1,0 +1,137 @@
+@page "/analysis"
+@using System.Globalization
+@using System.Text.Json
+@implements IDisposable
+@inject BenchForgeApi Api
+@inject NavigationManager Navigation
+
+<PageTitle>Compare saved runs · BenchForge</PageTitle>
+<div class="app-frame">
+    <WorkspaceHeader Online="ApiOnline" Loading="LoadingList" />
+    <main class="workspace analysis-workspace">
+        <section class="workspace-heading" aria-labelledby="analysis-title">
+            <div><h1 id="analysis-title">Compare saved runs</h1><p>Read measurements together, with their workload and capture conditions.</p></div>
+            <button class="secondary-button" type="button" @onclick="ReloadAsync" disabled="@(LoadingList || LoadingPair)">@(LoadingList ? "Refreshing…" : "Refresh results")</button>
+        </section>
+        @if (Error.Length != 0) { <div class="notice notice-error" role="alert">@Error Retry with Refresh results. Previously loaded results may be stale.</div> }
+        @if (LoadingList && Archive.Results.Count == 0)
+        { <div class="analysis-panel" role="status">Loading saved results…</div> }
+        else if (Archive.Results.Count == 0 && (Error.Length == 0 || ApiOnline))
+        {
+            <section class="analysis-panel empty-state"><h2>No saved results yet</h2><p>Completed captures under the local runs folder appear here, including after a control API restart.</p><a href="/">Configure a benchmark</a></section>
+        }
+        else if (Archive.Results.Count > 0)
+        {
+            <section class="analysis-panel selection-panel" aria-labelledby="selection-heading" aria-busy="@(LoadingList || LoadingPair)">
+                <div class="section-heading"><div><h2 id="selection-heading">Select captures</h2><p>@Archive.Results.Count saved results. Invalid runs remain available for diagnosis.</p></div></div>
+                <div class="compare-selectors">
+                    <div><label for="baseline">Baseline</label><select id="baseline" value="@BaselineKey" @onchange="e => SelectAsync(true, e)" disabled="@LoadingList"><option value="">Choose a saved run</option>@foreach (var item in Archive.Results) { <option value="@item.Key">@OptionLabel(item)</option> }</select></div>
+                    <div><label for="candidate">Candidate</label><select id="candidate" value="@CandidateKey" @onchange="e => SelectAsync(false, e)" disabled="@LoadingList"><option value="">Choose a saved run</option>@foreach (var item in Archive.Results) { <option value="@item.Key">@OptionLabel(item)</option> }</select></div>
+                </div>
+                <p class="analysis-helper">Source folders and full run IDs are included in each option. Selection is preserved in this page’s URL.</p>
+                @if (Archive.Skipped > 0 || Archive.Truncated)
+                { <p class="notice notice-info">@Archive.Skipped unreadable or unsupported summaries skipped. @(Archive.Truncated ? "Archive scan reached its safety limit; only a bounded selection is shown." : "")</p> }
+            </section>
+            @if (LoadingPair) { <p class="analysis-panel" role="status">Loading selected captures…</p> }
+            else if (Baseline is null || Candidate is null)
+            { <p class="analysis-helper">Choose a baseline and a candidate to inspect their measurements.</p> }
+            else
+            {
+                var assessment = RunComparison.Assess(Baseline, Candidate);
+                var verificationCapture = Archive.Results.Any(item => (item.Key == BaselineKey || item.Key == CandidateKey) && item.Source == "verification");
+                var comparable = assessment.CanCompare && Error.Length == 0 && !verificationCapture;
+                <section class="analysis-panel" aria-labelledby="conditions-heading">
+                    <h2 id="conditions-heading">@(comparable ? "Workload and host settings match" : "Comparison needs review")</h2>
+                    @if (assessment.Issues.Count > 0)
+                    { <ul class="comparison-issues">@foreach (var issue in assessment.Issues) { <li>@issue</li> }</ul> }
+                    @if (verificationCapture) { <p class="notice notice-info">A selected capture comes from the verification folder. These correctness smoke checks do not support a performance comparison; percentage changes are withheld.</p> }
+                    @if (assessment.Differences.Count > 0)
+                    {
+                        <div class="table-scroll" tabindex="0" role="region" aria-label="Different capture settings"><table class="results-table analysis-table"><caption>Settings that differ</caption><thead><tr><th scope="col">Setting</th><th scope="col">Baseline</th><th scope="col">Candidate</th></tr></thead><tbody>@foreach (var difference in assessment.Differences) { <tr><th scope="row">@difference.Field</th><td>@difference.Baseline</td><td>@difference.Candidate</td></tr> }</tbody></table></div>
+                    }
+                    <p class="analysis-helper">@(comparable ? "Percentage changes describe these two captures only. Review storage models and durability below before interpreting them." : "Recorded values remain visible; percentage changes are withheld until both captures are valid and their workload and host settings match.")</p>
+                </section>
+                <section class="analysis-panel" aria-labelledby="measurements-heading">
+                    <div class="section-heading"><div><h2 id="measurements-heading">Recorded measurements</h2><p>Baseline: @Baseline.Adapter · Candidate: @Candidate.Adapter</p></div></div>
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="Overall measurements"><table class="results-table analysis-table overview-table"><caption>Run totals and achieved throughput</caption><thead><tr><th scope="col">Measure</th><th scope="col">Baseline</th><th scope="col">Candidate</th><th scope="col">Change</th></tr></thead><tbody>
+                        <tr><th scope="row">Achieved ops/s</th><td>@Number(RunComparison.Throughput(Baseline))</td><td>@Number(RunComparison.Throughput(Candidate))</td><td>@(comparable ? RunComparison.Change(RunComparison.Throughput(Baseline),RunComparison.Throughput(Candidate)) : "—")</td></tr>
+                        <tr><th scope="row">Operations</th><td>@Baseline.TotalOperations</td><td>@Candidate.TotalOperations</td><td>—</td></tr>
+                        <tr><th scope="row">Errors / timeouts</th><td>@Baseline.TotalErrors / @Baseline.TotalTimeouts</td><td>@Candidate.TotalErrors / @Candidate.TotalTimeouts</td><td>—</td></tr>
+                        <tr><th scope="row">Measured window (ms)</th><td>@Baseline.MeasuredMs</td><td>@Candidate.MeasuredMs</td><td>—</td></tr>
+                    </tbody></table></div>
+                    <div class="table-scroll" tabindex="0" role="region" aria-label="Operation measurements"><table class="results-table analysis-table operation-comparison"><caption>Per-operation latency and throughput · scroll horizontally for all percentiles</caption><thead><tr><th scope="col">Operation</th><th scope="col">Capture</th><th scope="col">Samples</th><th scope="col">ops/s</th><th scope="col">p50</th><th scope="col">p95</th><th scope="col">p99</th><th scope="col">p99.9</th><th scope="col">Send lag p95</th><th scope="col">Errors / timeouts</th><th scope="col">p95 change</th></tr></thead><tbody>
+                        @foreach (var type in Baseline.Operations.Select(op=>op.Type).Union(Candidate.Operations.Select(op=>op.Type)))
+                        {
+                            var a = Baseline.Operations.FirstOrDefault(op=>op.Type==type);
+                            var b = Candidate.Operations.FirstOrDefault(op=>op.Type==type);
+                            @foreach (var entry in new[] { (Name:"Baseline",Op:a,Mode:Baseline.Mode), (Name:"Candidate",Op:b,Mode:Candidate.Mode) })
+                            {
+                                var op = entry.Op;
+                                <tr class="@(entry.Name=="Baseline" ? "operation-start" : "")"><th scope="row">@type.Replace('_',' ')</th><td>@entry.Name</td><td>@(op?.Count.ToString() ?? "—")</td><td>@(op is { Count: > 0 } ? Number(op.OperationsPerSecond) : "—")</td><td>@Metric(op,op?.P50Ns)</td><td>@Metric(op,op?.P95Ns)</td><td>@Metric(op,op?.P99Ns)</td><td>@Metric(op,op?.P999Ns)</td><td>@(entry.Mode=="open_loop" ? Metric(op,op?.SendLagP95Ns) : "Not scheduled")</td><td>@(op is null ? "—" : $"{op.Errors} / {op.Timeouts}")</td><td>@(entry.Name=="Candidate" && comparable && a is {Count:>0} && b is {Count:>0} ? RunComparison.Change(a.P95Ns,b.P95Ns) : "—")</td></tr>
+                            }
+                        }
+                    </tbody></table></div>
+                    <p class="analysis-helper">Lower latency changes and higher throughput changes describe different measures. Zero-sample channels show a dash. Percentiles are approximate bucket bounds and may exceed the exact maximum. Send lag is measured separately from operation latency; timeouts are included in errors.</p>
+                </section>
+                <div class="evidence-grid"><RunEvidence Run="Baseline" Label="Baseline" /><RunEvidence Run="Candidate" Label="Candidate" /></div>
+                <section class="analysis-panel" aria-labelledby="limits-heading"><h2 id="limits-heading">Limits of these captures</h2><p>Two runs do not establish a performance ranking. Repeat important configurations at least three times and report median and range. Small sample counts make tail percentiles unstable; inspect counts before using p99 or p99.9.</p><p>These local native adapters use different storage models and client protocols. Durability, database resource limits, competing processes and GC can change results. Host memory is physical capacity, not database usage; container limits and GC are not captured for every adapter. Calibration probes include different server work and are never subtracted from operation latency.</p><p>The feed workload is synthetic. Harness-only <code>noop</code> captures measure overhead, and verification-folder runs are correctness smoke checks.</p></section>
+            }
+        }
+    </main>
+</div>
+
+@code {
+    [SupplyParameterFromQuery(Name="baseline")] public string? BaselineKey { get; set; }
+    [SupplyParameterFromQuery(Name="candidate")] public string? CandidateKey { get; set; }
+    private SavedResultList Archive = new();
+    private RunSummary? Baseline, Candidate;
+    private bool ApiOnline, LoadingList, LoadingPair, Initialized, Disposed;
+    private string Error = "";
+    private CancellationTokenSource Request = new();
+    private int Revision;
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!Initialized) { Initialized=true; await ReloadAsync(); }
+        else await LoadPairAsync();
+    }
+    private CancellationToken BeginRequest()
+    {
+        Request.Cancel(); Request.Dispose(); Request=new(); Revision++; return Request.Token;
+    }
+    private async Task ReloadAsync()
+    {
+        var token=BeginRequest(); var revision=Revision; LoadingList=true; LoadingPair=false; Error="";
+        try { var archive=await Api.GetSavedResultsAsync(token); if (revision!=Revision || Disposed) return; Archive=archive; ApiOnline=true; }
+        catch (Exception ex) when (ex is HttpRequestException or InvalidOperationException or JsonException or OperationCanceledException)
+        { if (revision==Revision && !Disposed) { Error=ex is OperationCanceledException ? "The control API request timed out." : ex is HttpRequestException ? "The control API is offline or unreachable. Start the local API and try again." : $"Could not read saved results: {ex.Message}"; ApiOnline=ex is not (HttpRequestException or OperationCanceledException); } }
+        finally { if (revision==Revision && !Disposed) LoadingList=false; }
+        if (revision==Revision && Error.Length==0 && !Disposed) await LoadPairAsync();
+    }
+    private async Task LoadPairAsync()
+    {
+        var token=BeginRequest(); var revision=Revision; LoadingList=false; LoadingPair=true; Error=""; Baseline=null; Candidate=null;
+        try {
+            if (string.IsNullOrEmpty(BaselineKey) || string.IsNullOrEmpty(CandidateKey)) return;
+            if (!Archive.Results.Any(item=>item.Key==BaselineKey) || !Archive.Results.Any(item=>item.Key==CandidateKey))
+                throw new InvalidOperationException("A selected capture is no longer in the archive. Choose another saved run.");
+            // The local API serves connections serially; each request remains cancelable.
+            var a=await Api.GetSavedSummaryAsync(BaselineKey,token);
+            var b=await Api.GetSavedSummaryAsync(CandidateKey,token);
+            if (revision==Revision && !Disposed) { Baseline=a; Candidate=b; ApiOnline=true; }
+        }
+        catch (Exception ex) when (ex is HttpRequestException or InvalidOperationException or JsonException or OperationCanceledException)
+        { if (revision==Revision && !Disposed) { Error=ex is OperationCanceledException ? "The capture request timed out." : ex is JsonException ? "A selected capture contains unreadable or out-of-range measurement values. Choose another saved run." : ex is HttpRequestException ? "The control API is offline or unreachable. Start the local API and try again." : $"Could not load selected captures: {ex.Message}"; if (ex is HttpRequestException or OperationCanceledException) ApiOnline=false; } }
+        finally { if (revision==Revision && !Disposed) LoadingPair=false; }
+    }
+    private Task SelectAsync(bool baseline, ChangeEventArgs args)
+    {
+        var key=args.Value?.ToString();
+        Navigation.NavigateTo(Navigation.GetUriWithQueryParameters(new Dictionary<string,object?> {
+            ["baseline"]=baseline ? key : BaselineKey, ["candidate"]=baseline ? CandidateKey : key }));
+        return Task.CompletedTask;
+    }
+    private static string OptionLabel(SavedResult item) => $"{item.Adapter} · {item.Scenario} · {(item.Valid ? "valid" : "invalid")} · {item.Source} · {item.RunId}";
+    private static string Number(double number) => number.ToString("N1",CultureInfo.InvariantCulture);
+    private static string Metric(OperationSummary? op,long? ns) => op is {Count:>0} && ns.HasValue ? RunComparison.Latency(ns.Value) : "—";
+    public void Dispose() { Disposed=true; Request.Cancel(); Request.Dispose(); }
+}

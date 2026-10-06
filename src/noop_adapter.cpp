@@ -56,11 +56,14 @@ std::unique_ptr<DatabaseAdapter> CreateAdapter(const std::string& name,
     if (name == "cassandra") {
         return detail::CreateCassandraAdapter(config, key_prefix);
     }
+    if (name == "neo4j") {
+        return detail::CreateNeo4jAdapter(config, key_prefix);
+    }
     throw std::invalid_argument("adapter is not available: " + name);
 }
 
 std::vector<std::string> AvailableAdapters() {
-    return {"cassandra", "feedkv", "mongo", "noop", "redis"};
+    return {"cassandra", "feedkv", "mongo", "neo4j", "noop", "redis"};
 }
 
 } // namespace benchforge

@@ -7,21 +7,7 @@
 <PageTitle>Configure a run · BenchForge</PageTitle>
 
 <div class="app-frame">
-    <header class="topbar">
-        <a class="brand" href="/" aria-label="BenchForge home">
-            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-                <path d="M3 17h5l3.1-8 5.2 15 3.3-10 2.2 3H29" />
-                <path d="M3 28h26" />
-            </svg>
-            <span>BenchForge</span>
-        </a>
-        <span class="brand-divider" aria-hidden="true"></span>
-        <span class="product-context">Database benchmark workstation</span>
-        <div class="service-state @(ApiOnline ? "is-connected" : "is-disconnected")" role="status">
-            <span class="state-dot" aria-hidden="true"></span>
-            <span>@(ApiOnline ? "Control API online" : "Control API offline")</span>
-        </div>
-    </header>
+    <WorkspaceHeader Online="ApiOnline" />
 
     <main class="workspace">
         <section class="workspace-heading" aria-labelledby="page-title">
@@ -171,6 +157,12 @@
                                     {
                                         <div class="notice notice-info adapter-note">
                                             <strong>Cassandra 4.1+ must be running locally on port 9042.</strong> Use a single node with authentication disabled. BenchForge creates and removes a run-specific keyspace, using replication factor 1 and consistency ONE.
+                                        </div>
+                                    }
+                                    else if (Form.Adapter == "neo4j")
+                                    {
+                                        <div class="notice notice-info adapter-note">
+                                            <strong>Neo4j 5.26+ must be running locally on HTTP port 7474.</strong> Use a single node with authentication disabled. BenchForge removes its run graph and retains shared indexes.
                                         </div>
                                     }
                                 </div>
@@ -665,6 +657,7 @@
         "redis" => "Redis — local comparison",
         "mongo" => "MongoDB — document comparison",
         "cassandra" => "Cassandra — partitioned comparison",
+        "neo4j" => "Neo4j — graph comparison",
         _ => name
     };
 

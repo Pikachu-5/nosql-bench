@@ -246,6 +246,7 @@ std::vector<std::string> ValidateConfig(const RunConfig& config) {
 }
 
 std::uint16_t DefaultDatabasePort(const std::string& adapter) noexcept {
+    if (adapter == "neo4j") return 7474;
     if (adapter == "redis") {
         return 6379;
     }

@@ -20,12 +20,15 @@ add_executable(benchforge
     src/mongo_adapter.cpp
     src/cql_client.cpp
     src/cassandra_adapter.cpp
+    src/neo4j_client.cpp
+    src/neo4j_adapter.cpp
     src/database_adapter.cpp
     src/feedkv_server.cpp
     src/runner.cpp
     src/results.cpp
     src/child_process.cpp
     src/control_api.cpp
+    src/result_archive.cpp
 )
 
 target_include_directories(benchforge PRIVATE include)
@@ -36,6 +39,20 @@ endif()
 
 include(CTest)
 if(BUILD_TESTING)
+    add_executable(result_archive_tests tests/result_archive_tests.cpp src/result_archive.cpp)
+    target_include_directories(result_archive_tests PRIVATE include src)
+    add_test(NAME result_archive COMMAND result_archive_tests)
+    add_executable(neo4j_tests tests/neo4j_tests.cpp src/neo4j_client.cpp)
+    add_executable(neo4j_integration tests/neo4j_integration.cpp src/neo4j_client.cpp
+        src/neo4j_adapter.cpp src/config.cpp src/operation.cpp)
+    foreach(target neo4j_tests neo4j_integration)
+        target_include_directories(${target} PRIVATE include src)
+        target_link_libraries(${target} PRIVATE Threads::Threads)
+        if(WIN32)
+            target_link_libraries(${target} PRIVATE ws2_32)
+        endif()
+    endforeach()
+    add_test(NAME neo4j_parser COMMAND neo4j_tests)
     add_executable(cql_tests tests/cql_tests.cpp src/cql_client.cpp)
     target_include_directories(cql_tests PRIVATE include src)
     add_executable(cassandra_integration tests/cassandra_integration.cpp
@@ -50,10 +67,17 @@ if(BUILD_TESTING)
     add_test(NAME cql_parser COMMAND cql_tests)
     find_package(Python3 COMPONENTS Interpreter QUIET)
     if(Python3_Interpreter_FOUND)
+        add_test(NAME neo4j_http_framing COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/neo4j_http_regression.py" $<TARGET_FILE:neo4j_tests>)
         add_test(NAME open_loop_send_lag COMMAND "${Python3_EXECUTABLE}"
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/open_loop_regression.py" $<TARGET_FILE:benchforge>)
     endif()
     option(BENCHFORGE_LIVE_DATABASE_TESTS "Run tests against local Cassandra on port 9042" OFF)
+    option(BENCHFORGE_LIVE_NEO4J_TESTS "Run tests against local unauthenticated Neo4j on HTTP port 7474" OFF)
+    if(BENCHFORGE_LIVE_NEO4J_TESTS)
+        add_test(NAME neo4j_live COMMAND neo4j_integration)
+        set_tests_properties(neo4j_live PROPERTIES LABELS integration TIMEOUT 180)
+    endif()
     if(BENCHFORGE_LIVE_DATABASE_TESTS)
         add_test(NAME cassandra_live COMMAND cassandra_integration)
         set_tests_properties(cassandra_live PROPERTIES LABELS integration TIMEOUT 180)

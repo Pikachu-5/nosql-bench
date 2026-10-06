@@ -9,7 +9,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(_ => new HttpClient
 {
-    BaseAddress = new Uri("http://127.0.0.1:8080/")
+    BaseAddress = new Uri("http://127.0.0.1:8080/"),
+    Timeout = TimeSpan.FromSeconds(15)
 });
 builder.Services.AddScoped<BenchForgeApi>();
 

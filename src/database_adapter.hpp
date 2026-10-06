@@ -11,5 +11,7 @@ std::unique_ptr<DatabaseAdapter> CreateMongoAdapter(
     const RunConfig& config, const std::string& key_prefix);
 std::unique_ptr<DatabaseAdapter> CreateCassandraAdapter(
     const RunConfig& config, const std::string& key_prefix);
+std::unique_ptr<DatabaseAdapter> CreateNeo4jAdapter(
+    const RunConfig& config, const std::string& key_prefix);
 
 } // namespace benchforge::detail

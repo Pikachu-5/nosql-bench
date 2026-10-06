@@ -67,7 +67,41 @@ ctest --test-dir build --output-on-failure
 
 CTest runs CQL parser checks and, when Python is available, an open-loop scheduling regression. The explicit integration executable requires local Cassandra on port 9042 and tests seeded records, all operations, descending top20 ordering, idempotence, paging, ownership, namespace collisions, and cleanup. It creates unique synthetic keyspaces. To include it in CTest, configure with `-DBENCHFORGE_LIVE_DATABASE_TESTS=ON`; default builds do not require a running database. Regression artifacts stay under the ignored build directory.
 
-MongoDB 8.2.1 and Cassandra 4.1.12 passed bounded runtime checks on 2026-10-06. See [verification evidence and limitations](docs/VERIFICATION_2026-10-06.md). These are correctness checks; no comparative performance claim follows from them. FeedKV-versus-Redis measurements remain pending; Neo4j is the next Phase 5 adapter milestone.
+MongoDB 8.2.1, Cassandra 4.1.12 and Neo4j 5.26.31 passed bounded runtime checks on 2026-10-06. See [verification evidence and limitations](docs/VERIFICATION_2026-10-06.md). These are correctness checks; no comparative performance claim follows from them. FeedKV-versus-Redis correctness and repeated measurements remain pending.
+
+## Neo4j
+
+Neo4j completes the local Phase 5 adapter coverage. Phase 6 adds the saved-run analysis route described below.
+
+Use a local unauthenticated Neo4j 5.26+ single node with the default `neo4j` database and HTTP Query API v2 on port 7474. The adapter uses parameterized Cypher over one persistent HTTP connection per worker, composite `(run,id)` unique indexes on users/posts/tags, and native follow/author/tag/like relationships. Loader batches contain at most 256 rows. Run markers reject namespace reuse; cleanup removes only the loader-owned run graph, retaining shared schema constraints. Timeline reads use an indexed source user, follow/author traversals and timestamp/ID top20 sorting. Likes/follows are idempotent `MERGE` updates with a node lock. Explicit Neo4j deadlock rollback errors allow up to four retries with 10/20/30/40 ms backoff, included in operation latency. Unknown write completion and socket failures are never retried. Authentication, TLS, Bolt, cluster routing and remote targets are outside this adapter.
+
+```powershell
+docker run -d --name benchforge-neo4j --memory 2g --cpus 2 -p 127.0.0.1:7474:7474 -e NEO4J_AUTH=none -e NEO4J_server_memory_heap_initial__size=512m -e NEO4J_server_memory_heap_max__size=768m -e NEO4J_server_memory_pagecache_size=256m neo4j:5.26-community
+# Wait for the Query API readiness request to succeed before running.
+Invoke-RestMethod http://127.0.0.1:7474/db/neo4j/query/v2 -Method Post -ContentType application/json -Body '{"statement":"RETURN 1"}'
+.\build\benchforge.exe run --config config\neo4j-smoke.conf
+.\build\benchforge.exe run --config config\neo4j-celebrity-smoke.conf
+.\build\neo4j_integration.exe
+```
+
+Record the resolved Docker image digest and database version; the tag can change. Heap/page-cache settings and EXPLAIN operator summaries are captured. GC and database/container resource usage need separate collection. The calibration query (`RETURN 1`) includes Cypher/server execution and is not a pure network probe. The Query API may return HTTP 202 with query errors; the client checks the error array explicitly. The live integration executable verifies both scenarios, deterministic posts/follows, all six operations, top20 tie-breaking, concurrent duplicate likes, collision refusal, worker ownership, indexed plans and cleanup. Enable `BENCHFORGE_LIVE_NEO4J_TESTS` to include it in CTest; it is off by default.
+
+The native client and saved archive use vendored [nlohmann/json 3.12.0](https://github.com/nlohmann/json/releases/tag/v3.12.0), under its bundled [MIT license](include/nlohmann/LICENSE.MIT). No download is required to build.
+
+## Saved-run analysis
+
+With the control API and dashboard running, open **Analysis** in the header (`http://localhost:5180/analysis`). Select baseline and candidate captures; the URL preserves selections across reloads. The read-only archive survives API restarts and includes schema-v2 summaries under `runs/<run-id>` and `runs/<bucket>/<run-id>`, including CLI verification runs. Live session status history remains separate.
+
+`GET /api/results` returns a bounded catalog; `GET /api/results/<bucket>~<run-id>` reads a capture (empty bucket for direct children). The archive rejects unsafe paths, symbolic links, mismatched IDs, unsupported/malformed JSON and summaries over 1 MiB. Scans stop at 5,000 entries or 32 MiB of source data and return at most 500 captures; skipped/truncated counts are visible. Smaller archives are sorted newest first. Keep important results within these bounds.
+
+Compare achieved throughput, per-operation samples/ops/s, p50/p95/p99/p99.9, errors/timeouts and scheduled send lag. Full configuration, host, adapter/version, storage/durability/query model, calibration and cleanup are shown alongside caveats. Percentage changes require valid database captures with matching workload and host settings; `noop`, inconsistent/mismatched captures and verification-folder smoke checks withhold changes. Zero-sample channels show a dash. Two captures do not establish a ranking. Repeat important configurations at least three times; median/range aggregation remains future analysis work.
+
+```powershell
+ctest --test-dir build --output-on-failure
+dotnet run --project tests\ComparisonChecks
+```
+
+Default CTest checks CQL/Neo4j response parsing, fragmented/chunked persistent HTTP, saved archive boundaries and open-loop send lag; it does not require a database. Comparison checks cover eligibility, configuration mismatches, invalid/no-op evidence, approximate histogram bounds and zero denominators.
 
 To benchmark FeedKV, start its volatile in-memory server in another terminal:
 
