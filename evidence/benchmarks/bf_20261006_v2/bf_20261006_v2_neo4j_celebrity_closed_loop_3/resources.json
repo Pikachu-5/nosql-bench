@@ -1,0 +1,86 @@
+{
+  "sampling_scope": "entire worker lifetime including load and warmup",
+  "samples": [
+    {
+      "at_utc": "2026-10-06T11:45:35.888480+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "128.95%",
+        "Container": "4537f42eb417838f21ab4b52610db10d762e62fddbf979b0710b7fe41b8afb5a",
+        "ID": "4537f42eb417",
+        "MemPerc": "48.57%",
+        "MemUsage": "994.8MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-neo4j",
+        "NetIO": "8.98MB / 9.92MB",
+        "PIDs": "71"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:45:38.090687+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "162.94%",
+        "Container": "4537f42eb417838f21ab4b52610db10d762e62fddbf979b0710b7fe41b8afb5a",
+        "ID": "4537f42eb417",
+        "MemPerc": "48.60%",
+        "MemUsage": "995.4MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-neo4j",
+        "NetIO": "9.6MB / 10.5MB",
+        "PIDs": "71"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:45:40.275128+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "176.16%",
+        "Container": "4537f42eb417838f21ab4b52610db10d762e62fddbf979b0710b7fe41b8afb5a",
+        "ID": "4537f42eb417",
+        "MemPerc": "48.69%",
+        "MemUsage": "997.1MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-neo4j",
+        "NetIO": "10.3MB / 11.3MB",
+        "PIDs": "71"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:45:42.456269+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "23.49%",
+        "Container": "4537f42eb417838f21ab4b52610db10d762e62fddbf979b0710b7fe41b8afb5a",
+        "ID": "4537f42eb417",
+        "MemPerc": "48.77%",
+        "MemUsage": "998.9MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-neo4j",
+        "NetIO": "10.9MB / 12.2MB",
+        "PIDs": "71"
+      }
+    }
+  ],
+  "exit_code": 0,
+  "configuration": {
+    "adapter": "neo4j",
+    "database_host": "127.0.0.1",
+    "database_port": 7474,
+    "scenario": "celebrity",
+    "mode": "closed_loop",
+    "offered_rate_ops_sec": 100,
+    "seed": 42,
+    "workers": 2,
+    "warmup_ms": 1000,
+    "duration_ms": 5000,
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8,
+    "celebrity_post_percent": 10,
+    "output_dir": "C:/Codes/nosql/runs/experiments",
+    "weight.timeline_read": 40,
+    "weight.user_profile_read": 25,
+    "weight.post_like": 15,
+    "weight.post_create": 10,
+    "weight.hashtag_search": 5,
+    "weight.user_follow": 5
+  }
+}

@@ -1,6 +1,6 @@
 # Phase 5 runtime verification — 2026-10-06
 
-The continuation from `BENCHFORGE_HANDOFF_2026-10-06.md` verified MongoDB, added Cassandra, and fixed an open-loop scheduler defect. The next continuation completed Neo4j coverage and Phase 6 saved-run analysis. Controlled repeated performance experiments remain pending.
+The continuation from `BENCHFORGE_HANDOFF_2026-10-06.md` verified MongoDB, added Cassandra, and fixed an open-loop scheduler defect. The next continuation completed Neo4j coverage and Phase 6 saved-run analysis. The final continuation completed native correctness checks, graceful cancellation/recovery, and 60 controlled repeated captures. See [the results report](BENCHMARK_RESULTS_2026-10-06.md). This document preserves the earlier test environment and limitations; later reliability work supersedes the historical force-termination behavior described below.
 
 ## Scope and environment
 

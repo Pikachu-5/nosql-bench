@@ -1,0 +1,4722 @@
+[
+  {
+    "adapter": "feedkv",
+    "scenario": "normal",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 2549.6,
+      "minimum": 2419.8,
+      "maximum": 2635.2729454109176
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 5143,
+          "minimum": 4875,
+          "maximum": 5315
+        },
+        "ops_per_sec": {
+          "median": 1028.6,
+          "minimum": 975.0,
+          "maximum": 1062.787
+        },
+        "p50_ns": {
+          "median": 884735,
+          "minimum": 851967,
+          "maximum": 950271
+        },
+        "p95_ns": {
+          "median": 1179647,
+          "minimum": 1114111,
+          "maximum": 1245183
+        },
+        "p99_ns": {
+          "median": 1572863,
+          "minimum": 1310719,
+          "maximum": 1638399
+        },
+        "p999_ns": {
+          "median": 2883583,
+          "minimum": 2752511,
+          "maximum": 2883583
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 3221,
+          "minimum": 3051,
+          "maximum": 3331
+        },
+        "ops_per_sec": {
+          "median": 644.2,
+          "minimum": 610.2,
+          "maximum": 666.067
+        },
+        "p50_ns": {
+          "median": 376831,
+          "minimum": 360447,
+          "maximum": 393215
+        },
+        "p95_ns": {
+          "median": 507903,
+          "minimum": 475135,
+          "maximum": 557055
+        },
+        "p99_ns": {
+          "median": 688127,
+          "minimum": 589823,
+          "maximum": 688127
+        },
+        "p999_ns": {
+          "median": 1114111,
+          "minimum": 950271,
+          "maximum": 1245183
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 1888,
+          "minimum": 1803,
+          "maximum": 1960
+        },
+        "ops_per_sec": {
+          "median": 377.6,
+          "minimum": 360.6,
+          "maximum": 391.922
+        },
+        "p50_ns": {
+          "median": 393215,
+          "minimum": 376831,
+          "maximum": 409599
+        },
+        "p95_ns": {
+          "median": 524287,
+          "minimum": 491519,
+          "maximum": 557055
+        },
+        "p99_ns": {
+          "median": 688127,
+          "minimum": 622591,
+          "maximum": 720895
+        },
+        "p999_ns": {
+          "median": 1900543,
+          "minimum": 950271,
+          "maximum": 2097151
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 1215,
+          "minimum": 1147,
+          "maximum": 1254
+        },
+        "ops_per_sec": {
+          "median": 243.0,
+          "minimum": 229.4,
+          "maximum": 250.75
+        },
+        "p50_ns": {
+          "median": 1310719,
+          "minimum": 1310719,
+          "maximum": 1376255
+        },
+        "p95_ns": {
+          "median": 1769471,
+          "minimum": 1638399,
+          "maximum": 1900543
+        },
+        "p99_ns": {
+          "median": 2359295,
+          "minimum": 1900543,
+          "maximum": 2490367
+        },
+        "p999_ns": {
+          "median": 3407871,
+          "minimum": 3145727,
+          "maximum": 4456447
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 687,
+          "minimum": 656,
+          "maximum": 708
+        },
+        "ops_per_sec": {
+          "median": 137.4,
+          "minimum": 131.2,
+          "maximum": 141.572
+        },
+        "p50_ns": {
+          "median": 884735,
+          "minimum": 884735,
+          "maximum": 950271
+        },
+        "p95_ns": {
+          "median": 1179647,
+          "minimum": 1114111,
+          "maximum": 1310719
+        },
+        "p99_ns": {
+          "median": 1572863,
+          "minimum": 1310719,
+          "maximum": 1638399
+        },
+        "p999_ns": {
+          "median": 3538943,
+          "minimum": 2883583,
+          "maximum": 3801087
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 594,
+          "minimum": 567,
+          "maximum": 611
+        },
+        "ops_per_sec": {
+          "median": 118.8,
+          "minimum": 113.4,
+          "maximum": 122.176
+        },
+        "p50_ns": {
+          "median": 1769471,
+          "minimum": 1703935,
+          "maximum": 1835007
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 2490367
+        },
+        "p99_ns": {
+          "median": 3276799,
+          "minimum": 2621439,
+          "maximum": 3407871
+        },
+        "p999_ns": {
+          "median": 5505023,
+          "minimum": 4456447,
+          "maximum": 6029311
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "feedkv",
+    "scenario": "normal",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 100.0,
+      "minimum": 100.0,
+      "maximum": 100.0
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 224,
+          "minimum": 224,
+          "maximum": 224
+        },
+        "ops_per_sec": {
+          "median": 44.8,
+          "minimum": 44.8,
+          "maximum": 44.8
+        },
+        "p50_ns": {
+          "median": 1507327,
+          "minimum": 1507327,
+          "maximum": 1572863
+        },
+        "p95_ns": {
+          "median": 2097151,
+          "minimum": 2031615,
+          "maximum": 2228223
+        },
+        "p99_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2621439,
+          "minimum": 2490367,
+          "maximum": 3407871
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 19922943,
+          "maximum": 22020095
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 111,
+          "minimum": 111,
+          "maximum": 111
+        },
+        "ops_per_sec": {
+          "median": 22.2,
+          "minimum": 22.2,
+          "maximum": 22.2
+        },
+        "p50_ns": {
+          "median": 819199,
+          "minimum": 786431,
+          "maximum": 819199
+        },
+        "p95_ns": {
+          "median": 1179647,
+          "minimum": 1114111,
+          "maximum": 1310719
+        },
+        "p99_ns": {
+          "median": 1245183,
+          "minimum": 1179647,
+          "maximum": 1507327
+        },
+        "p999_ns": {
+          "median": 1507327,
+          "minimum": 1245183,
+          "maximum": 1572863
+        },
+        "send_lag_p95_ns": {
+          "median": 22020095,
+          "minimum": 16777215,
+          "maximum": 25165823
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.6,
+          "minimum": 14.6,
+          "maximum": 14.6
+        },
+        "p50_ns": {
+          "median": 851967,
+          "minimum": 786431,
+          "maximum": 884735
+        },
+        "p95_ns": {
+          "median": 1114111,
+          "minimum": 1114111,
+          "maximum": 1441791
+        },
+        "p99_ns": {
+          "median": 1507327,
+          "minimum": 1245183,
+          "maximum": 2097151
+        },
+        "p999_ns": {
+          "median": 1507327,
+          "minimum": 1245183,
+          "maximum": 2097151
+        },
+        "send_lag_p95_ns": {
+          "median": 14680063,
+          "minimum": 14155775,
+          "maximum": 19922943
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 42,
+          "minimum": 42,
+          "maximum": 42
+        },
+        "ops_per_sec": {
+          "median": 8.4,
+          "minimum": 8.4,
+          "maximum": 8.4
+        },
+        "p50_ns": {
+          "median": 2031615,
+          "minimum": 1966079,
+          "maximum": 2228223
+        },
+        "p95_ns": {
+          "median": 2752511,
+          "minimum": 2752511,
+          "maximum": 3014655
+        },
+        "p99_ns": {
+          "median": 3276799,
+          "minimum": 2883583,
+          "maximum": 3407871
+        },
+        "p999_ns": {
+          "median": 3276799,
+          "minimum": 2883583,
+          "maximum": 3407871
+        },
+        "send_lag_p95_ns": {
+          "median": 14155775,
+          "minimum": 14155775,
+          "maximum": 18874367
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 26,
+          "minimum": 26,
+          "maximum": 26
+        },
+        "ops_per_sec": {
+          "median": 5.2,
+          "minimum": 5.2,
+          "maximum": 5.2
+        },
+        "p50_ns": {
+          "median": 1572863,
+          "minimum": 1572863,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 2031615,
+          "minimum": 2031615,
+          "maximum": 2490367
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 2228223,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 2228223,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 16252927,
+          "minimum": 15728639,
+          "maximum": 22020095
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.8,
+          "minimum": 4.8,
+          "maximum": 4.8
+        },
+        "p50_ns": {
+          "median": 2621439,
+          "minimum": 2621439,
+          "maximum": 2621439
+        },
+        "p95_ns": {
+          "median": 3538943,
+          "minimum": 3407871,
+          "maximum": 3670015
+        },
+        "p99_ns": {
+          "median": 4194303,
+          "minimum": 3538943,
+          "maximum": 5505023
+        },
+        "p999_ns": {
+          "median": 4194303,
+          "minimum": 3538943,
+          "maximum": 5505023
+        },
+        "send_lag_p95_ns": {
+          "median": 14680063,
+          "minimum": 14680063,
+          "maximum": 17825791
+        }
+      }
+    }
+  },
+  {
+    "adapter": "feedkv",
+    "scenario": "celebrity",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 2132.373525294941,
+      "minimum": 1956.4,
+      "maximum": 2327.1345730853827
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 4195,
+          "minimum": 3856,
+          "maximum": 4576
+        },
+        "ops_per_sec": {
+          "median": 838.832,
+          "minimum": 771.2,
+          "maximum": 915.017
+        },
+        "p50_ns": {
+          "median": 1048575,
+          "minimum": 917503,
+          "maximum": 1114111
+        },
+        "p95_ns": {
+          "median": 1441791,
+          "minimum": 1376255,
+          "maximum": 1835007
+        },
+        "p99_ns": {
+          "median": 1835007,
+          "minimum": 1769471,
+          "maximum": 2097151
+        },
+        "p999_ns": {
+          "median": 3014655,
+          "minimum": 2752511,
+          "maximum": 3670015
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 2638,
+          "minimum": 2405,
+          "maximum": 2881
+        },
+        "ops_per_sec": {
+          "median": 527.495,
+          "minimum": 481.0,
+          "maximum": 576.085
+        },
+        "p50_ns": {
+          "median": 442367,
+          "minimum": 393215,
+          "maximum": 458751
+        },
+        "p95_ns": {
+          "median": 688127,
+          "minimum": 688127,
+          "maximum": 786431
+        },
+        "p99_ns": {
+          "median": 884735,
+          "minimum": 851967,
+          "maximum": 950271
+        },
+        "p999_ns": {
+          "median": 1572863,
+          "minimum": 1179647,
+          "maximum": 2031615
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 1644,
+          "minimum": 1524,
+          "maximum": 1790
+        },
+        "ops_per_sec": {
+          "median": 328.734,
+          "minimum": 304.8,
+          "maximum": 357.928
+        },
+        "p50_ns": {
+          "median": 458751,
+          "minimum": 409599,
+          "maximum": 475135
+        },
+        "p95_ns": {
+          "median": 655359,
+          "minimum": 655359,
+          "maximum": 851967
+        },
+        "p99_ns": {
+          "median": 884735,
+          "minimum": 819199,
+          "maximum": 1048575
+        },
+        "p999_ns": {
+          "median": 1703935,
+          "minimum": 1048575,
+          "maximum": 2359295
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 1107,
+          "minimum": 1010,
+          "maximum": 1203
+        },
+        "ops_per_sec": {
+          "median": 221.356,
+          "minimum": 202.0,
+          "maximum": 240.552
+        },
+        "p50_ns": {
+          "median": 1572863,
+          "minimum": 1376255,
+          "maximum": 1638399
+        },
+        "p95_ns": {
+          "median": 2883583,
+          "minimum": 2621439,
+          "maximum": 3145727
+        },
+        "p99_ns": {
+          "median": 3407871,
+          "minimum": 3145727,
+          "maximum": 4456447
+        },
+        "p999_ns": {
+          "median": 4718591,
+          "minimum": 4063231,
+          "maximum": 5242879
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 558,
+          "minimum": 507,
+          "maximum": 611
+        },
+        "ops_per_sec": {
+          "median": 111.578,
+          "minimum": 101.4,
+          "maximum": 122.176
+        },
+        "p50_ns": {
+          "median": 1114111,
+          "minimum": 950271,
+          "maximum": 1179647
+        },
+        "p95_ns": {
+          "median": 1572863,
+          "minimum": 1507327,
+          "maximum": 1900543
+        },
+        "p99_ns": {
+          "median": 2097151,
+          "minimum": 1769471,
+          "maximum": 2228223
+        },
+        "p999_ns": {
+          "median": 3276799,
+          "minimum": 1966079,
+          "maximum": 3801087
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 522,
+          "minimum": 480,
+          "maximum": 577
+        },
+        "ops_per_sec": {
+          "median": 104.379,
+          "minimum": 96.0,
+          "maximum": 115.377
+        },
+        "p50_ns": {
+          "median": 2097151,
+          "minimum": 1900543,
+          "maximum": 2097151
+        },
+        "p95_ns": {
+          "median": 2883583,
+          "minimum": 2621439,
+          "maximum": 3407871
+        },
+        "p99_ns": {
+          "median": 3538943,
+          "minimum": 3145727,
+          "maximum": 4063231
+        },
+        "p999_ns": {
+          "median": 5505023,
+          "minimum": 5505023,
+          "maximum": 6029311
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "feedkv",
+    "scenario": "celebrity",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 99.9000999000999,
+      "minimum": 99.82032341784787,
+      "maximum": 100.0
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 191,
+          "minimum": 191,
+          "maximum": 191
+        },
+        "ops_per_sec": {
+          "median": 38.162,
+          "minimum": 38.131,
+          "maximum": 38.2
+        },
+        "p50_ns": {
+          "median": 1572863,
+          "minimum": 1376255,
+          "maximum": 1638399
+        },
+        "p95_ns": {
+          "median": 2228223,
+          "minimum": 2228223,
+          "maximum": 2490367
+        },
+        "p99_ns": {
+          "median": 2752511,
+          "minimum": 2621439,
+          "maximum": 2883583
+        },
+        "p999_ns": {
+          "median": 3276799,
+          "minimum": 2752511,
+          "maximum": 3276799
+        },
+        "send_lag_p95_ns": {
+          "median": 16777215,
+          "minimum": 14680063,
+          "maximum": 17825791
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 133,
+          "minimum": 133,
+          "maximum": 133
+        },
+        "ops_per_sec": {
+          "median": 26.573,
+          "minimum": 26.552,
+          "maximum": 26.6
+        },
+        "p50_ns": {
+          "median": 819199,
+          "minimum": 786431,
+          "maximum": 950271
+        },
+        "p95_ns": {
+          "median": 1310719,
+          "minimum": 1310719,
+          "maximum": 1441791
+        },
+        "p99_ns": {
+          "median": 1572863,
+          "minimum": 1441791,
+          "maximum": 1572863
+        },
+        "p999_ns": {
+          "median": 1769471,
+          "minimum": 1703935,
+          "maximum": 1900543
+        },
+        "send_lag_p95_ns": {
+          "median": 15728639,
+          "minimum": 14680063,
+          "maximum": 22020095
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.585,
+          "minimum": 14.574,
+          "maximum": 14.6
+        },
+        "p50_ns": {
+          "median": 819199,
+          "minimum": 819199,
+          "maximum": 1114111
+        },
+        "p95_ns": {
+          "median": 1245183,
+          "minimum": 1245183,
+          "maximum": 1572863
+        },
+        "p99_ns": {
+          "median": 1441791,
+          "minimum": 1376255,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 1441791,
+          "minimum": 1376255,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 20971519,
+          "minimum": 14680063,
+          "maximum": 23068671
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 48,
+          "minimum": 48,
+          "maximum": 48
+        },
+        "ops_per_sec": {
+          "median": 9.59,
+          "minimum": 9.583,
+          "maximum": 9.6
+        },
+        "p50_ns": {
+          "median": 2228223,
+          "minimum": 2031615,
+          "maximum": 2359295
+        },
+        "p95_ns": {
+          "median": 3276799,
+          "minimum": 3145727,
+          "maximum": 3538943
+        },
+        "p99_ns": {
+          "median": 4456447,
+          "minimum": 3538943,
+          "maximum": 4718591
+        },
+        "p999_ns": {
+          "median": 4456447,
+          "minimum": 3538943,
+          "maximum": 4718591
+        },
+        "send_lag_p95_ns": {
+          "median": 15204351,
+          "minimum": 14680063,
+          "maximum": 18874367
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 31,
+          "minimum": 31,
+          "maximum": 31
+        },
+        "ops_per_sec": {
+          "median": 6.194,
+          "minimum": 6.189,
+          "maximum": 6.2
+        },
+        "p50_ns": {
+          "median": 1703935,
+          "minimum": 1638399,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 2490367,
+          "minimum": 2031615,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 2621439,
+          "minimum": 2359295,
+          "maximum": 2752511
+        },
+        "p999_ns": {
+          "median": 2621439,
+          "minimum": 2359295,
+          "maximum": 2752511
+        },
+        "send_lag_p95_ns": {
+          "median": 23068671,
+          "minimum": 13631487,
+          "maximum": 25165823
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.795,
+          "minimum": 4.791,
+          "maximum": 4.8
+        },
+        "p50_ns": {
+          "median": 2359295,
+          "minimum": 2359295,
+          "maximum": 2883583
+        },
+        "p95_ns": {
+          "median": 3538943,
+          "minimum": 3407871,
+          "maximum": 3932159
+        },
+        "p99_ns": {
+          "median": 3670015,
+          "minimum": 3407871,
+          "maximum": 3932159
+        },
+        "p999_ns": {
+          "median": 3670015,
+          "minimum": 3407871,
+          "maximum": 3932159
+        },
+        "send_lag_p95_ns": {
+          "median": 16252927,
+          "minimum": 13631487,
+          "maximum": 23068671
+        }
+      }
+    }
+  },
+  {
+    "adapter": "redis",
+    "scenario": "normal",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 2473.0,
+      "minimum": 2436.2,
+      "maximum": 2559.6
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 4996,
+          "minimum": 4913,
+          "maximum": 5159
+        },
+        "ops_per_sec": {
+          "median": 999.2,
+          "minimum": 982.6,
+          "maximum": 1031.8
+        },
+        "p50_ns": {
+          "median": 851967,
+          "minimum": 851967,
+          "maximum": 851967
+        },
+        "p95_ns": {
+          "median": 1572863,
+          "minimum": 1310719,
+          "maximum": 1638399
+        },
+        "p99_ns": {
+          "median": 1900543,
+          "minimum": 1703935,
+          "maximum": 2031615
+        },
+        "p999_ns": {
+          "median": 2621439,
+          "minimum": 2490367,
+          "maximum": 3932159
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 3123,
+          "minimum": 3073,
+          "maximum": 3236
+        },
+        "ops_per_sec": {
+          "median": 624.6,
+          "minimum": 614.6,
+          "maximum": 647.2
+        },
+        "p50_ns": {
+          "median": 409599,
+          "minimum": 393215,
+          "maximum": 409599
+        },
+        "p95_ns": {
+          "median": 753663,
+          "minimum": 589823,
+          "maximum": 786431
+        },
+        "p99_ns": {
+          "median": 917503,
+          "minimum": 819199,
+          "maximum": 950271
+        },
+        "p999_ns": {
+          "median": 1507327,
+          "minimum": 1048575,
+          "maximum": 1835007
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 1834,
+          "minimum": 1814,
+          "maximum": 1900
+        },
+        "ops_per_sec": {
+          "median": 366.8,
+          "minimum": 362.8,
+          "maximum": 380.0
+        },
+        "p50_ns": {
+          "median": 409599,
+          "minimum": 393215,
+          "maximum": 409599
+        },
+        "p95_ns": {
+          "median": 720895,
+          "minimum": 622591,
+          "maximum": 819199
+        },
+        "p99_ns": {
+          "median": 983039,
+          "minimum": 786431,
+          "maximum": 983039
+        },
+        "p999_ns": {
+          "median": 1310719,
+          "minimum": 1114111,
+          "maximum": 1703935
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 1168,
+          "minimum": 1153,
+          "maximum": 1219
+        },
+        "ops_per_sec": {
+          "median": 233.6,
+          "minimum": 230.6,
+          "maximum": 243.8
+        },
+        "p50_ns": {
+          "median": 1245183,
+          "minimum": 1245183,
+          "maximum": 1310719
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 1835007,
+          "maximum": 2359295
+        },
+        "p99_ns": {
+          "median": 2752511,
+          "minimum": 2490367,
+          "maximum": 2883583
+        },
+        "p999_ns": {
+          "median": 3276799,
+          "minimum": 3014655,
+          "maximum": 4456447
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 668,
+          "minimum": 659,
+          "maximum": 687
+        },
+        "ops_per_sec": {
+          "median": 133.6,
+          "minimum": 131.8,
+          "maximum": 137.4
+        },
+        "p50_ns": {
+          "median": 851967,
+          "minimum": 819199,
+          "maximum": 851967
+        },
+        "p95_ns": {
+          "median": 1572863,
+          "minimum": 1376255,
+          "maximum": 1703935
+        },
+        "p99_ns": {
+          "median": 1900543,
+          "minimum": 1769471,
+          "maximum": 1966079
+        },
+        "p999_ns": {
+          "median": 4456447,
+          "minimum": 3932159,
+          "maximum": 4456447
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 576,
+          "minimum": 569,
+          "maximum": 597
+        },
+        "ops_per_sec": {
+          "median": 115.2,
+          "minimum": 113.8,
+          "maximum": 119.4
+        },
+        "p50_ns": {
+          "median": 1703935,
+          "minimum": 1703935,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 3145727,
+          "minimum": 2621439,
+          "maximum": 3145727
+        },
+        "p99_ns": {
+          "median": 3670015,
+          "minimum": 3670015,
+          "maximum": 3801087
+        },
+        "p999_ns": {
+          "median": 5767167,
+          "minimum": 5505023,
+          "maximum": 6291455
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "redis",
+    "scenario": "normal",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 100.0,
+      "minimum": 99.94003597841295,
+      "maximum": 100.0
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 224,
+          "minimum": 224,
+          "maximum": 224
+        },
+        "ops_per_sec": {
+          "median": 44.8,
+          "minimum": 44.773,
+          "maximum": 44.8
+        },
+        "p50_ns": {
+          "median": 1572863,
+          "minimum": 1441791,
+          "maximum": 1966079
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 3014655,
+          "minimum": 2490367,
+          "maximum": 3145727
+        },
+        "p999_ns": {
+          "median": 3145727,
+          "minimum": 2621439,
+          "maximum": 3276799
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 17825791,
+          "maximum": 19922943
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 111,
+          "minimum": 111,
+          "maximum": 111
+        },
+        "ops_per_sec": {
+          "median": 22.2,
+          "minimum": 22.187,
+          "maximum": 22.2
+        },
+        "p50_ns": {
+          "median": 819199,
+          "minimum": 786431,
+          "maximum": 1245183
+        },
+        "p95_ns": {
+          "median": 1376255,
+          "minimum": 1376255,
+          "maximum": 1769471
+        },
+        "p99_ns": {
+          "median": 1572863,
+          "minimum": 1507327,
+          "maximum": 1835007
+        },
+        "p999_ns": {
+          "median": 1638399,
+          "minimum": 1572863,
+          "maximum": 2031615
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 17825791,
+          "maximum": 20971519
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.6,
+          "minimum": 14.591,
+          "maximum": 14.6
+        },
+        "p50_ns": {
+          "median": 851967,
+          "minimum": 819199,
+          "maximum": 1179647
+        },
+        "p95_ns": {
+          "median": 1507327,
+          "minimum": 1245183,
+          "maximum": 1638399
+        },
+        "p99_ns": {
+          "median": 1835007,
+          "minimum": 1572863,
+          "maximum": 1835007
+        },
+        "p999_ns": {
+          "median": 1835007,
+          "minimum": 1572863,
+          "maximum": 1835007
+        },
+        "send_lag_p95_ns": {
+          "median": 26214399,
+          "minimum": 15728639,
+          "maximum": 27262975
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 42,
+          "minimum": 42,
+          "maximum": 42
+        },
+        "ops_per_sec": {
+          "median": 8.4,
+          "minimum": 8.395,
+          "maximum": 8.4
+        },
+        "p50_ns": {
+          "median": 2031615,
+          "minimum": 1900543,
+          "maximum": 2621439
+        },
+        "p95_ns": {
+          "median": 2752511,
+          "minimum": 2752511,
+          "maximum": 3538943
+        },
+        "p99_ns": {
+          "median": 3014655,
+          "minimum": 2883583,
+          "maximum": 3670015
+        },
+        "p999_ns": {
+          "median": 3014655,
+          "minimum": 2883583,
+          "maximum": 3670015
+        },
+        "send_lag_p95_ns": {
+          "median": 16252927,
+          "minimum": 15204351,
+          "maximum": 24117247
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 26,
+          "minimum": 26,
+          "maximum": 26
+        },
+        "ops_per_sec": {
+          "median": 5.2,
+          "minimum": 5.197,
+          "maximum": 5.2
+        },
+        "p50_ns": {
+          "median": 1638399,
+          "minimum": 1441791,
+          "maximum": 1966079
+        },
+        "p95_ns": {
+          "median": 2490367,
+          "minimum": 2097151,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 2752511,
+          "minimum": 2228223,
+          "maximum": 3014655
+        },
+        "p999_ns": {
+          "median": 2752511,
+          "minimum": 2228223,
+          "maximum": 3014655
+        },
+        "send_lag_p95_ns": {
+          "median": 24117247,
+          "minimum": 19922943,
+          "maximum": 26214399
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.8,
+          "minimum": 4.797,
+          "maximum": 4.8
+        },
+        "p50_ns": {
+          "median": 2621439,
+          "minimum": 2359295,
+          "maximum": 3014655
+        },
+        "p95_ns": {
+          "median": 3670015,
+          "minimum": 3407871,
+          "maximum": 4194303
+        },
+        "p99_ns": {
+          "median": 3801087,
+          "minimum": 3538943,
+          "maximum": 4718591
+        },
+        "p999_ns": {
+          "median": 3801087,
+          "minimum": 3538943,
+          "maximum": 4718591
+        },
+        "send_lag_p95_ns": {
+          "median": 17825791,
+          "minimum": 14155775,
+          "maximum": 17825791
+        }
+      }
+    }
+  },
+  {
+    "adapter": "redis",
+    "scenario": "celebrity",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 2232.2,
+      "minimum": 1959.6,
+      "maximum": 2322.2
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 4376,
+          "minimum": 3862,
+          "maximum": 4564
+        },
+        "ops_per_sec": {
+          "median": 875.2,
+          "minimum": 772.4,
+          "maximum": 912.8
+        },
+        "p50_ns": {
+          "median": 917503,
+          "minimum": 851967,
+          "maximum": 1015807
+        },
+        "p95_ns": {
+          "median": 1703935,
+          "minimum": 1638399,
+          "maximum": 1769471
+        },
+        "p99_ns": {
+          "median": 2031615,
+          "minimum": 1900543,
+          "maximum": 2031615
+        },
+        "p999_ns": {
+          "median": 3014655,
+          "minimum": 2883583,
+          "maximum": 3276799
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 2765,
+          "minimum": 2411,
+          "maximum": 2876
+        },
+        "ops_per_sec": {
+          "median": 553.0,
+          "minimum": 482.2,
+          "maximum": 575.2
+        },
+        "p50_ns": {
+          "median": 442367,
+          "minimum": 409599,
+          "maximum": 507903
+        },
+        "p95_ns": {
+          "median": 851967,
+          "minimum": 819199,
+          "maximum": 884735
+        },
+        "p99_ns": {
+          "median": 1015807,
+          "minimum": 983039,
+          "maximum": 1015807
+        },
+        "p999_ns": {
+          "median": 1507327,
+          "minimum": 1179647,
+          "maximum": 1900543
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 1721,
+          "minimum": 1528,
+          "maximum": 1786
+        },
+        "ops_per_sec": {
+          "median": 344.2,
+          "minimum": 305.6,
+          "maximum": 357.2
+        },
+        "p50_ns": {
+          "median": 442367,
+          "minimum": 409599,
+          "maximum": 491519
+        },
+        "p95_ns": {
+          "median": 819199,
+          "minimum": 819199,
+          "maximum": 917503
+        },
+        "p99_ns": {
+          "median": 983039,
+          "minimum": 983039,
+          "maximum": 1015807
+        },
+        "p999_ns": {
+          "median": 1310719,
+          "minimum": 1179647,
+          "maximum": 1900543
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 1152,
+          "minimum": 1009,
+          "maximum": 1200
+        },
+        "ops_per_sec": {
+          "median": 230.4,
+          "minimum": 201.8,
+          "maximum": 240.0
+        },
+        "p50_ns": {
+          "median": 1376255,
+          "minimum": 1310719,
+          "maximum": 1638399
+        },
+        "p95_ns": {
+          "median": 2621439,
+          "minimum": 2490367,
+          "maximum": 2752511
+        },
+        "p99_ns": {
+          "median": 3014655,
+          "minimum": 2883583,
+          "maximum": 3145727
+        },
+        "p999_ns": {
+          "median": 4456447,
+          "minimum": 3670015,
+          "maximum": 5242879
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 591,
+          "minimum": 508,
+          "maximum": 610
+        },
+        "ops_per_sec": {
+          "median": 118.2,
+          "minimum": 101.6,
+          "maximum": 122.0
+        },
+        "p50_ns": {
+          "median": 917503,
+          "minimum": 851967,
+          "maximum": 1048575
+        },
+        "p95_ns": {
+          "median": 1769471,
+          "minimum": 1703935,
+          "maximum": 1835007
+        },
+        "p99_ns": {
+          "median": 2031615,
+          "minimum": 1966079,
+          "maximum": 2097151
+        },
+        "p999_ns": {
+          "median": 2883583,
+          "minimum": 2752511,
+          "maximum": 3014655
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 556,
+          "minimum": 480,
+          "maximum": 575
+        },
+        "ops_per_sec": {
+          "median": 111.2,
+          "minimum": 96.0,
+          "maximum": 115.0
+        },
+        "p50_ns": {
+          "median": 1835007,
+          "minimum": 1703935,
+          "maximum": 2031615
+        },
+        "p95_ns": {
+          "median": 3407871,
+          "minimum": 3276799,
+          "maximum": 3538943
+        },
+        "p99_ns": {
+          "median": 3801087,
+          "minimum": 3670015,
+          "maximum": 3932159
+        },
+        "p999_ns": {
+          "median": 4980735,
+          "minimum": 4456447,
+          "maximum": 5505023
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "redis",
+    "scenario": "celebrity",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 100.0,
+      "minimum": 99.9000999000999,
+      "maximum": 100.0
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 191,
+          "minimum": 191,
+          "maximum": 191
+        },
+        "ops_per_sec": {
+          "median": 38.2,
+          "minimum": 38.162,
+          "maximum": 38.2
+        },
+        "p50_ns": {
+          "median": 1572863,
+          "minimum": 1572863,
+          "maximum": 1900543
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 2621439,
+          "minimum": 2490367,
+          "maximum": 3276799
+        },
+        "p999_ns": {
+          "median": 3145727,
+          "minimum": 2490367,
+          "maximum": 3407871
+        },
+        "send_lag_p95_ns": {
+          "median": 15728639,
+          "minimum": 14680063,
+          "maximum": 16777215
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 133,
+          "minimum": 133,
+          "maximum": 133
+        },
+        "ops_per_sec": {
+          "median": 26.6,
+          "minimum": 26.573,
+          "maximum": 26.6
+        },
+        "p50_ns": {
+          "median": 917503,
+          "minimum": 917503,
+          "maximum": 1245183
+        },
+        "p95_ns": {
+          "median": 1441791,
+          "minimum": 1441791,
+          "maximum": 1638399
+        },
+        "p99_ns": {
+          "median": 1769471,
+          "minimum": 1638399,
+          "maximum": 1835007
+        },
+        "p999_ns": {
+          "median": 1900543,
+          "minimum": 1769471,
+          "maximum": 3407871
+        },
+        "send_lag_p95_ns": {
+          "median": 15204351,
+          "minimum": 14680063,
+          "maximum": 18874367
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.6,
+          "minimum": 14.585,
+          "maximum": 14.6
+        },
+        "p50_ns": {
+          "median": 917503,
+          "minimum": 884735,
+          "maximum": 1245183
+        },
+        "p95_ns": {
+          "median": 1638399,
+          "minimum": 1507327,
+          "maximum": 1703935
+        },
+        "p99_ns": {
+          "median": 1638399,
+          "minimum": 1638399,
+          "maximum": 2097151
+        },
+        "p999_ns": {
+          "median": 1638399,
+          "minimum": 1638399,
+          "maximum": 2097151
+        },
+        "send_lag_p95_ns": {
+          "median": 14680063,
+          "minimum": 14680063,
+          "maximum": 15204351
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 48,
+          "minimum": 48,
+          "maximum": 48
+        },
+        "ops_per_sec": {
+          "median": 9.6,
+          "minimum": 9.59,
+          "maximum": 9.6
+        },
+        "p50_ns": {
+          "median": 2228223,
+          "minimum": 2097151,
+          "maximum": 2621439
+        },
+        "p95_ns": {
+          "median": 3276799,
+          "minimum": 3145727,
+          "maximum": 3670015
+        },
+        "p99_ns": {
+          "median": 3538943,
+          "minimum": 3407871,
+          "maximum": 4456447
+        },
+        "p999_ns": {
+          "median": 3538943,
+          "minimum": 3407871,
+          "maximum": 4456447
+        },
+        "send_lag_p95_ns": {
+          "median": 14680063,
+          "minimum": 13631487,
+          "maximum": 18874367
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 31,
+          "minimum": 31,
+          "maximum": 31
+        },
+        "ops_per_sec": {
+          "median": 6.2,
+          "minimum": 6.194,
+          "maximum": 6.2
+        },
+        "p50_ns": {
+          "median": 1572863,
+          "minimum": 1572863,
+          "maximum": 2097151
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 2883583
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 3276799
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 3276799
+        },
+        "send_lag_p95_ns": {
+          "median": 25165823,
+          "minimum": 14680063,
+          "maximum": 27262975
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.8,
+          "minimum": 4.795,
+          "maximum": 4.8
+        },
+        "p50_ns": {
+          "median": 2752511,
+          "minimum": 2752511,
+          "maximum": 3276799
+        },
+        "p95_ns": {
+          "median": 3932159,
+          "minimum": 3276799,
+          "maximum": 4980735
+        },
+        "p99_ns": {
+          "median": 4063231,
+          "minimum": 3407871,
+          "maximum": 4980735
+        },
+        "p999_ns": {
+          "median": 4063231,
+          "minimum": 3407871,
+          "maximum": 4980735
+        },
+        "send_lag_p95_ns": {
+          "median": 15204351,
+          "minimum": 14155775,
+          "maximum": 15204351
+        }
+      }
+    }
+  },
+  {
+    "adapter": "mongo",
+    "scenario": "normal",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 2085.6,
+      "minimum": 1897.6,
+      "maximum": 2181.6
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 4211,
+          "minimum": 3868,
+          "maximum": 4410
+        },
+        "ops_per_sec": {
+          "median": 842.2,
+          "minimum": 773.6,
+          "maximum": 882.0
+        },
+        "p50_ns": {
+          "median": 1245183,
+          "minimum": 1245183,
+          "maximum": 1376255
+        },
+        "p95_ns": {
+          "median": 2031615,
+          "minimum": 1900543,
+          "maximum": 2228223
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 3538943,
+          "minimum": 3276799,
+          "maximum": 3670015
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 2614,
+          "minimum": 2365,
+          "maximum": 2733
+        },
+        "ops_per_sec": {
+          "median": 522.8,
+          "minimum": 473.0,
+          "maximum": 546.6
+        },
+        "p50_ns": {
+          "median": 589823,
+          "minimum": 557055,
+          "maximum": 720895
+        },
+        "p95_ns": {
+          "median": 1114111,
+          "minimum": 1015807,
+          "maximum": 1114111
+        },
+        "p99_ns": {
+          "median": 1245183,
+          "minimum": 1245183,
+          "maximum": 1376255
+        },
+        "p999_ns": {
+          "median": 1835007,
+          "minimum": 1703935,
+          "maximum": 2359295
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 1557,
+          "minimum": 1409,
+          "maximum": 1621
+        },
+        "ops_per_sec": {
+          "median": 311.4,
+          "minimum": 281.8,
+          "maximum": 324.2
+        },
+        "p50_ns": {
+          "median": 655359,
+          "minimum": 622591,
+          "maximum": 851967
+        },
+        "p95_ns": {
+          "median": 1245183,
+          "minimum": 1245183,
+          "maximum": 1310719
+        },
+        "p99_ns": {
+          "median": 1376255,
+          "minimum": 1376255,
+          "maximum": 1507327
+        },
+        "p999_ns": {
+          "median": 1835007,
+          "minimum": 1703935,
+          "maximum": 1900543
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 1006,
+          "minimum": 914,
+          "maximum": 1050
+        },
+        "ops_per_sec": {
+          "median": 201.2,
+          "minimum": 182.8,
+          "maximum": 210.0
+        },
+        "p50_ns": {
+          "median": 589823,
+          "minimum": 557055,
+          "maximum": 753663
+        },
+        "p95_ns": {
+          "median": 1114111,
+          "minimum": 1048575,
+          "maximum": 1179647
+        },
+        "p99_ns": {
+          "median": 1310719,
+          "minimum": 1179647,
+          "maximum": 1376255
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 1769471,
+          "maximum": 2883583
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 561,
+          "minimum": 498,
+          "maximum": 590
+        },
+        "ops_per_sec": {
+          "median": 112.2,
+          "minimum": 99.6,
+          "maximum": 118.0
+        },
+        "p50_ns": {
+          "median": 720895,
+          "minimum": 688127,
+          "maximum": 884735
+        },
+        "p95_ns": {
+          "median": 1376255,
+          "minimum": 1245183,
+          "maximum": 1376255
+        },
+        "p99_ns": {
+          "median": 1441791,
+          "minimum": 1376255,
+          "maximum": 1572863
+        },
+        "p999_ns": {
+          "median": 1638399,
+          "minimum": 1572863,
+          "maximum": 2228223
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 479,
+          "minimum": 434,
+          "maximum": 504
+        },
+        "ops_per_sec": {
+          "median": 95.8,
+          "minimum": 86.8,
+          "maximum": 100.8
+        },
+        "p50_ns": {
+          "median": 720895,
+          "minimum": 688127,
+          "maximum": 851967
+        },
+        "p95_ns": {
+          "median": 1310719,
+          "minimum": 1310719,
+          "maximum": 1376255
+        },
+        "p99_ns": {
+          "median": 1507327,
+          "minimum": 1441791,
+          "maximum": 1703935
+        },
+        "p999_ns": {
+          "median": 2097151,
+          "minimum": 1638399,
+          "maximum": 2097151
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "mongo",
+    "scenario": "normal",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 99.92006394884093,
+      "minimum": 99.84025559105432,
+      "maximum": 100.0
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 224,
+          "minimum": 224,
+          "maximum": 224
+        },
+        "ops_per_sec": {
+          "median": 44.764,
+          "minimum": 44.728,
+          "maximum": 44.8
+        },
+        "p50_ns": {
+          "median": 1769471,
+          "minimum": 1638399,
+          "maximum": 2228223
+        },
+        "p95_ns": {
+          "median": 2621439,
+          "minimum": 2490367,
+          "maximum": 2752511
+        },
+        "p99_ns": {
+          "median": 3145727,
+          "minimum": 2621439,
+          "maximum": 3145727
+        },
+        "p999_ns": {
+          "median": 3145727,
+          "minimum": 2883583,
+          "maximum": 4063231
+        },
+        "send_lag_p95_ns": {
+          "median": 15728639,
+          "minimum": 14680063,
+          "maximum": 20971519
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 111,
+          "minimum": 111,
+          "maximum": 111
+        },
+        "ops_per_sec": {
+          "median": 22.182,
+          "minimum": 22.165,
+          "maximum": 22.2
+        },
+        "p50_ns": {
+          "median": 1376255,
+          "minimum": 1179647,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 1835007,
+          "minimum": 1703935,
+          "maximum": 2031615
+        },
+        "p99_ns": {
+          "median": 2097151,
+          "minimum": 2031615,
+          "maximum": 2097151
+        },
+        "p999_ns": {
+          "median": 2228223,
+          "minimum": 2097151,
+          "maximum": 2359295
+        },
+        "send_lag_p95_ns": {
+          "median": 15204351,
+          "minimum": 14680063,
+          "maximum": 16252927
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.588,
+          "minimum": 14.577,
+          "maximum": 14.6
+        },
+        "p50_ns": {
+          "median": 1507327,
+          "minimum": 1310719,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 2228223,
+          "minimum": 2031615,
+          "maximum": 2228223
+        },
+        "p99_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 3014655
+        },
+        "p999_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 3014655
+        },
+        "send_lag_p95_ns": {
+          "median": 25165823,
+          "minimum": 15204351,
+          "maximum": 25165823
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 42,
+          "minimum": 42,
+          "maximum": 42
+        },
+        "ops_per_sec": {
+          "median": 8.393,
+          "minimum": 8.387,
+          "maximum": 8.4
+        },
+        "p50_ns": {
+          "median": 1310719,
+          "minimum": 1114111,
+          "maximum": 1572863
+        },
+        "p95_ns": {
+          "median": 2031615,
+          "minimum": 1835007,
+          "maximum": 2097151
+        },
+        "p99_ns": {
+          "median": 2228223,
+          "minimum": 1966079,
+          "maximum": 2752511
+        },
+        "p999_ns": {
+          "median": 2228223,
+          "minimum": 1966079,
+          "maximum": 2752511
+        },
+        "send_lag_p95_ns": {
+          "median": 14155775,
+          "minimum": 13107199,
+          "maximum": 14680063
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 26,
+          "minimum": 26,
+          "maximum": 26
+        },
+        "ops_per_sec": {
+          "median": 5.196,
+          "minimum": 5.192,
+          "maximum": 5.2
+        },
+        "p50_ns": {
+          "median": 1441791,
+          "minimum": 1310719,
+          "maximum": 1572863
+        },
+        "p95_ns": {
+          "median": 2228223,
+          "minimum": 2097151,
+          "maximum": 2228223
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2490367
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2490367
+        },
+        "send_lag_p95_ns": {
+          "median": 14155775,
+          "minimum": 12058623,
+          "maximum": 15204351
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.796,
+          "minimum": 4.792,
+          "maximum": 4.8
+        },
+        "p50_ns": {
+          "median": 1376255,
+          "minimum": 1245183,
+          "maximum": 1835007
+        },
+        "p95_ns": {
+          "median": 2031615,
+          "minimum": 1835007,
+          "maximum": 2228223
+        },
+        "p99_ns": {
+          "median": 2097151,
+          "minimum": 2097151,
+          "maximum": 2228223
+        },
+        "p999_ns": {
+          "median": 2097151,
+          "minimum": 2097151,
+          "maximum": 2228223
+        },
+        "send_lag_p95_ns": {
+          "median": 15204351,
+          "minimum": 14155775,
+          "maximum": 15204351
+        }
+      }
+    }
+  },
+  {
+    "adapter": "mongo",
+    "scenario": "celebrity",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 2005.3978408636544,
+      "minimum": 1744.8,
+      "maximum": 2127.8
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 3940,
+          "minimum": 3430,
+          "maximum": 4186
+        },
+        "ops_per_sec": {
+          "median": 787.685,
+          "minimum": 686.0,
+          "maximum": 837.2
+        },
+        "p50_ns": {
+          "median": 1310719,
+          "minimum": 1245183,
+          "maximum": 1507327
+        },
+        "p95_ns": {
+          "median": 2031615,
+          "minimum": 1966079,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 4194303,
+          "minimum": 4063231,
+          "maximum": 4456447
+        },
+        "p999_ns": {
+          "median": 6291455,
+          "minimum": 5767167,
+          "maximum": 7864319
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 2475,
+          "minimum": 2160,
+          "maximum": 2632
+        },
+        "ops_per_sec": {
+          "median": 494.802,
+          "minimum": 432.0,
+          "maximum": 526.4
+        },
+        "p50_ns": {
+          "median": 622591,
+          "minimum": 589823,
+          "maximum": 819199
+        },
+        "p95_ns": {
+          "median": 1048575,
+          "minimum": 983039,
+          "maximum": 1179647
+        },
+        "p99_ns": {
+          "median": 1179647,
+          "minimum": 1114111,
+          "maximum": 1310719
+        },
+        "p999_ns": {
+          "median": 1376255,
+          "minimum": 1376255,
+          "maximum": 1703935
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 1568,
+          "minimum": 1342,
+          "maximum": 1638
+        },
+        "ops_per_sec": {
+          "median": 313.475,
+          "minimum": 268.4,
+          "maximum": 327.6
+        },
+        "p50_ns": {
+          "median": 720895,
+          "minimum": 655359,
+          "maximum": 917503
+        },
+        "p95_ns": {
+          "median": 1245183,
+          "minimum": 1179647,
+          "maximum": 1310719
+        },
+        "p99_ns": {
+          "median": 1376255,
+          "minimum": 1310719,
+          "maximum": 1507327
+        },
+        "p999_ns": {
+          "median": 2031615,
+          "minimum": 1638399,
+          "maximum": 2228223
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 1036,
+          "minimum": 911,
+          "maximum": 1107
+        },
+        "ops_per_sec": {
+          "median": 207.117,
+          "minimum": 182.2,
+          "maximum": 221.4
+        },
+        "p50_ns": {
+          "median": 655359,
+          "minimum": 589823,
+          "maximum": 851967
+        },
+        "p95_ns": {
+          "median": 1114111,
+          "minimum": 1015807,
+          "maximum": 1179647
+        },
+        "p99_ns": {
+          "median": 1310719,
+          "minimum": 1179647,
+          "maximum": 1310719
+        },
+        "p999_ns": {
+          "median": 1769471,
+          "minimum": 1441791,
+          "maximum": 2228223
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 520,
+          "minimum": 457,
+          "maximum": 557
+        },
+        "ops_per_sec": {
+          "median": 103.958,
+          "minimum": 91.4,
+          "maximum": 111.4
+        },
+        "p50_ns": {
+          "median": 753663,
+          "minimum": 720895,
+          "maximum": 983039
+        },
+        "p95_ns": {
+          "median": 1245183,
+          "minimum": 1245183,
+          "maximum": 1441791
+        },
+        "p99_ns": {
+          "median": 1441791,
+          "minimum": 1376255,
+          "maximum": 1638399
+        },
+        "p999_ns": {
+          "median": 2031615,
+          "minimum": 1769471,
+          "maximum": 3014655
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 492,
+          "minimum": 424,
+          "maximum": 519
+        },
+        "ops_per_sec": {
+          "median": 98.361,
+          "minimum": 84.8,
+          "maximum": 103.8
+        },
+        "p50_ns": {
+          "median": 753663,
+          "minimum": 688127,
+          "maximum": 983039
+        },
+        "p95_ns": {
+          "median": 1245183,
+          "minimum": 1245183,
+          "maximum": 1376255
+        },
+        "p99_ns": {
+          "median": 1441791,
+          "minimum": 1376255,
+          "maximum": 1572863
+        },
+        "p999_ns": {
+          "median": 1835007,
+          "minimum": 1507327,
+          "maximum": 1900543
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "mongo",
+    "scenario": "celebrity",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 100.0,
+      "minimum": 99.92006394884093,
+      "maximum": 100.0
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 191,
+          "minimum": 191,
+          "maximum": 191
+        },
+        "ops_per_sec": {
+          "median": 38.2,
+          "minimum": 38.169,
+          "maximum": 38.2
+        },
+        "p50_ns": {
+          "median": 2228223,
+          "minimum": 2031615,
+          "maximum": 2228223
+        },
+        "p95_ns": {
+          "median": 3145727,
+          "minimum": 3145727,
+          "maximum": 3407871
+        },
+        "p99_ns": {
+          "median": 5505023,
+          "minimum": 5242879,
+          "maximum": 6291455
+        },
+        "p999_ns": {
+          "median": 8388607,
+          "minimum": 6291455,
+          "maximum": 9437183
+        },
+        "send_lag_p95_ns": {
+          "median": 18874367,
+          "minimum": 15204351,
+          "maximum": 22020095
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 133,
+          "minimum": 133,
+          "maximum": 133
+        },
+        "ops_per_sec": {
+          "median": 26.6,
+          "minimum": 26.579,
+          "maximum": 26.6
+        },
+        "p50_ns": {
+          "median": 1703935,
+          "minimum": 1507327,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 2228223,
+          "minimum": 2228223,
+          "maximum": 2359295
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2490367
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 18874367,
+          "minimum": 15728639,
+          "maximum": 23068671
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.6,
+          "minimum": 14.588,
+          "maximum": 14.6
+        },
+        "p50_ns": {
+          "median": 1835007,
+          "minimum": 1638399,
+          "maximum": 1900543
+        },
+        "p95_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 3014655,
+          "minimum": 2621439,
+          "maximum": 3670015
+        },
+        "p999_ns": {
+          "median": 3014655,
+          "minimum": 2621439,
+          "maximum": 3670015
+        },
+        "send_lag_p95_ns": {
+          "median": 15204351,
+          "minimum": 14680063,
+          "maximum": 16777215
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 48,
+          "minimum": 48,
+          "maximum": 48
+        },
+        "ops_per_sec": {
+          "median": 9.6,
+          "minimum": 9.592,
+          "maximum": 9.6
+        },
+        "p50_ns": {
+          "median": 1638399,
+          "minimum": 1507327,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 2097151,
+          "maximum": 2490367
+        },
+        "p99_ns": {
+          "median": 2621439,
+          "minimum": 2359295,
+          "maximum": 2883583
+        },
+        "p999_ns": {
+          "median": 2621439,
+          "minimum": 2359295,
+          "maximum": 2883583
+        },
+        "send_lag_p95_ns": {
+          "median": 15728639,
+          "minimum": 15204351,
+          "maximum": 26214399
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 31,
+          "minimum": 31,
+          "maximum": 31
+        },
+        "ops_per_sec": {
+          "median": 6.2,
+          "minimum": 6.195,
+          "maximum": 6.2
+        },
+        "p50_ns": {
+          "median": 1835007,
+          "minimum": 1638399,
+          "maximum": 1966079
+        },
+        "p95_ns": {
+          "median": 2752511,
+          "minimum": 2621439,
+          "maximum": 3014655
+        },
+        "p99_ns": {
+          "median": 2752511,
+          "minimum": 2621439,
+          "maximum": 3014655
+        },
+        "p999_ns": {
+          "median": 2752511,
+          "minimum": 2621439,
+          "maximum": 3014655
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 15728639,
+          "maximum": 22020095
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.8,
+          "minimum": 4.796,
+          "maximum": 4.8
+        },
+        "p50_ns": {
+          "median": 1835007,
+          "minimum": 1638399,
+          "maximum": 1966079
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 2097151,
+          "maximum": 2359295
+        },
+        "p99_ns": {
+          "median": 2359295,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2359295,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 15204351,
+          "minimum": 14680063,
+          "maximum": 16252927
+        }
+      }
+    }
+  },
+  {
+    "adapter": "cassandra",
+    "scenario": "normal",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 207.46060243367245,
+      "minimum": 167.26403823178018,
+      "maximum": 208.74950059928085
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 430,
+          "minimum": 355,
+          "maximum": 430
+        },
+        "ops_per_sec": {
+          "median": 85.777,
+          "minimum": 70.689,
+          "maximum": 85.897
+        },
+        "p50_ns": {
+          "median": 16777215,
+          "minimum": 16777215,
+          "maximum": 19922943
+        },
+        "p95_ns": {
+          "median": 31457279,
+          "minimum": 31457279,
+          "maximum": 44040191
+        },
+        "p99_ns": {
+          "median": 41943039,
+          "minimum": 41943039,
+          "maximum": 52428799
+        },
+        "p999_ns": {
+          "median": 62914559,
+          "minimum": 48234495,
+          "maximum": 62914559
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 254,
+          "minimum": 203,
+          "maximum": 255
+        },
+        "ops_per_sec": {
+          "median": 50.668,
+          "minimum": 40.422,
+          "maximum": 50.939
+        },
+        "p50_ns": {
+          "median": 1114111,
+          "minimum": 1114111,
+          "maximum": 1310719
+        },
+        "p95_ns": {
+          "median": 2490367,
+          "minimum": 2031615,
+          "maximum": 2490367
+        },
+        "p99_ns": {
+          "median": 3014655,
+          "minimum": 2359295,
+          "maximum": 9437183
+        },
+        "p999_ns": {
+          "median": 7864319,
+          "minimum": 3145727,
+          "maximum": 20971519
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 151,
+          "minimum": 117,
+          "maximum": 152
+        },
+        "ops_per_sec": {
+          "median": 30.122,
+          "minimum": 23.297,
+          "maximum": 30.364
+        },
+        "p50_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p95_ns": {
+          "median": 4456447,
+          "minimum": 3932159,
+          "maximum": 4980735
+        },
+        "p99_ns": {
+          "median": 5767167,
+          "minimum": 4980735,
+          "maximum": 7077887
+        },
+        "p999_ns": {
+          "median": 12058623,
+          "minimum": 8912895,
+          "maximum": 12582911
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 92,
+          "minimum": 75,
+          "maximum": 93
+        },
+        "ops_per_sec": {
+          "median": 18.352,
+          "minimum": 14.934,
+          "maximum": 18.578
+        },
+        "p50_ns": {
+          "median": 1703935,
+          "minimum": 1703935,
+          "maximum": 2031615
+        },
+        "p95_ns": {
+          "median": 3145727,
+          "minimum": 2752511,
+          "maximum": 3145727
+        },
+        "p99_ns": {
+          "median": 11010047,
+          "minimum": 3538943,
+          "maximum": 11534335
+        },
+        "p999_ns": {
+          "median": 11010047,
+          "minimum": 3538943,
+          "maximum": 11534335
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 60,
+          "minimum": 43,
+          "maximum": 61
+        },
+        "ops_per_sec": {
+          "median": 11.969,
+          "minimum": 8.562,
+          "maximum": 12.185
+        },
+        "p50_ns": {
+          "median": 23068671,
+          "minimum": 20971519,
+          "maximum": 30408703
+        },
+        "p95_ns": {
+          "median": 41943039,
+          "minimum": 41943039,
+          "maximum": 62914559
+        },
+        "p99_ns": {
+          "median": 54525951,
+          "minimum": 44040191,
+          "maximum": 71303167
+        },
+        "p999_ns": {
+          "median": 54525951,
+          "minimum": 44040191,
+          "maximum": 71303167
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 53,
+          "minimum": 47,
+          "maximum": 54
+        },
+        "ops_per_sec": {
+          "median": 10.573,
+          "minimum": 9.359,
+          "maximum": 10.787
+        },
+        "p50_ns": {
+          "median": 1310719,
+          "minimum": 1048575,
+          "maximum": 1376255
+        },
+        "p95_ns": {
+          "median": 2752511,
+          "minimum": 1966079,
+          "maximum": 3145727
+        },
+        "p99_ns": {
+          "median": 9437183,
+          "minimum": 3145727,
+          "maximum": 9961471
+        },
+        "p999_ns": {
+          "median": 9437183,
+          "minimum": 3145727,
+          "maximum": 9961471
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "cassandra",
+    "scenario": "normal",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 99.92006394884093,
+      "minimum": 99.8003992015968,
+      "maximum": 100.0
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 224,
+          "minimum": 224,
+          "maximum": 224
+        },
+        "ops_per_sec": {
+          "median": 44.764,
+          "minimum": 44.711,
+          "maximum": 44.8
+        },
+        "p50_ns": {
+          "median": 12058623,
+          "minimum": 10485759,
+          "maximum": 14155775
+        },
+        "p95_ns": {
+          "median": 22020095,
+          "minimum": 22020095,
+          "maximum": 26214399
+        },
+        "p99_ns": {
+          "median": 26214399,
+          "minimum": 24117247,
+          "maximum": 39845887
+        },
+        "p999_ns": {
+          "median": 27262975,
+          "minimum": 27262975,
+          "maximum": 56623103
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 18874367,
+          "maximum": 23068671
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 111,
+          "minimum": 111,
+          "maximum": 111
+        },
+        "ops_per_sec": {
+          "median": 22.182,
+          "minimum": 22.156,
+          "maximum": 22.2
+        },
+        "p50_ns": {
+          "median": 1441791,
+          "minimum": 1310719,
+          "maximum": 1441791
+        },
+        "p95_ns": {
+          "median": 2490367,
+          "minimum": 2031615,
+          "maximum": 2490367
+        },
+        "p99_ns": {
+          "median": 2621439,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2621439,
+          "minimum": 2490367,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 20971519,
+          "minimum": 19922943,
+          "maximum": 23068671
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.588,
+          "minimum": 14.571,
+          "maximum": 14.6
+        },
+        "p50_ns": {
+          "median": 2621439,
+          "minimum": 2228223,
+          "maximum": 2883583
+        },
+        "p95_ns": {
+          "median": 3932159,
+          "minimum": 3932159,
+          "maximum": 4456447
+        },
+        "p99_ns": {
+          "median": 4194303,
+          "minimum": 4194303,
+          "maximum": 4456447
+        },
+        "p999_ns": {
+          "median": 4194303,
+          "minimum": 4194303,
+          "maximum": 4456447
+        },
+        "send_lag_p95_ns": {
+          "median": 20971519,
+          "minimum": 20971519,
+          "maximum": 22020095
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 42,
+          "minimum": 42,
+          "maximum": 42
+        },
+        "ops_per_sec": {
+          "median": 8.393,
+          "minimum": 8.383,
+          "maximum": 8.4
+        },
+        "p50_ns": {
+          "median": 1900543,
+          "minimum": 1572863,
+          "maximum": 2228223
+        },
+        "p95_ns": {
+          "median": 3276799,
+          "minimum": 2621439,
+          "maximum": 3407871
+        },
+        "p99_ns": {
+          "median": 3538943,
+          "minimum": 3407871,
+          "maximum": 3801087
+        },
+        "p999_ns": {
+          "median": 3538943,
+          "minimum": 3407871,
+          "maximum": 3801087
+        },
+        "send_lag_p95_ns": {
+          "median": 23068671,
+          "minimum": 17825791,
+          "maximum": 24117247
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 26,
+          "minimum": 26,
+          "maximum": 26
+        },
+        "ops_per_sec": {
+          "median": 5.196,
+          "minimum": 5.19,
+          "maximum": 5.2
+        },
+        "p50_ns": {
+          "median": 19922943,
+          "minimum": 15204351,
+          "maximum": 25165823
+        },
+        "p95_ns": {
+          "median": 30408703,
+          "minimum": 30408703,
+          "maximum": 32505855
+        },
+        "p99_ns": {
+          "median": 31457279,
+          "minimum": 30408703,
+          "maximum": 33554431
+        },
+        "p999_ns": {
+          "median": 31457279,
+          "minimum": 30408703,
+          "maximum": 33554431
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 13631487,
+          "maximum": 20971519
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.796,
+          "minimum": 4.79,
+          "maximum": 4.8
+        },
+        "p50_ns": {
+          "median": 1310719,
+          "minimum": 1179647,
+          "maximum": 1441791
+        },
+        "p95_ns": {
+          "median": 2228223,
+          "minimum": 1835007,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 2621439,
+          "minimum": 2621439,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2621439,
+          "minimum": 2621439,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 23068671,
+          "minimum": 17825791,
+          "maximum": 25165823
+        }
+      }
+    }
+  },
+  {
+    "adapter": "cassandra",
+    "scenario": "celebrity",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 321.8207226991415,
+      "minimum": 275.70373328009583,
+      "maximum": 321.9055212278254
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 606,
+          "minimum": 525,
+          "maximum": 607
+        },
+        "ops_per_sec": {
+          "median": 120.982,
+          "minimum": 104.811,
+          "maximum": 120.989
+        },
+        "p50_ns": {
+          "median": 9961471,
+          "minimum": 9437183,
+          "maximum": 11010047
+        },
+        "p95_ns": {
+          "median": 19922943,
+          "minimum": 18874367,
+          "maximum": 26214399
+        },
+        "p99_ns": {
+          "median": 62914559,
+          "minimum": 60817407,
+          "maximum": 79691775
+        },
+        "p999_ns": {
+          "median": 125829119,
+          "minimum": 113246207,
+          "maximum": 125829119
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 427,
+          "minimum": 364,
+          "maximum": 427
+        },
+        "ops_per_sec": {
+          "median": 85.111,
+          "minimum": 72.669,
+          "maximum": 85.247
+        },
+        "p50_ns": {
+          "median": 819199,
+          "minimum": 786431,
+          "maximum": 1179647
+        },
+        "p95_ns": {
+          "median": 1638399,
+          "minimum": 1572863,
+          "maximum": 1703935
+        },
+        "p99_ns": {
+          "median": 2031615,
+          "minimum": 1703935,
+          "maximum": 2031615
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 1835007,
+          "maximum": 3276799
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 237,
+          "minimum": 203,
+          "maximum": 238
+        },
+        "ops_per_sec": {
+          "median": 47.315,
+          "minimum": 40.527,
+          "maximum": 47.439
+        },
+        "p50_ns": {
+          "median": 1638399,
+          "minimum": 1638399,
+          "maximum": 2228223
+        },
+        "p95_ns": {
+          "median": 3145727,
+          "minimum": 2883583,
+          "maximum": 3276799
+        },
+        "p99_ns": {
+          "median": 3538943,
+          "minimum": 3407871,
+          "maximum": 3670015
+        },
+        "p999_ns": {
+          "median": 4063231,
+          "minimum": 3801087,
+          "maximum": 17825791
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 164,
+          "minimum": 142,
+          "maximum": 164
+        },
+        "ops_per_sec": {
+          "median": 32.689,
+          "minimum": 28.349,
+          "maximum": 32.741
+        },
+        "p50_ns": {
+          "median": 1245183,
+          "minimum": 1179647,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 2228223,
+          "minimum": 2031615,
+          "maximum": 2359295
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 2490367,
+          "maximum": 3670015
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 93,
+          "minimum": 79,
+          "maximum": 94
+        },
+        "ops_per_sec": {
+          "median": 18.567,
+          "minimum": 15.772,
+          "maximum": 18.736
+        },
+        "p50_ns": {
+          "median": 16252927,
+          "minimum": 15728639,
+          "maximum": 25165823
+        },
+        "p95_ns": {
+          "median": 31457279,
+          "minimum": 31457279,
+          "maximum": 33554431
+        },
+        "p99_ns": {
+          "median": 35651583,
+          "minimum": 32505855,
+          "maximum": 35651583
+        },
+        "p999_ns": {
+          "median": 35651583,
+          "minimum": 32505855,
+          "maximum": 35651583
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 85,
+          "minimum": 68,
+          "maximum": 85
+        },
+        "ops_per_sec": {
+          "median": 16.942,
+          "minimum": 13.576,
+          "maximum": 16.969
+        },
+        "p50_ns": {
+          "median": 851967,
+          "minimum": 819199,
+          "maximum": 1310719
+        },
+        "p95_ns": {
+          "median": 1638399,
+          "minimum": 1572863,
+          "maximum": 1835007
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 1835007,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 1835007,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "cassandra",
+    "scenario": "celebrity",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 99.94003597841295,
+      "minimum": 99.94003597841295,
+      "maximum": 99.94003597841295
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 191,
+          "minimum": 191,
+          "maximum": 191
+        },
+        "ops_per_sec": {
+          "median": 38.177,
+          "minimum": 38.177,
+          "maximum": 38.177
+        },
+        "p50_ns": {
+          "median": 6029311,
+          "minimum": 5767167,
+          "maximum": 7864319
+        },
+        "p95_ns": {
+          "median": 13107199,
+          "minimum": 12058623,
+          "maximum": 16777215
+        },
+        "p99_ns": {
+          "median": 100663295,
+          "minimum": 71303167,
+          "maximum": 130023423
+        },
+        "p999_ns": {
+          "median": 113246207,
+          "minimum": 96468991,
+          "maximum": 142606335
+        },
+        "send_lag_p95_ns": {
+          "median": 25165823,
+          "minimum": 24117247,
+          "maximum": 67108863
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 133,
+          "minimum": 133,
+          "maximum": 133
+        },
+        "ops_per_sec": {
+          "median": 26.584,
+          "minimum": 26.584,
+          "maximum": 26.584
+        },
+        "p50_ns": {
+          "median": 1507327,
+          "minimum": 1376255,
+          "maximum": 1638399
+        },
+        "p95_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p99_ns": {
+          "median": 3014655,
+          "minimum": 2621439,
+          "maximum": 3276799
+        },
+        "p999_ns": {
+          "median": 3538943,
+          "minimum": 2752511,
+          "maximum": 3801087
+        },
+        "send_lag_p95_ns": {
+          "median": 24117247,
+          "minimum": 24117247,
+          "maximum": 44040191
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.591,
+          "minimum": 14.591,
+          "maximum": 14.591
+        },
+        "p50_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 3145727
+        },
+        "p95_ns": {
+          "median": 4063231,
+          "minimum": 3801087,
+          "maximum": 4456447
+        },
+        "p99_ns": {
+          "median": 4194303,
+          "minimum": 4194303,
+          "maximum": 6029311
+        },
+        "p999_ns": {
+          "median": 4194303,
+          "minimum": 4194303,
+          "maximum": 6029311
+        },
+        "send_lag_p95_ns": {
+          "median": 24117247,
+          "minimum": 19922943,
+          "maximum": 48234495
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 48,
+          "minimum": 48,
+          "maximum": 48
+        },
+        "ops_per_sec": {
+          "median": 9.594,
+          "minimum": 9.594,
+          "maximum": 9.594
+        },
+        "p50_ns": {
+          "median": 1572863,
+          "minimum": 1507327,
+          "maximum": 2097151
+        },
+        "p95_ns": {
+          "median": 2752511,
+          "minimum": 2621439,
+          "maximum": 3276799
+        },
+        "p99_ns": {
+          "median": 3407871,
+          "minimum": 2752511,
+          "maximum": 3670015
+        },
+        "p999_ns": {
+          "median": 3407871,
+          "minimum": 2752511,
+          "maximum": 3670015
+        },
+        "send_lag_p95_ns": {
+          "median": 50331647,
+          "minimum": 41943039,
+          "maximum": 83886079
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 31,
+          "minimum": 31,
+          "maximum": 31
+        },
+        "ops_per_sec": {
+          "median": 6.196,
+          "minimum": 6.196,
+          "maximum": 6.196
+        },
+        "p50_ns": {
+          "median": 15204351,
+          "minimum": 14680063,
+          "maximum": 23068671
+        },
+        "p95_ns": {
+          "median": 35651583,
+          "minimum": 31457279,
+          "maximum": 35651583
+        },
+        "p99_ns": {
+          "median": 35651583,
+          "minimum": 31457279,
+          "maximum": 37748735
+        },
+        "p999_ns": {
+          "median": 35651583,
+          "minimum": 31457279,
+          "maximum": 37748735
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 15204351,
+          "maximum": 27262975
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.797,
+          "minimum": 4.797,
+          "maximum": 4.797
+        },
+        "p50_ns": {
+          "median": 1310719,
+          "minimum": 1245183,
+          "maximum": 1703935
+        },
+        "p95_ns": {
+          "median": 2359295,
+          "minimum": 2228223,
+          "maximum": 2490367
+        },
+        "p99_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "p999_ns": {
+          "median": 2490367,
+          "minimum": 2359295,
+          "maximum": 2621439
+        },
+        "send_lag_p95_ns": {
+          "median": 16777215,
+          "minimum": 15204351,
+          "maximum": 20971519
+        }
+      }
+    }
+  },
+  {
+    "adapter": "neo4j",
+    "scenario": "normal",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 325.2698920431827,
+      "minimum": 252.64841095342794,
+      "maximum": 386.12277544491104
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 670,
+          "minimum": 521,
+          "maximum": 793
+        },
+        "ops_per_sec": {
+          "median": 133.946,
+          "minimum": 104.138,
+          "maximum": 158.568
+        },
+        "p50_ns": {
+          "median": 3538943,
+          "minimum": 3276799,
+          "maximum": 3801087
+        },
+        "p95_ns": {
+          "median": 22020095,
+          "minimum": 17825791,
+          "maximum": 31457279
+        },
+        "p99_ns": {
+          "median": 35651583,
+          "minimum": 35651583,
+          "maximum": 46137343
+        },
+        "p999_ns": {
+          "median": 50331647,
+          "minimum": 37748735,
+          "maximum": 79691775
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 397,
+          "minimum": 308,
+          "maximum": 475
+        },
+        "ops_per_sec": {
+          "median": 79.368,
+          "minimum": 61.563,
+          "maximum": 94.981
+        },
+        "p50_ns": {
+          "median": 3145727,
+          "minimum": 2883583,
+          "maximum": 3538943
+        },
+        "p95_ns": {
+          "median": 29360127,
+          "minimum": 20971519,
+          "maximum": 35651583
+        },
+        "p99_ns": {
+          "median": 35651583,
+          "minimum": 33554431,
+          "maximum": 56623103
+        },
+        "p999_ns": {
+          "median": 37748735,
+          "minimum": 37748735,
+          "maximum": 71303167
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 233,
+          "minimum": 186,
+          "maximum": 270
+        },
+        "ops_per_sec": {
+          "median": 46.581,
+          "minimum": 37.178,
+          "maximum": 53.989
+        },
+        "p50_ns": {
+          "median": 6029311,
+          "minimum": 5767167,
+          "maximum": 6291455
+        },
+        "p95_ns": {
+          "median": 30408703,
+          "minimum": 9961471,
+          "maximum": 41943039
+        },
+        "p99_ns": {
+          "median": 37748735,
+          "minimum": 33554431,
+          "maximum": 88080383
+        },
+        "p999_ns": {
+          "median": 39845887,
+          "minimum": 37748735,
+          "maximum": 88080383
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 148,
+          "minimum": 108,
+          "maximum": 180
+        },
+        "ops_per_sec": {
+          "median": 29.588,
+          "minimum": 21.587,
+          "maximum": 35.993
+        },
+        "p50_ns": {
+          "median": 6815743,
+          "minimum": 5767167,
+          "maximum": 6815743
+        },
+        "p95_ns": {
+          "median": 35651583,
+          "minimum": 29360127,
+          "maximum": 44040191
+        },
+        "p99_ns": {
+          "median": 39845887,
+          "minimum": 33554431,
+          "maximum": 113246207
+        },
+        "p999_ns": {
+          "median": 41943039,
+          "minimum": 35651583,
+          "maximum": 117440511
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 92,
+          "minimum": 73,
+          "maximum": 110
+        },
+        "ops_per_sec": {
+          "median": 18.393,
+          "minimum": 14.591,
+          "maximum": 21.996
+        },
+        "p50_ns": {
+          "median": 3276799,
+          "minimum": 2883583,
+          "maximum": 3407871
+        },
+        "p95_ns": {
+          "median": 24117247,
+          "minimum": 5767167,
+          "maximum": 44040191
+        },
+        "p99_ns": {
+          "median": 35651583,
+          "minimum": 32505855,
+          "maximum": 134217727
+        },
+        "p999_ns": {
+          "median": 35651583,
+          "minimum": 32505855,
+          "maximum": 134217727
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 87,
+          "minimum": 68,
+          "maximum": 103
+        },
+        "ops_per_sec": {
+          "median": 17.393,
+          "minimum": 13.592,
+          "maximum": 20.596
+        },
+        "p50_ns": {
+          "median": 6291455,
+          "minimum": 6029311,
+          "maximum": 6815743
+        },
+        "p95_ns": {
+          "median": 30408703,
+          "minimum": 29360127,
+          "maximum": 37748735
+        },
+        "p99_ns": {
+          "median": 35651583,
+          "minimum": 35651583,
+          "maximum": 83886079
+        },
+        "p999_ns": {
+          "median": 37748735,
+          "minimum": 35651583,
+          "maximum": 83886079
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "neo4j",
+    "scenario": "normal",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 99.92006394884093,
+      "minimum": 99.86019572598363,
+      "maximum": 99.96001599360255
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 224,
+          "minimum": 224,
+          "maximum": 224
+        },
+        "ops_per_sec": {
+          "median": 44.764,
+          "minimum": 44.737,
+          "maximum": 44.782
+        },
+        "p50_ns": {
+          "median": 4063231,
+          "minimum": 3670015,
+          "maximum": 4718591
+        },
+        "p95_ns": {
+          "median": 5242879,
+          "minimum": 4980735,
+          "maximum": 5767167
+        },
+        "p99_ns": {
+          "median": 5505023,
+          "minimum": 5242879,
+          "maximum": 6291455
+        },
+        "p999_ns": {
+          "median": 7077887,
+          "minimum": 6029311,
+          "maximum": 48234495
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 18874367,
+          "maximum": 22020095
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 111,
+          "minimum": 111,
+          "maximum": 111
+        },
+        "ops_per_sec": {
+          "median": 22.182,
+          "minimum": 22.169,
+          "maximum": 22.191
+        },
+        "p50_ns": {
+          "median": 4063231,
+          "minimum": 3801087,
+          "maximum": 4718591
+        },
+        "p95_ns": {
+          "median": 4980735,
+          "minimum": 4718591,
+          "maximum": 5505023
+        },
+        "p99_ns": {
+          "median": 6029311,
+          "minimum": 4980735,
+          "maximum": 8912895
+        },
+        "p999_ns": {
+          "median": 6291455,
+          "minimum": 4980735,
+          "maximum": 23068671
+        },
+        "send_lag_p95_ns": {
+          "median": 23068671,
+          "minimum": 22020095,
+          "maximum": 23068671
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.588,
+          "minimum": 14.58,
+          "maximum": 14.594
+        },
+        "p50_ns": {
+          "median": 6029311,
+          "minimum": 5767167,
+          "maximum": 7077887
+        },
+        "p95_ns": {
+          "median": 9961471,
+          "minimum": 8912895,
+          "maximum": 10485759
+        },
+        "p99_ns": {
+          "median": 41943039,
+          "minimum": 11010047,
+          "maximum": 117440511
+        },
+        "p999_ns": {
+          "median": 41943039,
+          "minimum": 11010047,
+          "maximum": 117440511
+        },
+        "send_lag_p95_ns": {
+          "median": 24117247,
+          "minimum": 16252927,
+          "maximum": 27262975
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 42,
+          "minimum": 42,
+          "maximum": 42
+        },
+        "ops_per_sec": {
+          "median": 8.393,
+          "minimum": 8.388,
+          "maximum": 8.397
+        },
+        "p50_ns": {
+          "median": 6291455,
+          "minimum": 6029311,
+          "maximum": 7602175
+        },
+        "p95_ns": {
+          "median": 9961471,
+          "minimum": 9961471,
+          "maximum": 10485759
+        },
+        "p99_ns": {
+          "median": 9961471,
+          "minimum": 9961471,
+          "maximum": 13107199
+        },
+        "p999_ns": {
+          "median": 9961471,
+          "minimum": 9961471,
+          "maximum": 13107199
+        },
+        "send_lag_p95_ns": {
+          "median": 18874367,
+          "minimum": 15204351,
+          "maximum": 19922943
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 26,
+          "minimum": 26,
+          "maximum": 26
+        },
+        "ops_per_sec": {
+          "median": 5.196,
+          "minimum": 5.193,
+          "maximum": 5.198
+        },
+        "p50_ns": {
+          "median": 3538943,
+          "minimum": 3276799,
+          "maximum": 4456447
+        },
+        "p95_ns": {
+          "median": 4980735,
+          "minimum": 4980735,
+          "maximum": 5767167
+        },
+        "p99_ns": {
+          "median": 4980735,
+          "minimum": 4980735,
+          "maximum": 6815743
+        },
+        "p999_ns": {
+          "median": 4980735,
+          "minimum": 4980735,
+          "maximum": 6815743
+        },
+        "send_lag_p95_ns": {
+          "median": 18874367,
+          "minimum": 17825791,
+          "maximum": 22020095
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.796,
+          "minimum": 4.793,
+          "maximum": 4.798
+        },
+        "p50_ns": {
+          "median": 6029311,
+          "minimum": 5505023,
+          "maximum": 6553599
+        },
+        "p95_ns": {
+          "median": 9437183,
+          "minimum": 8912895,
+          "maximum": 9437183
+        },
+        "p99_ns": {
+          "median": 13107199,
+          "minimum": 9437183,
+          "maximum": 41943039
+        },
+        "p999_ns": {
+          "median": 13107199,
+          "minimum": 9437183,
+          "maximum": 41943039
+        },
+        "send_lag_p95_ns": {
+          "median": 14680063,
+          "minimum": 13107199,
+          "maximum": 20971519
+        }
+      }
+    }
+  },
+  {
+    "adapter": "neo4j",
+    "scenario": "celebrity",
+    "mode": "closed_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 603.4793041391722,
+      "minimum": 471.70565886822635,
+      "maximum": 678.2643471305739
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 1171,
+          "minimum": 897,
+          "maximum": 1336
+        },
+        "ops_per_sec": {
+          "median": 234.153,
+          "minimum": 179.364,
+          "maximum": 267.147
+        },
+        "p50_ns": {
+          "median": 2097151,
+          "minimum": 2031615,
+          "maximum": 3145727
+        },
+        "p95_ns": {
+          "median": 3932159,
+          "minimum": 3932159,
+          "maximum": 4063231
+        },
+        "p99_ns": {
+          "median": 18874367,
+          "minimum": 4718591,
+          "maximum": 22020095
+        },
+        "p999_ns": {
+          "median": 30408703,
+          "minimum": 23068671,
+          "maximum": 104857599
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 781,
+          "minimum": 626,
+          "maximum": 857
+        },
+        "ops_per_sec": {
+          "median": 156.169,
+          "minimum": 125.175,
+          "maximum": 171.366
+        },
+        "p50_ns": {
+          "median": 2097151,
+          "minimum": 2031615,
+          "maximum": 3014655
+        },
+        "p95_ns": {
+          "median": 3801087,
+          "minimum": 3670015,
+          "maximum": 3932159
+        },
+        "p99_ns": {
+          "median": 17825791,
+          "minimum": 4718591,
+          "maximum": 24117247
+        },
+        "p999_ns": {
+          "median": 33554431,
+          "minimum": 26214399,
+          "maximum": 46137343
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 468,
+          "minimum": 361,
+          "maximum": 525
+        },
+        "ops_per_sec": {
+          "median": 93.581,
+          "minimum": 72.186,
+          "maximum": 104.979
+        },
+        "p50_ns": {
+          "median": 4063231,
+          "minimum": 3801087,
+          "maximum": 5505023
+        },
+        "p95_ns": {
+          "median": 7602175,
+          "minimum": 7077887,
+          "maximum": 8126463
+        },
+        "p99_ns": {
+          "median": 27262975,
+          "minimum": 11534335,
+          "maximum": 28311551
+        },
+        "p999_ns": {
+          "median": 56623103,
+          "minimum": 28311551,
+          "maximum": 201326591
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 291,
+          "minimum": 231,
+          "maximum": 328
+        },
+        "ops_per_sec": {
+          "median": 58.188,
+          "minimum": 46.191,
+          "maximum": 65.587
+        },
+        "p50_ns": {
+          "median": 4456447,
+          "minimum": 4456447,
+          "maximum": 5767167
+        },
+        "p95_ns": {
+          "median": 7864319,
+          "minimum": 7602175,
+          "maximum": 9437183
+        },
+        "p99_ns": {
+          "median": 27262975,
+          "minimum": 10485759,
+          "maximum": 30408703
+        },
+        "p999_ns": {
+          "median": 67108863,
+          "minimum": 28311551,
+          "maximum": 75497471
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 167,
+          "minimum": 131,
+          "maximum": 188
+        },
+        "ops_per_sec": {
+          "median": 33.393,
+          "minimum": 26.195,
+          "maximum": 37.592
+        },
+        "p50_ns": {
+          "median": 2490367,
+          "minimum": 1966079,
+          "maximum": 3276799
+        },
+        "p95_ns": {
+          "median": 4063231,
+          "minimum": 4063231,
+          "maximum": 4718591
+        },
+        "p99_ns": {
+          "median": 27262975,
+          "minimum": 4456447,
+          "maximum": 31457279
+        },
+        "p999_ns": {
+          "median": 48234495,
+          "minimum": 24117247,
+          "maximum": 56623103
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 140,
+          "minimum": 113,
+          "maximum": 158
+        },
+        "ops_per_sec": {
+          "median": 27.994,
+          "minimum": 22.595,
+          "maximum": 31.594
+        },
+        "p50_ns": {
+          "median": 4063231,
+          "minimum": 3932159,
+          "maximum": 5242879
+        },
+        "p95_ns": {
+          "median": 7340031,
+          "minimum": 7077887,
+          "maximum": 7602175
+        },
+        "p99_ns": {
+          "median": 18874367,
+          "minimum": 9961471,
+          "maximum": 58720255
+        },
+        "p999_ns": {
+          "median": 24117247,
+          "minimum": 20971519,
+          "maximum": 60817407
+        },
+        "send_lag_p95_ns": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  {
+    "adapter": "neo4j",
+    "scenario": "celebrity",
+    "mode": "open_loop",
+    "valid_repetitions": 3,
+    "excluded_run_ids": [],
+    "ops_per_sec": {
+      "median": 99.84025559105432,
+      "minimum": 99.84025559105432,
+      "maximum": 99.88014382740711
+    },
+    "operations": {
+      "timeline_read": {
+        "count": {
+          "median": 191,
+          "minimum": 191,
+          "maximum": 191
+        },
+        "ops_per_sec": {
+          "median": 38.139,
+          "minimum": 38.139,
+          "maximum": 38.154
+        },
+        "p50_ns": {
+          "median": 3276799,
+          "minimum": 3276799,
+          "maximum": 3276799
+        },
+        "p95_ns": {
+          "median": 4063231,
+          "minimum": 3932159,
+          "maximum": 4456447
+        },
+        "p99_ns": {
+          "median": 4718591,
+          "minimum": 4194303,
+          "maximum": 5242879
+        },
+        "p999_ns": {
+          "median": 5242879,
+          "minimum": 4194303,
+          "maximum": 54525951
+        },
+        "send_lag_p95_ns": {
+          "median": 19922943,
+          "minimum": 17825791,
+          "maximum": 20971519
+        }
+      },
+      "user_profile_read": {
+        "count": {
+          "median": 133,
+          "minimum": 133,
+          "maximum": 133
+        },
+        "ops_per_sec": {
+          "median": 26.558,
+          "minimum": 26.558,
+          "maximum": 26.568
+        },
+        "p50_ns": {
+          "median": 3145727,
+          "minimum": 3014655,
+          "maximum": 3276799
+        },
+        "p95_ns": {
+          "median": 3932159,
+          "minimum": 3801087,
+          "maximum": 4063231
+        },
+        "p99_ns": {
+          "median": 4456447,
+          "minimum": 4194303,
+          "maximum": 4980735
+        },
+        "p999_ns": {
+          "median": 5242879,
+          "minimum": 4456447,
+          "maximum": 25165823
+        },
+        "send_lag_p95_ns": {
+          "median": 22020095,
+          "minimum": 19922943,
+          "maximum": 23068671
+        }
+      },
+      "post_like": {
+        "count": {
+          "median": 73,
+          "minimum": 73,
+          "maximum": 73
+        },
+        "ops_per_sec": {
+          "median": 14.577,
+          "minimum": 14.577,
+          "maximum": 14.583
+        },
+        "p50_ns": {
+          "median": 5242879,
+          "minimum": 4980735,
+          "maximum": 5505023
+        },
+        "p95_ns": {
+          "median": 8126463,
+          "minimum": 6815743,
+          "maximum": 8912895
+        },
+        "p99_ns": {
+          "median": 44040191,
+          "minimum": 16252927,
+          "maximum": 56623103
+        },
+        "p999_ns": {
+          "median": 44040191,
+          "minimum": 16252927,
+          "maximum": 56623103
+        },
+        "send_lag_p95_ns": {
+          "median": 17825791,
+          "minimum": 15728639,
+          "maximum": 25165823
+        }
+      },
+      "post_create": {
+        "count": {
+          "median": 48,
+          "minimum": 48,
+          "maximum": 48
+        },
+        "ops_per_sec": {
+          "median": 9.585,
+          "minimum": 9.585,
+          "maximum": 9.588
+        },
+        "p50_ns": {
+          "median": 5242879,
+          "minimum": 5242879,
+          "maximum": 6029311
+        },
+        "p95_ns": {
+          "median": 7864319,
+          "minimum": 7864319,
+          "maximum": 10485759
+        },
+        "p99_ns": {
+          "median": 44040191,
+          "minimum": 10485759,
+          "maximum": 48234495
+        },
+        "p999_ns": {
+          "median": 44040191,
+          "minimum": 10485759,
+          "maximum": 48234495
+        },
+        "send_lag_p95_ns": {
+          "median": 25165823,
+          "minimum": 19922943,
+          "maximum": 27262975
+        }
+      },
+      "hashtag_search": {
+        "count": {
+          "median": 31,
+          "minimum": 31,
+          "maximum": 31
+        },
+        "ops_per_sec": {
+          "median": 6.19,
+          "minimum": 6.19,
+          "maximum": 6.193
+        },
+        "p50_ns": {
+          "median": 3276799,
+          "minimum": 3276799,
+          "maximum": 3538943
+        },
+        "p95_ns": {
+          "median": 4456447,
+          "minimum": 4063231,
+          "maximum": 4456447
+        },
+        "p99_ns": {
+          "median": 4456447,
+          "minimum": 4063231,
+          "maximum": 5242879
+        },
+        "p999_ns": {
+          "median": 4456447,
+          "minimum": 4063231,
+          "maximum": 5242879
+        },
+        "send_lag_p95_ns": {
+          "median": 20971519,
+          "minimum": 14680063,
+          "maximum": 23068671
+        }
+      },
+      "user_follow": {
+        "count": {
+          "median": 24,
+          "minimum": 24,
+          "maximum": 24
+        },
+        "ops_per_sec": {
+          "median": 4.792,
+          "minimum": 4.792,
+          "maximum": 4.794
+        },
+        "p50_ns": {
+          "median": 5242879,
+          "minimum": 4980735,
+          "maximum": 5505023
+        },
+        "p95_ns": {
+          "median": 7340031,
+          "minimum": 6815743,
+          "maximum": 52428799
+        },
+        "p99_ns": {
+          "median": 50331647,
+          "minimum": 8126463,
+          "maximum": 52428799
+        },
+        "p999_ns": {
+          "median": 50331647,
+          "minimum": 8126463,
+          "maximum": 52428799
+        },
+        "send_lag_p95_ns": {
+          "median": 23068671,
+          "minimum": 14155775,
+          "maximum": 24117247
+        }
+      }
+    }
+  }
+]

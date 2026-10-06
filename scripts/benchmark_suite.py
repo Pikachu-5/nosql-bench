@@ -13,7 +13,11 @@ import threading
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
-IMAGES = {"feedkv":"benchforge-feedkv:local", "redis":"redis:7.4-bookworm", "mongo":"mongo:8.0", "cassandra":"cassandra:4.1", "neo4j":"neo4j:5.26-community"}
+IMAGES = {"feedkv":"benchforge-feedkv:local",
+    "redis":"redis:7.4-bookworm@sha256:4fa24486b8bcca8eec45ee0eb166edc674795e53a2b53d1a9ef263eecebaac85",
+    "mongo":"mongo:8.0@sha256:d0d926f94df099bff534b7ee5b5986458131a22489dfff8664509af0c1e2ca9c",
+    "cassandra":"cassandra:4.1@sha256:57e5dd97a964fa97f96269c821941c910f9fc7ee905ea4cba586b7b63eb18883",
+    "neo4j":"neo4j:5.26-community@sha256:c7d25c0eeebfe125718d58b72ed5d663c85d0479047733845eb2237c67ce8069"}
 PORTS = {"feedkv":16380,"redis":16379,"mongo":27018,"cassandra":9042,"neo4j":7474}
 PROFILES = [("normal","closed_loop"),("normal","open_loop"),("celebrity","closed_loop"),("celebrity","open_loop")]
 
@@ -89,7 +93,7 @@ def run_suite(args):
             try:
                 deadline=time.monotonic()+180; probe_count=0
                 probe_conf=evidence/f"{adapter}-probe.conf"
-                config(probe_conf,adapter,output,100,0,"normal","open_loop",20,small=True)
+                config(probe_conf,adapter,ROOT/"runs"/"verification",100,0,"normal","open_loop",20,small=True)
                 while True:
                     probe_count+=1
                     probe_id=f"{args.experiment}_{adapter}_probe{probe_count}"

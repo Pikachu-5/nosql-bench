@@ -1,10 +1,10 @@
-FROM gcc:14-bookworm AS build
+FROM gcc:14-bookworm@sha256:5e927c284bf55a7dc796262e311a0703344f62f41f5621eb56843111b1d37e15 AS build
 WORKDIR /source
 COPY include ./include
 COPY src ./src
 RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -Iinclude src/*.cpp -o /benchforge
 
-FROM debian:bookworm-slim
+FROM debian:bookworm-slim@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587
 COPY --from=build /benchforge /usr/local/bin/benchforge
 # libstdc++ from the same compiler image avoids a compiler/runtime ABI mismatch.
 COPY --from=build /usr/local/lib64/libstdc++.so.6* /usr/local/lib/

@@ -1,0 +1,2 @@
+# Evidence hashes refer to exact captured bytes across Windows and Linux clones.
+evidence/benchmarks/** -text -whitespace

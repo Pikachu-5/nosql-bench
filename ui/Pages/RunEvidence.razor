@@ -3,8 +3,8 @@
     <p class="evidence-id"><code>@Run.RunId</code><br /><time>@Run.StartedAtUtc</time></p>
     <dl class="evidence-facts">
         <div><dt>Version</dt><dd>@Run.AdapterVersion</dd></div>
-        <div><dt>Measurement method</dt><dd>@Run.MeasurementMethod</dd></div>
-        @if (Run.ResourceProfile.Length > 0) { <div><dt>Database limits</dt><dd>@Run.ResourceProfile.Replace('_',' ')</dd></div> }
+        <div><dt>Measurement method</dt><dd>@(Run.MeasurementMethod == "elapsed_wall_time_readonly_warmup_v2" ? "Elapsed wall time · read-only warm-up · v2" : Run.MeasurementMethod)</dd></div>
+        @if (Run.ResourceProfile.Length > 0) { <div><dt>Database limits</dt><dd>@(Run.ResourceProfile == "docker_linux_cpu2_mem2g_single_server" ? "Docker Linux · 2 CPU quota · 2 GiB memory cap · single server" : Run.ResourceProfile.Replace('_',' '))</dd></div> }
         @if (Run.ExperimentId.Length > 0) { <div><dt>Experiment</dt><dd>@Run.ExperimentId · @Run.ExperimentProfile · @Run.ExperimentStatus</dd></div> }
         <div><dt>Endpoint</dt><dd>@Run.Endpoint</dd></div>
         <div><dt>Workload</dt><dd>@Run.Scenario · @Run.Mode · seed @Run.Seed · @Run.Workers workers</dd></div>

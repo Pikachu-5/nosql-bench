@@ -48,6 +48,21 @@ try:
     archive=request("/api/results")
     assert any(item["runId"]==id and not item["valid"] for item in archive["results"])
     print("HTTP cancel remains responsive, saves invalid diagnostic results and cleans the run namespace")
+    # A connection failure in adapter construction must still produce readable
+    # evidence, with no invented operations or namespace ownership.
+    with socket.socket() as unavailable:
+        unavailable.bind(("127.0.0.1",0))  # Reserved, deliberately not listening.
+        failed_data=urlencode({"adapter":"feedkv","database_port":unavailable.getsockname()[1],"workers":2,"duration_ms":1000,"warmup_ms":100,"users":4,"posts":4,"follows":4,"hashtags":4}).encode()
+        failed_id=request("/api/runs",failed_data)["runId"]
+        failed_run=wait(lambda:(r if (r:=request(f"/api/runs/{failed_id}"))["status"]=="failed" else None))
+    assert failed_run["exitCode"]==1
+    failed_summary=request(f"/api/runs/{failed_id}/results")
+    assert not failed_summary["valid"] and failed_summary["invalid_reasons"]
+    assert failed_summary["total_operations"]==0 and failed_summary["cleanup_status"]=="namespace not acquired"
+    failed_journal=json.loads((root/"runs"/"api"/failed_id/"recovery.json").read_text())
+    assert failed_journal["state"]=="failed" and not failed_journal["namespace_owned"]
+    assert any(item["runId"]==failed_id and not item["valid"] for item in request("/api/results")["results"])
+    print("Startup connection failure retains readable invalid evidence without namespace ownership")
 finally:
     if id is not None:
         directory=root/"runs"/"api"/id

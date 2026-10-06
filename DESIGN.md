@@ -23,7 +23,7 @@ colors:
 typography:
   display:
     fontFamily: "Cascadia Code"
-    fontSize: "clamp(27px, 3vw, 34px)"
+    fontSize: "34px"
     fontWeight: 660
     lineHeight: 1.15
     letterSpacing: "-0.035em"
@@ -105,6 +105,8 @@ Use cool blue-gray neutrals for the page and panels. The strong blue identifies 
 ## Typography
 
 Use the locally bundled Cascadia Code face throughout the interface, with tabular figures for weights, seeds, IDs, and measurements. Keep the page title prominent; section titles and labels step down in size without introducing a second display face. The font and its license are bundled under `ui/wwwroot/fonts/`.
+
+The display token records the 34px upper size. Runtime headings use `clamp(27px, 3vw, 34px)` in `app.css`; preserve that responsive range rather than replacing it with a fixed size.
 
 **The Readout Rule.** Keep numeric values aligned and units visible; reserve compact uppercase lettering for analyzer headers and channel IDs.
 

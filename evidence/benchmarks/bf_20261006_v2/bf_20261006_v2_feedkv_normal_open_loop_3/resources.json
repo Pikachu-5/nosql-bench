@@ -1,0 +1,72 @@
+{
+  "sampling_scope": "entire worker lifetime including load and warmup",
+  "samples": [
+    {
+      "at_utc": "2026-10-06T11:37:01.499961+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "1.78%",
+        "Container": "a4c329387feff6ece3c954cacb83aec250ebbbdb96e72d841b5c55faa2ea6316",
+        "ID": "a4c329387fef",
+        "MemPerc": "0.43%",
+        "MemUsage": "8.758MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-feedkv",
+        "NetIO": "62.8MB / 55.6MB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:37:03.670411+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "1.19%",
+        "Container": "a4c329387feff6ece3c954cacb83aec250ebbbdb96e72d841b5c55faa2ea6316",
+        "ID": "a4c329387fef",
+        "MemPerc": "0.43%",
+        "MemUsage": "8.758MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-feedkv",
+        "NetIO": "63MB / 55.8MB",
+        "PIDs": "4"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:37:06.674639+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "1.47%",
+        "Container": "a4c329387feff6ece3c954cacb83aec250ebbbdb96e72d841b5c55faa2ea6316",
+        "ID": "a4c329387fef",
+        "MemPerc": "0.41%",
+        "MemUsage": "8.457MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-feedkv",
+        "NetIO": "63.3MB / 56MB",
+        "PIDs": "1"
+      }
+    }
+  ],
+  "exit_code": 0,
+  "configuration": {
+    "adapter": "feedkv",
+    "database_host": "127.0.0.1",
+    "database_port": 16380,
+    "scenario": "normal",
+    "mode": "open_loop",
+    "offered_rate_ops_sec": 100,
+    "seed": 42,
+    "workers": 2,
+    "warmup_ms": 1000,
+    "duration_ms": 5000,
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8,
+    "celebrity_post_percent": 10,
+    "output_dir": "C:/Codes/nosql/runs/experiments",
+    "weight.timeline_read": 40,
+    "weight.user_profile_read": 25,
+    "weight.post_like": 15,
+    "weight.post_create": 10,
+    "weight.hashtag_search": 5,
+    "weight.user_follow": 5
+  }
+}

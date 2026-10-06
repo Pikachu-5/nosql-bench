@@ -18,17 +18,17 @@ Developers evaluating database designs and implementations. The initial operator
 
 BenchForge is a local cross-database benchmark platform. It runs a configurable synthetic workload against database adapters and presents run status and measurements. The social-feed domain is only a benchmark workload; BenchForge does not provide a social network or store real posts, follows, profiles, or user activity.
 
-Success means a developer can repeat equivalent workload runs against supported database targets and use per-operation throughput, latency, errors, and recorded configuration to understand where each target performs well or poorly. This success criterion is an implementation inference from the agreed benchmark scope; no measured evidence exists yet.
+Success means a developer can repeat equivalent workload runs against supported database targets and use per-operation throughput, latency, errors, and recorded configuration to understand where each target performs well or poorly. The completed local experiment provides 60 valid captures across 20 configuration groups, with three repetitions each; measured tradeoffs and limitations are documented.
 
 ## Positioning
 
-BenchForge compares independent database implementations under the same seeded, feed-shaped workload. Its differentiator is FeedKV, a purpose-built C++ database under test, evaluated against Redis and staged adapters. FeedKV is implemented; no performance advantage is established.
+BenchForge compares independent database implementations under the same seeded, feed-shaped workload. Its differentiator is FeedKV, a purpose-built C++ database under test, evaluated against Redis and native MongoDB, Cassandra and Neo4j adapters. FeedKV is implemented; no performance advantage is established.
 
 ## Operating Context
 
 The operator starts the local C++ control API, configures a run in the C# dashboard, and reviews run status and local result artifacts. Benchmark workers run as separate processes. Normal benchmark configuration, generated synthetic data, and results remain local.
 
-An optional small Firestore database may be used as a remote benchmark target with synthetic records and strict operation caps. The benchmark platform, dashboard, and run artifacts are not hosted on GCP. Whether to enable the optional cloud target remains the operator's choice.
+An optional small Firestore database may be used as a remote benchmark target with synthetic records and strict operation caps. The benchmark platform, dashboard, and run artifacts are not hosted on GCP. Phase 7 is excluded by the user and no cloud target has been provisioned.
 
 ## Capabilities and Constraints
 
@@ -37,14 +37,14 @@ An optional small Firestore database may be used as a remote benchmark target wi
 - C# Blazor WebAssembly implements the dashboard; React and TypeScript are out of scope.
 - FeedKV, Redis, MongoDB, Cassandra and Neo4j adapters are implemented. Firestore remains optional. They are independent benchmark targets, not a required database ensemble.
 - GCP scope is limited to an optional small synthetic-data Firestore benchmark. The intended profile stays within published free quotas, but free quotas are not an absolute cost guarantee.
-- Bounded MongoDB and Cassandra smoke results exist. They verify correctness and connectivity and do not support performance comparisons. The `noop` adapter measures harness overhead only.
+- Native correctness checks passed for all five database targets. The final local experiment adds repeated measurements with recorded limits and no universal ranking. The `noop` adapter measures harness overhead only.
 
 ## Evidence on Hand
 
 - `ARCHITECTURE.md` records the agreed scope, benchmark methodology, implementation phases, and cloud guardrails.
 - The supplied Review 1 and Review 2 PDFs provide a feed-shaped benchmark workload reference.
 - The C++ harness, API, FeedKV, and database adapters compile locally. The .NET 9 dashboard builds with zero warnings/errors and its Cassandra launch/results path has been exercised in a browser.
-- `docs/VERIFICATION_2026-10-06.md` records MongoDB 8.2.1 and Cassandra 4.1.12 correctness checks, runtime limits, and the open-loop send-lag fix. FeedKV/Redis comparative measurements remain pending.
+- `docs/VERIFICATION_2026-10-06.md` preserves earlier correctness checks and the open-loop send-lag fix. `docs/BENCHMARK_RESULTS_2026-10-06.md` reports the completed 60-capture local experiment, raw evidence, versions, resource settings and limits. The Analysis repetition view, API offline/recovery and graceful cancellation were exercised in the browser.
 
 ## Product Principles
 

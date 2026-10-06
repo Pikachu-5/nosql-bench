@@ -122,20 +122,30 @@ RunSummary RunBenchmark(const RunConfig& config, std::function<bool()> cancelled
     summary.offered_rate_ops_sec = config.offered_rate_ops_sec;
 
     const auto key_prefix = "benchforge:" + summary.run_id + ":";
-    auto loader = CreateAdapter(config.adapter, config, key_prefix);
-    loader->SetCancellationCheck(cancelled);
-    loader->SetOwnershipCallback(std::move(acquired));
+    std::unique_ptr<DatabaseAdapter> loader;
     summary.started_at_utc = FormatUtc(std::chrono::system_clock::now(), true);
     summary.environment = CaptureEnvironment();
-    auto clean = [&] { loader->SetCancellationCheck({}); return loader->Cleanup(); };
+    auto clean = [&] {
+        if (!loader) return std::string("namespace not acquired");
+        loader->SetCancellationCheck({});
+        return loader->Cleanup();
+    };
     try {
+        loader = CreateAdapter(config.adapter, config, key_prefix);
+        loader->SetCancellationCheck(cancelled);
+        loader->SetOwnershipCallback(std::move(acquired));
         loader->LoadDataset(config);
         summary.transport_calibration = loader->Calibrate();
     } catch (const std::exception& error) {
         summary.valid = false;
         summary.invalid_reasons.emplace_back(error.what());
-        summary.adapter_version = loader->Version(); summary.endpoint = loader->Endpoint();
-        summary.storage_configuration = loader->StorageConfiguration();
+        if (loader) {
+            summary.adapter_version = loader->Version(); summary.endpoint = loader->Endpoint();
+            summary.storage_configuration = loader->StorageConfiguration();
+        } else {
+            summary.adapter_version = "not available; connection failed before loading";
+            summary.storage_configuration = "not observed; connection failed before loading";
+        }
         summary.cleanup_status = clean();
         return summary;
     }

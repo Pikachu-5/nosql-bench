@@ -1,0 +1,952 @@
+{
+  "experiment_id": "bf_20261006_v2",
+  "state": "completed",
+  "started_at_utc": "2026-10-06T11:36:22.518484+00:00",
+  "source_commit": "1c29eb268283f7cef8b80e9427b0b836a4078a3d",
+  "source_dirty": false,
+  "executable_sha256": "d3340cca0ab93d589e467d637b48684542d2ee4842b049729351c65725fa9766",
+  "docker_version": {
+    "Client": {
+      "Version": "28.3.2",
+      "ApiVersion": "1.51",
+      "DefaultAPIVersion": "1.51",
+      "GitCommit": "578ccf6",
+      "GoVersion": "go1.24.5",
+      "Os": "windows",
+      "Arch": "amd64",
+      "BuildTime": "Wed Jul  9 16:12:31 2025",
+      "Context": "desktop-linux"
+    },
+    "Server": {
+      "Platform": {
+        "Name": "Docker Desktop 4.43.2 (199162)"
+      },
+      "Components": [
+        {
+          "Name": "Engine",
+          "Version": "28.3.2",
+          "Details": {
+            "ApiVersion": "1.51",
+            "Arch": "amd64",
+            "BuildTime": "Wed Jul  9 16:13:55 2025",
+            "Experimental": "false",
+            "GitCommit": "e77ff99",
+            "GoVersion": "go1.24.5",
+            "KernelVersion": "5.15.167.4-microsoft-standard-WSL2",
+            "MinAPIVersion": "1.24",
+            "Os": "linux"
+          }
+        },
+        {
+          "Name": "containerd",
+          "Version": "1.7.27",
+          "Details": {
+            "GitCommit": "05044ec0a9a75232cad458027ca83437aae3f4da"
+          }
+        },
+        {
+          "Name": "runc",
+          "Version": "1.2.5",
+          "Details": {
+            "GitCommit": "v1.2.5-0-g59923ef"
+          }
+        },
+        {
+          "Name": "docker-init",
+          "Version": "0.19.0",
+          "Details": {
+            "GitCommit": "de40ad0"
+          }
+        }
+      ],
+      "Version": "28.3.2",
+      "ApiVersion": "1.51",
+      "MinAPIVersion": "1.24",
+      "GitCommit": "e77ff99",
+      "GoVersion": "go1.24.5",
+      "Os": "linux",
+      "Arch": "amd64",
+      "KernelVersion": "5.15.167.4-microsoft-standard-WSL2",
+      "BuildTime": "2025-07-09T16:13:55.000000000+00:00"
+    }
+  },
+  "resource_profile": "docker_linux_cpu2_mem2g_single_server",
+  "cpu_limit": 2,
+  "memory_limit_bytes": 2147483648,
+  "dataset": {
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8
+  },
+  "duration_ms": 5000,
+  "warmup_ms": 1000,
+  "repetitions": 3,
+  "offered_rate_ops_sec": 100,
+  "adapters": {
+    "feedkv": {
+      "image": "benchforge-feedkv:local",
+      "image_id": "sha256:0636fa105d30f24eb6b52ccf7b562033d59f9e8cdb77fa50c01f03029635e80f",
+      "image_metadata": {
+        "Id": "sha256:0636fa105d30f24eb6b52ccf7b562033d59f9e8cdb77fa50c01f03029635e80f",
+        "RepoTags": [
+          "benchforge-feedkv:local"
+        ],
+        "RepoDigests": [],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-06T11:34:32.515033684Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 81925139,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/vihssynswd2dww9drlhqj85i6/diff:/var/lib/docker/overlay2/wbxbimcb84g6e5uz08ay70q5b/diff:/var/lib/docker/overlay2/4410bb3221042582d87ebf55783bfad854064768fdd93df9a484e179f942cde4/diff",
+            "MergedDir": "/var/lib/docker/overlay2/88pp80tini8h4j6ipkvkpfukd/merged",
+            "UpperDir": "/var/lib/docker/overlay2/88pp80tini8h4j6ipkvkpfukd/diff",
+            "WorkDir": "/var/lib/docker/overlay2/88pp80tini8h4j6ipkvkpfukd/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:e58989146fcec76699871403b9897b5c014af1ccd85f5a9300a215e7975525d7",
+            "sha256:0988d8b2bec83f51907a9a2daf11f83696aa1867696bc477b7827115c4e68a9c",
+            "sha256:674c67c1ab0ef84c274e50e033e9af6c1d49cf51a51eacbea1f2c53bfa14a338",
+            "sha256:b2fad98c237b48b01d7454fdf7ffbdb11f09fdea6141f7be16eb2de470513c87"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "2026-10-06T11:34:32.550327072Z"
+        },
+        "Config": {
+          "Cmd": null,
+          "Entrypoint": [
+            "benchforge",
+            "feedkv",
+            "--container-listen"
+          ],
+          "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "LD_LIBRARY_PATH=/usr/local/lib"
+          ],
+          "Labels": null,
+          "OnBuild": null,
+          "User": "65534:65534",
+          "Volumes": null,
+          "WorkingDir": ""
+        }
+      },
+      "start_arguments": [
+        "run",
+        "-d",
+        "--name",
+        "bf-bf_20261006_v2-feedkv",
+        "--label",
+        "benchforge.experiment=bf_20261006_v2",
+        "--cpus",
+        "2",
+        "--memory",
+        "2g",
+        "--memory-swap",
+        "2g",
+        "-p",
+        "127.0.0.1:16380:6380",
+        "benchforge-feedkv:local"
+      ],
+      "host_config": {
+        "NanoCpus": 2000000000,
+        "Memory": 2147483648,
+        "MemorySwap": 2147483648
+      }
+    },
+    "redis": {
+      "image": "redis:7.4-bookworm",
+      "image_id": "sha256:d24fb73aa9caa76060b48f711af3831f1e95286c745da622c00419ed864cd291",
+      "image_metadata": {
+        "Id": "sha256:d24fb73aa9caa76060b48f711af3831f1e95286c745da622c00419ed864cd291",
+        "RepoTags": [
+          "redis:7.4-bookworm"
+        ],
+        "RepoDigests": [
+          "redis@sha256:4fa24486b8bcca8eec45ee0eb166edc674795e53a2b53d1a9ef263eecebaac85"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-06T01:35:14.356650095Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 120279203,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/f7beaa63c963e3fe314081ee8c1bb6ed999f10bd3ded3f068ff09f50092897ce/diff:/var/lib/docker/overlay2/99afbfb5824ee721a499d35790895c5b21c428cd50603d1d07a2c6d7b42dd826/diff:/var/lib/docker/overlay2/729e2beea74720110ce55664be6150447b3386e84358a2d7a753c45245784575/diff:/var/lib/docker/overlay2/c5c0bb76feb2f063cb88d244ab509a4eb9d98a39d19ce15103ba020be6aaea68/diff:/var/lib/docker/overlay2/68a6c7364f3db0cecd0a836071456bc3e332ad85b8a75dad247cbb0ff03f170c/diff:/var/lib/docker/overlay2/4410bb3221042582d87ebf55783bfad854064768fdd93df9a484e179f942cde4/diff",
+            "MergedDir": "/var/lib/docker/overlay2/a04fe3f4cb68f847598405eed87616747aa6f10f382d2371f3aa1b1c679d602e/merged",
+            "UpperDir": "/var/lib/docker/overlay2/a04fe3f4cb68f847598405eed87616747aa6f10f382d2371f3aa1b1c679d602e/diff",
+            "WorkDir": "/var/lib/docker/overlay2/a04fe3f4cb68f847598405eed87616747aa6f10f382d2371f3aa1b1c679d602e/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:e58989146fcec76699871403b9897b5c014af1ccd85f5a9300a215e7975525d7",
+            "sha256:dc1e29806dff9c5e8afeb26db665e9faf7298c4d4b21721e64551743194ab561",
+            "sha256:2157087b2d2e7fa73fc01a6e7a9de32635a936a05e8368fb44d27f4bbb4496af",
+            "sha256:fc9ed57bdff26a8753d4efea16fafef94e586387544524d2b2d18006ffbf643f",
+            "sha256:ba31cc234bf259b3737e987e3e8afe75760095786c7c97c2d1587009ea524645",
+            "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+            "sha256:eea9d1a997aa5d84da20c6ca2f2e8ac121dac7f05d833b9035c60e9439417dbb"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "0001-01-01T00:00:00Z"
+        },
+        "Config": {
+          "Cmd": [
+            "redis-server"
+          ],
+          "Entrypoint": [
+            "docker-entrypoint.sh"
+          ],
+          "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "REDIS_VERSION=7.4.11"
+          ],
+          "ExposedPorts": {
+            "6379/tcp": {}
+          },
+          "Labels": null,
+          "OnBuild": null,
+          "User": "",
+          "Volumes": {
+            "/data": {}
+          },
+          "WorkingDir": "/data"
+        }
+      },
+      "start_arguments": [
+        "run",
+        "-d",
+        "--name",
+        "bf-bf_20261006_v2-redis",
+        "--label",
+        "benchforge.experiment=bf_20261006_v2",
+        "--cpus",
+        "2",
+        "--memory",
+        "2g",
+        "--memory-swap",
+        "2g",
+        "-p",
+        "127.0.0.1:16379:6379",
+        "redis:7.4-bookworm",
+        "redis-server",
+        "--save",
+        "",
+        "--appendonly",
+        "no",
+        "--maxmemory",
+        "1536mb",
+        "--maxmemory-policy",
+        "noeviction"
+      ],
+      "host_config": {
+        "NanoCpus": 2000000000,
+        "Memory": 2147483648,
+        "MemorySwap": 2147483648
+      }
+    },
+    "mongo": {
+      "image": "mongo:8.0",
+      "image_id": "sha256:3342b5975a68ccf08b047b4e13d6297a5888b83fe145797bda94d270af9dc298",
+      "image_metadata": {
+        "Id": "sha256:3342b5975a68ccf08b047b4e13d6297a5888b83fe145797bda94d270af9dc298",
+        "RepoTags": [
+          "mongo:8.0"
+        ],
+        "RepoDigests": [
+          "mongo@sha256:d0d926f94df099bff534b7ee5b5986458131a22489dfff8664509af0c1e2ca9c"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-02T01:32:02.070367839Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 950311765,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/1096bc73245558ac20a2237366b0fd55ea9032ff02d9ac8f30f9dc63bdf4bcaa/diff:/var/lib/docker/overlay2/8bbc2edf655f26bbd42e5d0fbea9b3e5d5f026af03709efd023d78c107ba7af4/diff:/var/lib/docker/overlay2/7c9d0f3a2ea712b6f24aa05595fd1bb2e869c11bddcc93796dc189934b8de294/diff:/var/lib/docker/overlay2/64383cfdf163f16626ba30750f4e1f226ac4dd5415e84677269971f56cd1e892/diff:/var/lib/docker/overlay2/54bfed066ca1975f01ddb12f8fa4cc6451d9afa84b52f585447d5b53ae829ec5/diff:/var/lib/docker/overlay2/7e6078ff258e3e50647a7e9eec44bcf02c1a07a192435e5dda15e88ca581a0ee/diff:/var/lib/docker/overlay2/735653902e74175616be1e7718ae54a799444a5baa3a5584488842cf6f2233ac/diff",
+            "MergedDir": "/var/lib/docker/overlay2/1400b265cf47fc5b50db8f42a5d5abc510dcd6acaf1d2053cd86fdc9b77bde2c/merged",
+            "UpperDir": "/var/lib/docker/overlay2/1400b265cf47fc5b50db8f42a5d5abc510dcd6acaf1d2053cd86fdc9b77bde2c/diff",
+            "WorkDir": "/var/lib/docker/overlay2/1400b265cf47fc5b50db8f42a5d5abc510dcd6acaf1d2053cd86fdc9b77bde2c/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:d81fb2a7c6ee3be05fdefaa7fd223be219c1ab172083ec1b994c3ecda33ac0a8",
+            "sha256:17882f3f1ab7187598d9c49805328886d729034e99259ee759ccc046a7256266",
+            "sha256:881b1fc28a031fb97d5e0dff1e38f23d22b53e8569faccc042bf46a0da23b456",
+            "sha256:386df690fee01470865a5fa206c123ed51b8488a4c3fe5a6c2eabefd3529c064",
+            "sha256:bf78bcefbafbeca0be002673fd7474b371590db7df3f2e7288b45fb50bab4791",
+            "sha256:f26ac009d365d219952c88b7ce882bcc7ba5c3dd47d77512f34c56b283f43ac5",
+            "sha256:653c557d453070d861f5a62dc7fcc0762fefa20df8d431736f93b8d2c1271a45",
+            "sha256:d1d3381c17f2b8905ae92684f510e1406e1e90bdcfcd2c4cedeff1ac2bcca61f"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "0001-01-01T00:00:00Z"
+        },
+        "Config": {
+          "Cmd": [
+            "mongod"
+          ],
+          "Entrypoint": [
+            "docker-entrypoint.sh"
+          ],
+          "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "GOSU_VERSION=1.19",
+            "JSYAML_VERSION=3.13.1",
+            "JSYAML_CHECKSUM=662e32319bdd378e91f67578e56a34954b0a2e33aca11d70ab9f4826af24b941",
+            "MONGO_PACKAGE=mongodb-org",
+            "MONGO_REPO=repo.mongodb.org",
+            "MONGO_MAJOR=8.0",
+            "MONGO_VERSION=8.0.32",
+            "HOME=/data/db",
+            "GLIBC_TUNABLES=glibc.pthread.rseq=0"
+          ],
+          "ExposedPorts": {
+            "27017/tcp": {}
+          },
+          "Labels": {
+            "org.opencontainers.image.version": "24.04"
+          },
+          "OnBuild": null,
+          "User": "",
+          "Volumes": {
+            "/data/configdb": {},
+            "/data/db": {}
+          },
+          "WorkingDir": ""
+        }
+      },
+      "start_arguments": [
+        "run",
+        "-d",
+        "--name",
+        "bf-bf_20261006_v2-mongo",
+        "--label",
+        "benchforge.experiment=bf_20261006_v2",
+        "--cpus",
+        "2",
+        "--memory",
+        "2g",
+        "--memory-swap",
+        "2g",
+        "-p",
+        "127.0.0.1:27018:27017",
+        "mongo:8.0"
+      ],
+      "host_config": {
+        "NanoCpus": 2000000000,
+        "Memory": 2147483648,
+        "MemorySwap": 2147483648
+      }
+    },
+    "cassandra": {
+      "image": "cassandra:4.1",
+      "image_id": "sha256:d4f138ee00e8fc2664905ef566645a152a2bf87ce36a48b4b76366913126a203",
+      "image_metadata": {
+        "Id": "sha256:d4f138ee00e8fc2664905ef566645a152a2bf87ce36a48b4b76366913126a203",
+        "RepoTags": [
+          "cassandra:4.1"
+        ],
+        "RepoDigests": [
+          "cassandra@sha256:57e5dd97a964fa97f96269c821941c910f9fc7ee905ea4cba586b7b63eb18883"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-06T02:09:59.413677534Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 335094566,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/cc823b5052cc85748c7f63ed0508f8092490c557c2bf18ddcc99a4bbb9cfd523/diff:/var/lib/docker/overlay2/8e8adebddd5293da794a0940d95dfa5ac1f91196b0ee899e84ca27f8615a8146/diff:/var/lib/docker/overlay2/b15dca17df818b1022570d68b5440dbab4d7d691d97a1ef0fc0557d379e4d5d6/diff:/var/lib/docker/overlay2/a4c0c3d3c67084dcb7830535a9e27010e78a4d1cb25c837482db1d10192a0186/diff:/var/lib/docker/overlay2/7f19f07c70c3320866e3952a29abc16ec4169194597c2e9561c5929e38ca8e8b/diff:/var/lib/docker/overlay2/2e1b73c48da0b4e4abcf4ae758a24a87f70d631163c4a478250302e484ff1ad2/diff:/var/lib/docker/overlay2/4410bb3221042582d87ebf55783bfad854064768fdd93df9a484e179f942cde4/diff",
+            "MergedDir": "/var/lib/docker/overlay2/4dc4857828de6d2ac0c526b3c61fcaddae8a25c0ba60a266bdfab812b88fb879/merged",
+            "UpperDir": "/var/lib/docker/overlay2/4dc4857828de6d2ac0c526b3c61fcaddae8a25c0ba60a266bdfab812b88fb879/diff",
+            "WorkDir": "/var/lib/docker/overlay2/4dc4857828de6d2ac0c526b3c61fcaddae8a25c0ba60a266bdfab812b88fb879/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:e58989146fcec76699871403b9897b5c014af1ccd85f5a9300a215e7975525d7",
+            "sha256:1def0d8b18245f11aa5da3d1d59d43ad8db6cbf097df27e64032964f673ceffe",
+            "sha256:d2f6660664b6ed045bcaf4c742d17ae88625a9479e1f80b9e34a76f19326b719",
+            "sha256:57e2afcfba796ecdde5ff15d598259429013b36dcdd75de496e69942f88c0495",
+            "sha256:c195e7314e490a242b9c8cb45cf3aaa06cf6f61d08d90a05c56733d347d58f86",
+            "sha256:27c7493362afac923a0042675cec73b889b5efbcadfe5cfb63fd6c8f29c1d25b",
+            "sha256:38d5225b3e85973a852296f6dbf3a344da5671a75b5b7866eb9fddf4d1705ca6",
+            "sha256:b6613227c2a39fdc642e8b7fd64aa8a93d1be424d5fffe5ef82d85a13be6b7de"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "0001-01-01T00:00:00Z"
+        },
+        "Config": {
+          "Cmd": [
+            "cassandra",
+            "-f"
+          ],
+          "Entrypoint": [
+            "docker-entrypoint.sh"
+          ],
+          "Env": [
+            "PATH=/opt/cassandra/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "GOSU_VERSION=1.19",
+            "JAVA_HOME=/opt/java/openjdk",
+            "CASSANDRA_HOME=/opt/cassandra",
+            "CASSANDRA_CONF=/etc/cassandra",
+            "GPG_KEYS=CEC86BB4A0BA9D0F90397CAEF8358FA2F2833C93 \tC4965EE9E3015D192CCCF2B6F758CE318D77295D \t5AED1BF378E9A19DADE1BCB34BD736A82B5C1B00 \t514A2AD631A57A16DD0047EC749D6EEC0353B12C \tA26E528B271F19B9E5D8E19EA278B781FE4B2BDA \tA4C465FEA0C552561A392A61E91335D77E3E87CB \t9E66CEC6106D578D0B1EB9BFF1000962B7F6840C \tC4009872C59B49561310D966D0062876AF30F054 \tB7842CDAF36E6A3214FAE35D5E85B9AE0B84C041 \t3E9C876907A560ACA00964F363E9BAD215BBF5F0 \tF8B7FD00E05C932991A2CD6150EE103D162C5A55 \t7464AAD9068241C50BA6A26232F35CB2F546D93E \tCEC5C50B9C629EF0F5AB2706650B72EB14CCD622",
+            "CASSANDRA_VERSION=4.1.12",
+            "CASSANDRA_SHA512=cea0acc8aa52b44798dc45ff5edc26f910f5e4025f40d5f4a3b6728ac8d2aaacf9da0aebeb997c0d0039e7034a9478b9af57e1546b45428d7a7638fc61e75dc8"
+          ],
+          "ExposedPorts": {
+            "7000/tcp": {},
+            "7001/tcp": {},
+            "7199/tcp": {},
+            "9042/tcp": {},
+            "9160/tcp": {}
+          },
+          "Labels": null,
+          "OnBuild": null,
+          "User": "",
+          "Volumes": {
+            "/var/lib/cassandra": {}
+          },
+          "WorkingDir": ""
+        }
+      },
+      "start_arguments": [
+        "run",
+        "-d",
+        "--name",
+        "bf-bf_20261006_v2-cassandra",
+        "--label",
+        "benchforge.experiment=bf_20261006_v2",
+        "--cpus",
+        "2",
+        "--memory",
+        "2g",
+        "--memory-swap",
+        "2g",
+        "-p",
+        "127.0.0.1:9042:9042",
+        "-e",
+        "MAX_HEAP_SIZE=768M",
+        "-e",
+        "HEAP_NEWSIZE=128M",
+        "cassandra:4.1"
+      ],
+      "host_config": {
+        "NanoCpus": 2000000000,
+        "Memory": 2147483648,
+        "MemorySwap": 2147483648
+      }
+    },
+    "neo4j": {
+      "image": "neo4j:5.26-community",
+      "image_id": "sha256:5ac4722f61af78f51063f5069ee61cdccf2b17a33d1836446535879ce279e0e8",
+      "image_metadata": {
+        "Id": "sha256:5ac4722f61af78f51063f5069ee61cdccf2b17a33d1836446535879ce279e0e8",
+        "RepoTags": [
+          "neo4j:5.26-community"
+        ],
+        "RepoDigests": [
+          "neo4j@sha256:c7d25c0eeebfe125718d58b72ed5d663c85d0479047733845eb2237c67ce8069"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-06T01:43:30.889611904Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 599267662,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/ec759e3e9e0513508562a0884dd927c1e86279323342b9fab8ae7df45e020c98/diff:/var/lib/docker/overlay2/eab929ecdefa5f694f3f53b31baabbad9bcca01bfcfa752a7d2d820063027cd6/diff:/var/lib/docker/overlay2/49a7420480b7a6e83a79edda421673e0b7627eaa0f81b78ffa2f3189a73b7c16/diff:/var/lib/docker/overlay2/fa6528a585c6541137988bbac8d99219de401cb3232d8d6b629c601897fdf665/diff",
+            "MergedDir": "/var/lib/docker/overlay2/75ae2adb49cee76aa712e4784af372e1d79008995d84860de00f9cdb017df31c/merged",
+            "UpperDir": "/var/lib/docker/overlay2/75ae2adb49cee76aa712e4784af372e1d79008995d84860de00f9cdb017df31c/diff",
+            "WorkDir": "/var/lib/docker/overlay2/75ae2adb49cee76aa712e4784af372e1d79008995d84860de00f9cdb017df31c/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62",
+            "sha256:609dd757e3ee4072410dade1b1c9a65f3fea93838bbaa13a3e7c6f33a2969ac2",
+            "sha256:027c757be29cb35387fa3df7455729b4e23463f9bc399b4bd44de28630c145f3",
+            "sha256:ecde190bec4e931a02ec7ae494dfba396f60640e19d15db883ac553eec781d01",
+            "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "0001-01-01T00:00:00Z"
+        },
+        "Config": {
+          "Cmd": [
+            "neo4j"
+          ],
+          "Entrypoint": [
+            "tini",
+            "-g",
+            "--",
+            "/startup/docker-entrypoint.sh"
+          ],
+          "Env": [
+            "PATH=/var/lib/neo4j/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "JAVA_HOME=/opt/java/openjdk",
+            "NEO4J_SHA256=f8fc23340561405f1ff10ca6ac2d317d095d3c74509a616883c45d7a61f5cfec",
+            "NEO4J_TARBALL=neo4j-community-5.26.31-unix.tar.gz",
+            "NEO4J_EDITION=community",
+            "NEO4J_HOME=/var/lib/neo4j",
+            "LANG=C.UTF-8"
+          ],
+          "ExposedPorts": {
+            "7473/tcp": {},
+            "7474/tcp": {},
+            "7687/tcp": {}
+          },
+          "Labels": null,
+          "OnBuild": null,
+          "User": "",
+          "Volumes": {
+            "/data": {},
+            "/logs": {}
+          },
+          "WorkingDir": "/var/lib/neo4j"
+        }
+      },
+      "start_arguments": [
+        "run",
+        "-d",
+        "--name",
+        "bf-bf_20261006_v2-neo4j",
+        "--label",
+        "benchforge.experiment=bf_20261006_v2",
+        "--cpus",
+        "2",
+        "--memory",
+        "2g",
+        "--memory-swap",
+        "2g",
+        "-p",
+        "127.0.0.1:7474:7474",
+        "-e",
+        "NEO4J_AUTH=none",
+        "-e",
+        "NEO4J_server_memory_heap_initial__size=512m",
+        "-e",
+        "NEO4J_server_memory_heap_max__size=512m",
+        "-e",
+        "NEO4J_server_memory_pagecache_size=256m",
+        "neo4j:5.26-community"
+      ],
+      "host_config": {
+        "NanoCpus": 2000000000,
+        "Memory": 2147483648,
+        "MemorySwap": 2147483648
+      },
+      "gc_observation": "No readable default GC log; pauses not isolated."
+    }
+  },
+  "runs": [
+    {
+      "run_id": "bf_20261006_v2_feedkv_normal_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "60003b9106507704234f1fa6b79af48e9b48aa9e71d1133ee8359b89d7db2961",
+      "resources_sha256": "d21e8759611ef596bb8244dc023fdcb2070703537b5014853a86eb46916b7625"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_normal_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "fa1a3fab06a92a752bd6e05eb23f9290106a9643d511a22fd5c478a6dad76ed3",
+      "resources_sha256": "cdba07748c69d5a2df8f466afe6a1adeb8954480054b9cc220e5f74e788e1bc9"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_normal_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "fbdf83e226e768130a6c0298d050dec551b29c5d80e0f9ba2097b230b5967583",
+      "resources_sha256": "47f1ac4da247ee83bac958cfb8814676fe7730f871a10b644becc1caef1e00f9"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_normal_open_loop_1",
+      "valid": true,
+      "summary_sha256": "9bc2a60cb0d6ff19ec5d4b183d13e8fd925211a8d52f776e27d287eaaa2ebde1",
+      "resources_sha256": "cfbbabb1d8de21525daeecb437cf71127e55131b57c0923fade7b00f09641615"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_normal_open_loop_2",
+      "valid": true,
+      "summary_sha256": "ad9e21a97540d71b4ca6373c87ede1b0650aec400e0872ef249e9560e04227b6",
+      "resources_sha256": "c75c5d38eaf2c9399ece864dc2dec7db3d14106226fae32272fdaf2a00f71b5a"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_normal_open_loop_3",
+      "valid": true,
+      "summary_sha256": "913e9f504ac4c70fe586cfe40557f3b49f6e373ddb05ecc5d005500f8ceafd78",
+      "resources_sha256": "e5b0f4e85ac693d6222fa61a097228243ec2d374c617569ac95139400f030594"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_celebrity_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "5f4ffb5206aee528ef8b854d373f93d314506adff86f29547afdde25d7be3ebb",
+      "resources_sha256": "e3e6e48c0414a9a84b0e4228c4804141b4401ff1d94fc99cc71a68775eaa6146"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_celebrity_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "9a01d05d236281d32f5050ae5f0a5b2f82e070c58b4415fa432c823ca3f6cdf4",
+      "resources_sha256": "ef9374998de2b7af448be7d73a534843f080fa71460515a35ae359352666a4d1"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_celebrity_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "34a2a2d5a9215d6206079312ca7951a34ffefa3cf3a6105d4965ae425bc3d084",
+      "resources_sha256": "eee75e4b09124cf8f35b04299c4240e40687830404f4d0d99a4750c04736f3dd"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_celebrity_open_loop_1",
+      "valid": true,
+      "summary_sha256": "d30dd99319ffe1d695692c93134c7c872be7d533f8d453de5e89568131508681",
+      "resources_sha256": "f6cb9cb09bc53939582c19e82ad8e5d756c0b6ba563c0d0df61fd1cea8b108e9"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_celebrity_open_loop_2",
+      "valid": true,
+      "summary_sha256": "e192705507f99e35dc59b8aec06396f2ac4e0633b13c952eb23627ef055a8644",
+      "resources_sha256": "8dbc7164bdbe99a0821b734367af81e91b851e552db44617a253de40d58dc3e8"
+    },
+    {
+      "run_id": "bf_20261006_v2_feedkv_celebrity_open_loop_3",
+      "valid": true,
+      "summary_sha256": "4ca71d72989ec24b6b2cd1c6773f810fd840fda3acc880096cecc592c9263e74",
+      "resources_sha256": "be4237fa2310cf1e662323b9b1bf93b6859d672c4fd5f4588ef6fc5d00c7123f"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_normal_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "e7cd43710c350c5ad3983ac1b4dadc9a765a5eb8781459f2deb1b27a98965743",
+      "resources_sha256": "a45eab6fa7a308e7de93aa78c3cb1ec374a7877db1d9805bf53437882fbcb5e8"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_normal_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "0f2a5f6f05586c41a383e9b44b356e07e8ef8ee4a66ca69de60d80c30c3413c7",
+      "resources_sha256": "c775391fe9e4f3503e25fc92529e4ccbb047ef070efee747c1672735d6b7eea9"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_normal_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "5cc6c567e889eedfbe9de1df315f25ef77ccb3ebf17c4d5339ffcc27311ea503",
+      "resources_sha256": "fbfe7516c12d20a690aed00f740a067a0b82e648c11959e879db369446acdbcb"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_normal_open_loop_1",
+      "valid": true,
+      "summary_sha256": "75b1242c8f1af29179ddd4fe47030d6ba852735b2b9f56280159740299ebd5f4",
+      "resources_sha256": "8b49d4935873f3822b1a2b39750bb47a2bff6349995e9194b74189e3c2e76d86"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_normal_open_loop_2",
+      "valid": true,
+      "summary_sha256": "1cc54ab0f3d05a88dfb5f86614c26cc5bc8da03568016c24d295543a28e3277c",
+      "resources_sha256": "5e185cec10096649358215d7992d949c3c372a697835a4d418a81015248f9133"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_normal_open_loop_3",
+      "valid": true,
+      "summary_sha256": "d3c176102c526451bfe5d6a686349848c7c3edfd52a99f47869f600bf196e825",
+      "resources_sha256": "d8eb6856912756d397edb4be80f11cbdcf923f7a7cf48c08c110078c67f7d4e3"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_celebrity_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "cdc28f88bd2c49a72108dffc207eea09833bd2886ca0b004c98f034dade4bd1e",
+      "resources_sha256": "37347cecaf9f4bd008ccbfdacf99d65e77a1c037f4190449094527758e04cdab"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_celebrity_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "ab276b11e33968109fd3e8276227300566451f2c9a553e952e170c329e1fd024",
+      "resources_sha256": "adde256c1d3ba28d7342be98f5083d40e587b349a6311bb981df8a566aafc1d5"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_celebrity_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "620b7aaf7497e2dbf9b97b148c48a9fe00b462ff1ce833380b1263c80a5c4c80",
+      "resources_sha256": "fc0b894030ba30e63f6891d8c316739777a5da4ad39e76ff08b7358a064006c8"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_celebrity_open_loop_1",
+      "valid": true,
+      "summary_sha256": "042cbe67246ad38a47b13f4c739f92f3eb4d034dd65e729c12dbcc2e3471265c",
+      "resources_sha256": "4a2a5eb8305b67aa50aaec891ad72300bdbef8eed7536b2105a46487f89f0870"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_celebrity_open_loop_2",
+      "valid": true,
+      "summary_sha256": "59e3f46799d01ce15e70d0b22d1ec19dff87f68ab66465e917aad6b918854dc3",
+      "resources_sha256": "6684bcf68323c1c459bd58f62a042a6dfbe061d378674b27ee2bd4e7830cd33d"
+    },
+    {
+      "run_id": "bf_20261006_v2_redis_celebrity_open_loop_3",
+      "valid": true,
+      "summary_sha256": "7b2c68aeea6462092ed51b53b0a697549311f78dd201008e1ef7e955c860e917",
+      "resources_sha256": "8d0ea6a02606bacc07f805c38108d46c179b7955f34c76cd8baec1d4cf97023a"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_normal_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "f82c0a3c6d2ddccffb67f189f4a6a86a418a80046b9196993ec281403d16b87a",
+      "resources_sha256": "db5f368276e04b61ae72f965712a670680c8da53a66b30d12a61deadeb37777d"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_normal_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "4f7823cf0ca7e765f7bec7a85883a0e7e7bb9c8a97a5202bceb012a572f7bd51",
+      "resources_sha256": "6ed62f3c89ae8ddd84b1c828d6f81df4ebd425ed35395575240a92cfe7a23b73"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_normal_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "74feb4259b247267489cc4f9ff513bbdf645ed30d0f535a092234ae05eb8f01e",
+      "resources_sha256": "0cdb83621e7fb907abacb23b54a1641b3166b942027007ccaff2c169435ca711"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_normal_open_loop_1",
+      "valid": true,
+      "summary_sha256": "e2e5f06ee45c61489106ca8ab514c025d69afefd2938b0d266a6587f67d57626",
+      "resources_sha256": "7dae12c1924a0932d5863c4d99519bbb2cf2d5ffd9e202fafcf532dfd7dba245"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_normal_open_loop_2",
+      "valid": true,
+      "summary_sha256": "e9ba85cb41860c1316e03443c96268e51c32a0ddba92a44b85fd5d7092473c89",
+      "resources_sha256": "be443a46b07c4e85c8018c08235a10b4e8a32c9d8db1950ca88b55fb217ecadb"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_normal_open_loop_3",
+      "valid": true,
+      "summary_sha256": "8564c64c090857c1eb904fd98a293568990713b2018521725668d38447ac268d",
+      "resources_sha256": "144ad1c9bc91f09c136798382a050bcd33e502bd5a136d2db41ea1921715dd73"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_celebrity_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "160a207ee7d5cab3d52b83d7303d056fd477f0470c9c84a19eb5c4408c0e052e",
+      "resources_sha256": "8ebf13240b7646382faad1aad5fcf0747101748fdae4515ffeb07e02deab7333"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_celebrity_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "88b9fcbe6b3cd690e008f072ce15bcb384d8ffab8078c0aea31b92eed09abf58",
+      "resources_sha256": "0eb85b0935364ad32d0bc3443a493c4f31289cc5f062d7f1e2077e196163b091"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_celebrity_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "c3b744a5996ab093cc58ee01f3dbd14e586393bfa46fe3c3b3bd96651e8a6681",
+      "resources_sha256": "54b64f3698b85b48508e4f79ff682a7f09d594439fdcd4b547bedfd42957996a"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_celebrity_open_loop_1",
+      "valid": true,
+      "summary_sha256": "ba996c9c23a72546ab10ac865f4aceeff999749a707f87956d24b455778df034",
+      "resources_sha256": "60fd49f4a714817375d63efc9fb8b9d23d3e1e9e3b1418ca592afa5edd66643b"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_celebrity_open_loop_2",
+      "valid": true,
+      "summary_sha256": "a0612669247d9f8e12ea5d28acbd2ec814f967a18807534a63b42a7a3122fc1c",
+      "resources_sha256": "cc95f0c9ccfca937c4529a19af75c8339a66b9b682081d7592f291643caaab64"
+    },
+    {
+      "run_id": "bf_20261006_v2_mongo_celebrity_open_loop_3",
+      "valid": true,
+      "summary_sha256": "76a1fc6fe61763296c4eeb59903b61a4d51ee9620321e861f1665eeb650e3ff8",
+      "resources_sha256": "b3f3f218da1e1b2217dd3438fa936a354bd90e6d9815e8cde89283f03035557c"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_normal_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "36f5579c091be625055110340f40b8059f518aaadef9b6da4ae847bd90630193",
+      "resources_sha256": "1e0d8937eb5fa1f9953a34a867c00eb1d88db647b8f8e440c54c39a09a8fa905"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_normal_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "728ce235f826facb0803b3aaf582ec544516556db263341b5cb61dd382cbd2a2",
+      "resources_sha256": "0235f9d44553b8630f1a27438a2e377941bbcf1932b3a24f00574590125633bb"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_normal_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "04cdcf90e8e623a2144785de42fc9af7457f405c095782f602ffe7fb93e5009a",
+      "resources_sha256": "7e1108c90fbb5a9f29af4c66fbfb25afb0fc270cac2c08da017400fc361ec09e"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_normal_open_loop_1",
+      "valid": true,
+      "summary_sha256": "e807871065d89378407162d0e7c2de6ac699b18bd1c3a0c684b974333b17a7f4",
+      "resources_sha256": "900a14148272815fcc0dadf6c82c3442e471c217089d8cc8d0e27338c11b0d26"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_normal_open_loop_2",
+      "valid": true,
+      "summary_sha256": "6941abe1a0c8e01efdfb12bbafa1b28e6f80c436c05134ec6e7277deebdd6917",
+      "resources_sha256": "5c9b639b7e3582abf9d9cc02363394643014b6795a34e3e713b22817f1df0198"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_normal_open_loop_3",
+      "valid": true,
+      "summary_sha256": "8d2720ffe506162c121fb79d1ac69ed7a9cee7dac2e1462d17f7e47277734fa0",
+      "resources_sha256": "c983fcd98b2cb3ffde1454f1a49bc651d54b4ad8d24f068305a7fe0e4a2cca8e"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_celebrity_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "c0f1049d76b1a86a3c3f3ffb8bf499a362658ed56fa275d8285c47f131a4989b",
+      "resources_sha256": "511ff3e81747bee5ec901b9afa57b187ee17c44a9423944782951463b540f8cc"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_celebrity_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "5a03095a352b552a9b1e51c28a55528805ae811b07b4fea667a6c1ad5ba3507c",
+      "resources_sha256": "fdf9d28f3b384e3ec2f546b4b43e3f11a3f19cd309c256d5cc4d8ae7b05d1d94"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_celebrity_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "fca99e4d202866c299157e0654a89106be70f8008cccb64104532f13d9c7775f",
+      "resources_sha256": "87cd3de5f52bfd7860e9cc3e75166be325b06de0ac0ef7056c85118c41cadef0"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_celebrity_open_loop_1",
+      "valid": true,
+      "summary_sha256": "35ed760b6d8e1f21fe2a8c382eb7a9234e68dced7f72eeac83212f9b98b6a90a",
+      "resources_sha256": "ea021a23468dabe162f20c15f665a9ec77f2702678ea0d5df8db045d0e8f7b30"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_celebrity_open_loop_2",
+      "valid": true,
+      "summary_sha256": "d83c4f7883e661fb5ebbbb7699ee2ade0d53f9a2e6133911b9118b934c0e4a89",
+      "resources_sha256": "2c506f6b932ccc441e4e884ac464d6a003421719daff1dbb19b5704fda647e1c"
+    },
+    {
+      "run_id": "bf_20261006_v2_cassandra_celebrity_open_loop_3",
+      "valid": true,
+      "summary_sha256": "5ddd6a7f90691c6770db5392c7eb93665ee6e3a32be7931938f2d48b32d7decb",
+      "resources_sha256": "12822c7fedf28dde161770a0b53eea1175a61f50ff9a8c5be416d073818752a3"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_normal_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "4fb02674deda3a567e958d0db9a2cbbf8872ae18c83180f41032251443963dc9",
+      "resources_sha256": "4f45048aa19ade82c0cdd1e0158506acd7a3487f7676d480d9d5a33c5071a6ef"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_normal_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "b4e5261d7b5968867248836f5ffe880aaa4010d15e3bcd6096c9e9805305aad9",
+      "resources_sha256": "85a21d8e157be7639891acbd5d2864e65dc26e3710d3a7425607caf3849d407d"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_normal_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "dd52b3047e4007a3f4fadc1992930bd6ad588e35e5cf2db5028a96003d302f0c",
+      "resources_sha256": "3aea46e696a56cf1596cef7b0475b6fabe9134fdc147c3ae176c9213141639e1"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_normal_open_loop_1",
+      "valid": true,
+      "summary_sha256": "9f1fd99ea8ea642cada81af3ed9a2e55ad6b303d3ab400a560b8b4108849c4b6",
+      "resources_sha256": "abd0e45c06945128d96575f2c34a3522424acbb62a4b4eb15b3c34cd66183a12"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_normal_open_loop_2",
+      "valid": true,
+      "summary_sha256": "54cdee6a295c637a5490e0b0608e858c9adfdcf76167b71e8875363f61d1bd24",
+      "resources_sha256": "945a961e0c58076267916ccdbdf9e1f4ee585b218969b867a871034a9b480c1e"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_normal_open_loop_3",
+      "valid": true,
+      "summary_sha256": "308b2cd74bf2666697490113b59dec6bec8a9b2c8ec29d06047450bd1eaaa064",
+      "resources_sha256": "99049572ac20ecbe2284a307f0bf6ce11c3014f77a4dfab20bd25e4573bb438f"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_celebrity_closed_loop_1",
+      "valid": true,
+      "summary_sha256": "918e3990666319fb53612f7bb7e0defe3eb2204117beea1d070bc0febdf79295",
+      "resources_sha256": "f4ded9ea0d4cb1a06c4a60dd6d0bab9d7bc238344acf212dfdaf96c0cab999a4"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_celebrity_closed_loop_2",
+      "valid": true,
+      "summary_sha256": "5c70d4b696a66caec4c04929160dc01ed691a0f077568eda2eed51f622cae534",
+      "resources_sha256": "ec73b20ff31059313bdfd436d8aa8c0652bbb626b1471108861abfcc812c5198"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_celebrity_closed_loop_3",
+      "valid": true,
+      "summary_sha256": "5b43b96a2695ba4af9930049ee9868838cc87260b728266dc0b97dfa1c53f982",
+      "resources_sha256": "8b9b8640ddd18a219c595f21ae9af5e1255a453aebf2234837b2274ce0a207a7"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_celebrity_open_loop_1",
+      "valid": true,
+      "summary_sha256": "e5f05f6938be38efe9a0117cac1ca815ff1a1f00ac1f179eba389d4c5920a0c8",
+      "resources_sha256": "86855670f4a55a30e16363130d5509a06777cccf796f50b80a59e1288052606c"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_celebrity_open_loop_2",
+      "valid": true,
+      "summary_sha256": "7e0d6d3842ed6446867e14ea54fa6abfd5913c9f478fe08c25c81a1e4c01ed68",
+      "resources_sha256": "bc0389aaf76ae219095e91ee9a94bb5811fef6f9f5e6c9a5b6c85072dbd11112"
+    },
+    {
+      "run_id": "bf_20261006_v2_neo4j_celebrity_open_loop_3",
+      "valid": true,
+      "summary_sha256": "4fbfe9da0cdba4d79ee09b1a81f72300795bd6efffb8cc9f6a584f680967cc3b",
+      "resources_sha256": "626435dbbf0e843a5fc179f62ae22ebe4f142923bb40c5db7b6ceb24942b1d16"
+    }
+  ],
+  "limitations": [
+    "Single laptop, single-node servers and a small synthetic dataset; no universal engine ranking.",
+    "Different native models, protocols and durability settings; only FeedKV/Redis share RESP and volatile configuration.",
+    "Resource samples cover loading and measurement, not exact measurement-only CPU; GC pauses are not isolated.",
+    "Closed-loop run operation counts vary; open-loop runs use an identical seeded offered workload.",
+    "Only the current adapter container runs during capture; ordinary host activity is uncontrolled."
+  ],
+  "build": {
+    "cmake_cache": "# This is the CMakeCache file.\n# For build in directory: c:/Codes/nosql/build\n# It was generated by CMake: C:/Strawberry/c/bin/cmake.exe\n# You can edit this file to change values found and used by cmake.\n# If you do not want to change any of the values, simply exit the editor.\n# If you do want to change a value, simply edit, save, and exit the editor.\n# The syntax for the file is as follows:\n# KEY:TYPE=VALUE\n# KEY is the name of a variable in the cache.\n# TYPE is a hint to GUIs for the type of VALUE, DO NOT EDIT TYPE!.\n# VALUE is the current value for the KEY.\n\n########################\n# EXTERNAL cache entries\n########################\n\n//Run tests against local Cassandra on port 9042\nBENCHFORGE_LIVE_DATABASE_TESTS:BOOL=OFF\n\n//Run tests against local unauthenticated Neo4j on HTTP port 7474\nBENCHFORGE_LIVE_NEO4J_TESTS:BOOL=OFF\n\n//Build the testing tree.\nBUILD_TESTING:BOOL=ON\n\n//Value Computed by CMake\nBenchForge_BINARY_DIR:STATIC=C:/Codes/nosql/build\n\n//Value Computed by CMake\nBenchForge_IS_TOP_LEVEL:STATIC=ON\n\n//Value Computed by CMake\nBenchForge_SOURCE_DIR:STATIC=C:/Codes/nosql\n\n//Path to a program.\nCMAKE_ADDR2LINE:FILEPATH=C:/Strawberry/c/bin/addr2line.exe\n\n//Path to a program.\nCMAKE_AR:FILEPATH=C:/Strawberry/c/bin/ar.exe\n\n//Choose the type of build, options are: None Debug Release RelWithDebInfo\n// MinSizeRel ...\nCMAKE_BUILD_TYPE:STRING=Release\n\n//Enable/Disable color output during build.\nCMAKE_COLOR_MAKEFILE:BOOL=ON\n\n//CXX compiler\nCMAKE_CXX_COMPILER:FILEPATH=C:/Strawberry/c/bin/c++.exe\n\n//A wrapper around 'ar' adding the appropriate '--plugin' option\n// for the GCC compiler\nCMAKE_CXX_COMPILER_AR:FILEPATH=C:/Strawberry/c/bin/gcc-ar.exe\n\n//A wrapper around 'ranlib' adding the appropriate '--plugin' option\n// for the GCC compiler\nCMAKE_CXX_COMPILER_RANLIB:FILEPATH=C:/Strawberry/c/bin/gcc-ranlib.exe\n\n//Flags used by the CXX compiler during all build types.\nCMAKE_CXX_FLAGS:STRING=\n\n//Flags used by the CXX compiler during DEBUG builds.\nCMAKE_CXX_FLAGS_DEBUG:STRING=-g\n\n//Flags used by the CXX compiler during MINSIZEREL builds.\nCMAKE_CXX_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG\n\n//Flags used by the CXX compiler during RELEASE builds.\nCMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG\n\n//Flags used by the CXX compiler during RELWITHDEBINFO builds.\nCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG\n\n//Libraries linked by default with all C++ applications.\nCMAKE_CXX_STANDARD_LIBRARIES:STRING=-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32\n\n//Path to a program.\nCMAKE_DLLTOOL:FILEPATH=C:/Strawberry/c/bin/dlltool.exe\n\n//Flags used by the linker during all build types.\nCMAKE_EXE_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during DEBUG builds.\nCMAKE_EXE_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during MINSIZEREL builds.\nCMAKE_EXE_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during RELEASE builds.\nCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during RELWITHDEBINFO builds.\nCMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//Value Computed by CMake.\nCMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=C:/Codes/nosql/build/CMakeFiles/pkgRedirects\n\n//Convert GNU import libraries to MS format (requires Visual Studio)\nCMAKE_GNUtoMS:BOOL=OFF\n\n//Install path prefix, prepended onto install directories.\nCMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/BenchForge\n\n//Path to a program.\nCMAKE_LINKER:FILEPATH=C:/Strawberry/c/bin/ld.exe\n\n//Path to a program.\nCMAKE_MAKE_PROGRAM:FILEPATH=C:/Strawberry/c/bin/mingw32-make.exe\n\n//Flags used by the linker during the creation of modules during\n// all build types.\nCMAKE_MODULE_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during the creation of modules during\n// DEBUG builds.\nCMAKE_MODULE_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during the creation of modules during\n// MINSIZEREL builds.\nCMAKE_MODULE_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during the creation of modules during\n// RELEASE builds.\nCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during the creation of modules during\n// RELWITHDEBINFO builds.\nCMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//Path to a program.\nCMAKE_NM:FILEPATH=C:/Strawberry/c/bin/nm.exe\n\n//Path to a program.\nCMAKE_OBJCOPY:FILEPATH=C:/Strawberry/c/bin/objcopy.exe\n\n//Path to a program.\nCMAKE_OBJDUMP:FILEPATH=C:/Strawberry/c/bin/objdump.exe\n\n//Value Computed by CMake\nCMAKE_PROJECT_DESCRIPTION:STATIC=\n\n//Value Computed by CMake\nCMAKE_PROJECT_HOMEPAGE_URL:STATIC=\n\n//Value Computed by CMake\nCMAKE_PROJECT_NAME:STATIC=BenchForge\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION:STATIC=0.1.0\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_MAJOR:STATIC=0\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_MINOR:STATIC=1\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_PATCH:STATIC=0\n\n//Value Computed by CMake\nCMAKE_PROJECT_VERSION_TWEAK:STATIC=\n\n//Path to a program.\nCMAKE_RANLIB:FILEPATH=C:/Strawberry/c/bin/ranlib.exe\n\n//RC compiler\nCMAKE_RC_COMPILER:FILEPATH=C:/Strawberry/c/bin/windres.exe\n\n//Flags for Windows Resource Compiler during all build types.\nCMAKE_RC_FLAGS:STRING=\n\n//Flags for Windows Resource Compiler during DEBUG builds.\nCMAKE_RC_FLAGS_DEBUG:STRING=\n\n//Flags for Windows Resource Compiler during MINSIZEREL builds.\nCMAKE_RC_FLAGS_MINSIZEREL:STRING=\n\n//Flags for Windows Resource Compiler during RELEASE builds.\nCMAKE_RC_FLAGS_RELEASE:STRING=\n\n//Flags for Windows Resource Compiler during RELWITHDEBINFO builds.\nCMAKE_RC_FLAGS_RELWITHDEBINFO:STRING=\n\n//Path to a program.\nCMAKE_READELF:FILEPATH=C:/Strawberry/c/bin/readelf.exe\n\n//Flags used by the linker during the creation of shared libraries\n// during all build types.\nCMAKE_SHARED_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during DEBUG builds.\nCMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during MINSIZEREL builds.\nCMAKE_SHARED_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during RELEASE builds.\nCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during the creation of shared libraries\n// during RELWITHDEBINFO builds.\nCMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//If set, runtime paths are not added when installing shared libraries,\n// but are added when building.\nCMAKE_SKIP_INSTALL_RPATH:BOOL=NO\n\n//If set, runtime paths are not added when using shared libraries.\nCMAKE_SKIP_RPATH:BOOL=NO\n\n//Flags used by the linker during the creation of static libraries\n// during all build types.\nCMAKE_STATIC_LINKER_FLAGS:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during DEBUG builds.\nCMAKE_STATIC_LINKER_FLAGS_DEBUG:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during MINSIZEREL builds.\nCMAKE_STATIC_LINKER_FLAGS_MINSIZEREL:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during RELEASE builds.\nCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=\n\n//Flags used by the linker during the creation of static libraries\n// during RELWITHDEBINFO builds.\nCMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=\n\n//Path to a program.\nCMAKE_STRIP:FILEPATH=C:/Strawberry/c/bin/strip.exe\n\n//Path to a program.\nCMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND\n\n//If this value is on, makefiles will be generated without the\n// .SILENT directive, and all commands will be echoed to the console\n// during the make.  This is useful for debugging only. With Visual\n// Studio IDE projects all commands are done without /nologo.\nCMAKE_VERBOSE_MAKEFILE:BOOL=FALSE\n\n//Path to the coverage program that CTest uses for performing coverage\n// inspection\nCOVERAGE_COMMAND:FILEPATH=C:/Strawberry/c/bin/gcov.exe\n\n//Extra command line flags to pass to the coverage tool\nCOVERAGE_EXTRA_FLAGS:STRING=-l\n\n//How many times to retry timed-out CTest submissions.\nCTEST_SUBMIT_RETRY_COUNT:STRING=3\n\n//How long to wait between timed-out CTest submissions.\nCTEST_SUBMIT_RETRY_DELAY:STRING=5\n\n//Maximum time allowed before CTest will kill the test.\nDART_TESTING_TIMEOUT:STRING=1500\n\n//Path to a program.\nGITCOMMAND:FILEPATH=C:/Program Files/Git/cmd/git.exe\n\n//Command to build the project\nMAKECOMMAND:STRING=C:/Strawberry/c/bin/cmake.exe --build . --config \"${CTEST_CONFIGURATION_TYPE}\"\n\n//Path to the memory checking command, used for memory error detection.\nMEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND\n\n//File that contains suppressions for the memory checker\nMEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=\n\n//Name of the computer/site where compile is being run\nSITE:STRING=Ayub\n\n\n########################\n# INTERNAL cache entries\n########################\n\n//ADVANCED property for variable: CMAKE_ADDR2LINE\nCMAKE_ADDR2LINE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_AR\nCMAKE_AR-ADVANCED:INTERNAL=1\n//This is the directory where this CMakeCache.txt was created\nCMAKE_CACHEFILE_DIR:INTERNAL=c:/Codes/nosql/build\n//Major version of cmake used to create the current loaded cache\nCMAKE_CACHE_MAJOR_VERSION:INTERNAL=3\n//Minor version of cmake used to create the current loaded cache\nCMAKE_CACHE_MINOR_VERSION:INTERNAL=29\n//Patch version of cmake used to create the current loaded cache\nCMAKE_CACHE_PATCH_VERSION:INTERNAL=2\n//ADVANCED property for variable: CMAKE_COLOR_MAKEFILE\nCMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1\n//Path to CMake executable.\nCMAKE_COMMAND:INTERNAL=C:/Strawberry/c/bin/cmake.exe\n//Path to cpack program executable.\nCMAKE_CPACK_COMMAND:INTERNAL=C:/Strawberry/c/bin/cpack.exe\n//ADVANCED property for variable: CMAKE_CTEST_COMMAND\nCMAKE_CTEST_COMMAND-ADVANCED:INTERNAL=1\n//Path to ctest program executable.\nCMAKE_CTEST_COMMAND:INTERNAL=C:/Strawberry/c/bin/ctest.exe\n//ADVANCED property for variable: CMAKE_CXX_COMPILER\nCMAKE_CXX_COMPILER-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_COMPILER_AR\nCMAKE_CXX_COMPILER_AR-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_COMPILER_RANLIB\nCMAKE_CXX_COMPILER_RANLIB-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS\nCMAKE_CXX_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_DEBUG\nCMAKE_CXX_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_MINSIZEREL\nCMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_RELEASE\nCMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_FLAGS_RELWITHDEBINFO\nCMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_CXX_STANDARD_LIBRARIES\nCMAKE_CXX_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_DLLTOOL\nCMAKE_DLLTOOL-ADVANCED:INTERNAL=1\n//Executable file format\nCMAKE_EXECUTABLE_FORMAT:INTERNAL=Unknown\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS\nCMAKE_EXE_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DEBUG\nCMAKE_EXE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_MINSIZEREL\nCMAKE_EXE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELEASE\nCMAKE_EXE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//Name of external makefile project generator.\nCMAKE_EXTRA_GENERATOR:INTERNAL=\n//Name of generator.\nCMAKE_GENERATOR:INTERNAL=MinGW Makefiles\n//Generator instance identifier.\nCMAKE_GENERATOR_INSTANCE:INTERNAL=\n//Name of generator platform.\nCMAKE_GENERATOR_PLATFORM:INTERNAL=\n//Name of generator toolset.\nCMAKE_GENERATOR_TOOLSET:INTERNAL=\n//Test CMAKE_HAVE_LIBC_PTHREAD\nCMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1\n//Source directory with the top level CMakeLists.txt file for this\n// project\nCMAKE_HOME_DIRECTORY:INTERNAL=C:/Codes/nosql\n//ADVANCED property for variable: CMAKE_LINKER\nCMAKE_LINKER-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MAKE_PROGRAM\nCMAKE_MAKE_PROGRAM-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS\nCMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG\nCMAKE_MODULE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL\nCMAKE_MODULE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELEASE\nCMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_NM\nCMAKE_NM-ADVANCED:INTERNAL=1\n//number of local generators\nCMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1\n//ADVANCED property for variable: CMAKE_OBJCOPY\nCMAKE_OBJCOPY-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_OBJDUMP\nCMAKE_OBJDUMP-ADVANCED:INTERNAL=1\n//Platform information initialized\nCMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RANLIB\nCMAKE_RANLIB-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_COMPILER\nCMAKE_RC_COMPILER-ADVANCED:INTERNAL=1\nCMAKE_RC_COMPILER_WORKS:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS\nCMAKE_RC_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_DEBUG\nCMAKE_RC_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_MINSIZEREL\nCMAKE_RC_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_RELEASE\nCMAKE_RC_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_RC_FLAGS_RELWITHDEBINFO\nCMAKE_RC_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_READELF\nCMAKE_READELF-ADVANCED:INTERNAL=1\n//Path to CMake installation.\nCMAKE_ROOT:INTERNAL=C:/Strawberry/c/share/cmake-3.29\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS\nCMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG\nCMAKE_SHARED_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL\nCMAKE_SHARED_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELEASE\nCMAKE_SHARED_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SKIP_INSTALL_RPATH\nCMAKE_SKIP_INSTALL_RPATH-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_SKIP_RPATH\nCMAKE_SKIP_RPATH-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS\nCMAKE_STATIC_LINKER_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_DEBUG\nCMAKE_STATIC_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL\nCMAKE_STATIC_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_RELEASE\nCMAKE_STATIC_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO\nCMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_STRIP\nCMAKE_STRIP-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_TAPI\nCMAKE_TAPI-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE\nCMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: COVERAGE_COMMAND\nCOVERAGE_COMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: COVERAGE_EXTRA_FLAGS\nCOVERAGE_EXTRA_FLAGS-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CTEST_SUBMIT_RETRY_COUNT\nCTEST_SUBMIT_RETRY_COUNT-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: CTEST_SUBMIT_RETRY_DELAY\nCTEST_SUBMIT_RETRY_DELAY-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: DART_TESTING_TIMEOUT\nDART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1\n//Details about finding Threads\nFIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]\n//ADVANCED property for variable: GITCOMMAND\nGITCOMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: MAKECOMMAND\nMAKECOMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: MEMORYCHECK_COMMAND\nMEMORYCHECK_COMMAND-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: MEMORYCHECK_SUPPRESSIONS_FILE\nMEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1\n//ADVANCED property for variable: SITE\nSITE-ADVANCED:INTERNAL=1\n//linker supports push/pop state\n_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE\n//Compiler reason failure\n_Python3_Compiler_REASON_FAILURE:INTERNAL=\n//Development reason failure\n_Python3_Development_REASON_FAILURE:INTERNAL=\n//Path to a program.\n_Python3_EXECUTABLE:INTERNAL=C:/Users/ayub-/AppData/Local/Programs/Python/Python312/python.exe\n//Python3 Properties\n_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;12;7;64;32;;cp312-win_amd64;;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages;C:\\Users\\ayub-\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\n_Python3_INTERPRETER_SIGNATURE:INTERNAL=949a7b89cf796da5b0a9b60b0207a8bf\n//NumPy reason failure\n_Python3_NumPy_REASON_FAILURE:INTERNAL=\n\n",
+    "feedkv_container_compiler": "GCC 14, C++20, -O3 -DNDEBUG -pthread"
+  },
+  "finished_at_utc": "2026-10-06T11:46:06.268943+00:00"
+}

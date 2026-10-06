@@ -13,7 +13,7 @@
         {
             <p>Achieved ops/s: <strong class="tabular">@Range(group.Throughput, false)</strong></p>
             <div class="table-scroll" tabindex="0" role="region" aria-label="@($"{entry.Label} repeated measurements")">
-                <table class="results-table analysis-table operation-comparison"><caption>@entry.Label medians with minimum–maximum ranges</caption>
+                <table class="results-table analysis-table operation-comparison"><caption>@entry.Label medians with minimum–maximum ranges · scroll horizontally for all percentiles</caption>
                     <thead><tr><th scope="col">Operation</th><th scope="col">Samples per run</th><th scope="col">ops/s</th><th scope="col">p50</th><th scope="col">p95</th><th scope="col">p99</th><th scope="col">p99.9</th><th scope="col">Send lag p95</th></tr></thead><tbody>
                     @foreach (var type in group.Runs[0].Operations.Select(op => op.Type))
                     {

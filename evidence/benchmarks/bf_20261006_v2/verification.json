@@ -1,0 +1,6 @@
+{
+  "experiment_id": "bf_20261006_v2",
+  "valid_runs": 60,
+  "groups": 20,
+  "checks": "raw hashes, CSV/JSON counts, throughput arithmetic, latency/lag bounds, cleanup, resource caps, equal offered streams and regenerated aggregates"
+}

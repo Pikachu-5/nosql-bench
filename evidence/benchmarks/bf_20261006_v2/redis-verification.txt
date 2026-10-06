@@ -1,0 +1,2 @@
+redis normal: seeds, six operations, numeric ties, ownership and cleanup passed
+redis celebrity: seeds, six operations, numeric ties, ownership and cleanup passed

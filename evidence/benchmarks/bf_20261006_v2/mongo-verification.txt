@@ -1,0 +1,2 @@
+mongo normal: seeds, six operations, likes, collision ownership and cleanup passed
+mongo celebrity: seeds, six operations, likes, collision ownership and cleanup passed

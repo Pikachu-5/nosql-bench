@@ -1,0 +1,2 @@
+normal: seeded data, operations, paging, ownership and cleanup passed
+celebrity: seeded data, operations, paging, ownership and cleanup passed

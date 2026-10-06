@@ -1,0 +1,86 @@
+{
+  "sampling_scope": "entire worker lifetime including load and warmup",
+  "samples": [
+    {
+      "at_utc": "2026-10-06T11:42:34.811756+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "94.48%",
+        "Container": "e9ba6197b0c39cbd220bfe0d5386c866d94db596c672334005f49b5a75966a1b",
+        "ID": "e9ba6197b0c3",
+        "MemPerc": "73.35%",
+        "MemUsage": "1.467GiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-cassandra",
+        "NetIO": "3.91MB / 6.06MB",
+        "PIDs": "59"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:42:37.027953+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "63.55%",
+        "Container": "e9ba6197b0c39cbd220bfe0d5386c866d94db596c672334005f49b5a75966a1b",
+        "ID": "e9ba6197b0c3",
+        "MemPerc": "72.77%",
+        "MemUsage": "1.455GiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-cassandra",
+        "NetIO": "4.08MB / 6.35MB",
+        "PIDs": "59"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:42:39.234079+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "72.69%",
+        "Container": "e9ba6197b0c39cbd220bfe0d5386c866d94db596c672334005f49b5a75966a1b",
+        "ID": "e9ba6197b0c3",
+        "MemPerc": "72.77%",
+        "MemUsage": "1.455GiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-cassandra",
+        "NetIO": "4.26MB / 6.66MB",
+        "PIDs": "59"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:42:41.414042+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "99.60%",
+        "Container": "e9ba6197b0c39cbd220bfe0d5386c866d94db596c672334005f49b5a75966a1b",
+        "ID": "e9ba6197b0c3",
+        "MemPerc": "72.14%",
+        "MemUsage": "1.443GiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-cassandra",
+        "NetIO": "4.39MB / 6.9MB",
+        "PIDs": "59"
+      }
+    }
+  ],
+  "exit_code": 0,
+  "configuration": {
+    "adapter": "cassandra",
+    "database_host": "127.0.0.1",
+    "database_port": 9042,
+    "scenario": "normal",
+    "mode": "open_loop",
+    "offered_rate_ops_sec": 100,
+    "seed": 42,
+    "workers": 2,
+    "warmup_ms": 1000,
+    "duration_ms": 5000,
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8,
+    "celebrity_post_percent": 10,
+    "output_dir": "C:/Codes/nosql/runs/experiments",
+    "weight.timeline_read": 40,
+    "weight.user_profile_read": 25,
+    "weight.post_like": 15,
+    "weight.post_create": 10,
+    "weight.hashtag_search": 5,
+    "weight.user_follow": 5
+  }
+}

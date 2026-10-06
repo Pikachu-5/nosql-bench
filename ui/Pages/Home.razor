@@ -357,7 +357,7 @@
                                 @(IsCancelling ? "Cancelling…" : "Cancel run")
                             </button>
                         }
-                        else if (!string.IsNullOrWhiteSpace(SelectedRun.Error))
+                        else if (!string.IsNullOrWhiteSpace(SelectedRun.Error) && Summary is null)
                         {
                             <div class="notice notice-error" role="alert">@SelectedRun.Error</div>
                         }
@@ -381,7 +381,7 @@
                                 <div><span>Timeouts</span><strong class="tabular">@Summary.TotalTimeouts.ToString("N0", CultureInfo.InvariantCulture)</strong></div>
                                 <div><span>Measured</span><strong class="tabular">@Summary.MeasuredMs ms</strong></div>
                             </div>
-                            <p class="result-caveat">Approximate histogram percentiles. Timeouts are included in error totals; open-loop send lag is separate from operation latency. With <code>noop</code>, timings are harness overhead, not database performance.</p>
+                            <p class="result-caveat">Approximate histogram percentiles. Zero-sample channels show a dash. Timeouts are included in error totals; open-loop send lag is separate from operation latency. With <code>noop</code>, timings are harness overhead, not database performance.</p>
                             <div class="table-scroll result-scroll">
                                 <table class="results-table">
                                     <thead>
@@ -397,10 +397,10 @@
                                         @foreach (var operation in Summary.Operations)
                                         {
                                             <tr>
-                                                <th scope="row">@OperationLabel(operation.Type)</th><td class="tabular">@operation.OperationsPerSecond.ToString("N0", CultureInfo.InvariantCulture)</td><td class="tabular">@Latency(operation.P50Ns)</td><td class="tabular">@Latency(operation.P95Ns)</td><td class="tabular">@Latency(operation.P99Ns)</td>
+                                                <th scope="row">@OperationLabel(operation.Type)</th><td class="tabular">@operation.OperationsPerSecond.ToString("N0", CultureInfo.InvariantCulture)</td><td class="tabular">@(operation.Count > 0 ? Latency(operation.P50Ns) : "—")</td><td class="tabular">@(operation.Count > 0 ? Latency(operation.P95Ns) : "—")</td><td class="tabular">@(operation.Count > 0 ? Latency(operation.P99Ns) : "—")</td>
                                                 @if (Summary.Mode == "open_loop")
                                                 {
-                                                    <td class="tabular">@Latency(operation.SendLagP95Ns)</td>
+                                                    <td class="tabular">@(operation.Count > 0 ? Latency(operation.SendLagP95Ns) : "—")</td>
                                                 }
                                             </tr>
                                         }
@@ -421,7 +421,7 @@
                                 <section class="result-meta" aria-labelledby="calibration-heading">
                                     <h3 id="calibration-heading">Transport calibration</h3>
                                     <dl>
-                                        <div><dt>Probe</dt><dd>@CalibrationLabel(Summary.TransportCalibration.Kind)</dd></div>
+                                        <div><dt>Probe</dt><dd>@(!Summary.Valid && Summary.TransportCalibration.Samples == 0 ? "Not captured before the run ended" : CalibrationLabel(Summary.TransportCalibration.Kind))</dd></div>
                                         @if (Summary.TransportCalibration.Samples > 0)
                                         {
                                             <div><dt>Samples</dt><dd class="tabular">@Summary.TransportCalibration.Samples.ToString("N0", CultureInfo.InvariantCulture)</dd></div>

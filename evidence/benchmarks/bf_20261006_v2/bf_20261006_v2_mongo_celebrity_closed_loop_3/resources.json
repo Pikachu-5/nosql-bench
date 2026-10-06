@@ -1,0 +1,72 @@
+{
+  "sampling_scope": "entire worker lifetime including load and warmup",
+  "samples": [
+    {
+      "at_utc": "2026-10-06T11:40:22.694887+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "79.50%",
+        "Container": "33dc39fb8caa7723a0503a2f60c4d38d37b65eb7f44f9d516a3f2027aa3a84e0",
+        "ID": "33dc39fb8caa",
+        "MemPerc": "22.38%",
+        "MemUsage": "458.4MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-mongo",
+        "NetIO": "26.4MB / 66.9MB",
+        "PIDs": "52"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:40:24.889747+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "88.81%",
+        "Container": "33dc39fb8caa7723a0503a2f60c4d38d37b65eb7f44f9d516a3f2027aa3a84e0",
+        "ID": "33dc39fb8caa",
+        "MemPerc": "23.17%",
+        "MemUsage": "474.5MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-mongo",
+        "NetIO": "27.9MB / 71.5MB",
+        "PIDs": "52"
+      }
+    },
+    {
+      "at_utc": "2026-10-06T11:40:27.067725+00:00",
+      "docker_stats": {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "106.94%",
+        "Container": "33dc39fb8caa7723a0503a2f60c4d38d37b65eb7f44f9d516a3f2027aa3a84e0",
+        "ID": "33dc39fb8caa",
+        "MemPerc": "24.65%",
+        "MemUsage": "504.8MiB / 2GiB",
+        "Name": "bf-bf_20261006_v2-mongo",
+        "NetIO": "29.9MB / 77.2MB",
+        "PIDs": "52"
+      }
+    }
+  ],
+  "exit_code": 0,
+  "configuration": {
+    "adapter": "mongo",
+    "database_host": "127.0.0.1",
+    "database_port": 27018,
+    "scenario": "celebrity",
+    "mode": "closed_loop",
+    "offered_rate_ops_sec": 100,
+    "seed": 42,
+    "workers": 2,
+    "warmup_ms": 1000,
+    "duration_ms": 5000,
+    "users": 64,
+    "posts": 256,
+    "follows": 128,
+    "hashtags": 8,
+    "celebrity_post_percent": 10,
+    "output_dir": "C:/Codes/nosql/runs/experiments",
+    "weight.timeline_read": 40,
+    "weight.user_profile_read": 25,
+    "weight.post_like": 15,
+    "weight.post_create": 10,
+    "weight.hashtag_search": 5,
+    "weight.user_follow": 5
+  }
+}
